@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Folder Include="Analytics\"/>
+        <Folder Include="Diagnostics\"/>
+        <Folder Include="Health\"/>
+        <Folder Include="Localization\"/>
+        <Folder Include="Messaging\"/>
+        <Folder Include="MultiTenancies\"/>
+        <Folder Include="Providers\"/>
+        <Folder Include="Realtime\"/>
+        <Folder Include="Resilience\"/>
+        <Folder Include="Settings\"/>
+        <Folder Include="Storage\"/>
+    </ItemGroup>
+
+</Project>
