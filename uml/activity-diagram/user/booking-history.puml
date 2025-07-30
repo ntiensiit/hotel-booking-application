@@ -1,0 +1,105 @@
+@startuml booking-history
+title Booking History Activity Diagram
+
+start
+
+:User logs into account;
+:User navigates to booking history;
+
+:Load user's booking records;
+:Display booking history list;
+
+:User views booking history;
+
+while (User browsing history?) is (yes)
+  if (User applies filters?) then (yes)
+    :User selects filter options;
+    note right
+      - Date range
+      - Booking status
+      - Hotel name
+      - Price range
+      - Location
+    end note
+    
+    :Apply filters to booking list;
+    :Display filtered results;
+  endif
+  
+  if (User sorts bookings?) then (yes)
+    :User selects sort criteria;
+    note right
+      - Date (newest/oldest)
+      - Price (high/low)
+      - Hotel name
+      - Status
+    end note
+    
+    :Sort booking list;
+    :Display sorted results;
+  endif
+  
+  if (User views booking details?) then (yes)
+    :User clicks on specific booking;
+    :Load detailed booking information;
+    
+    :Display booking details;
+    note right
+      - Booking reference
+      - Hotel information
+      - Room details
+      - Check-in/out dates
+      - Guest information
+      - Payment details
+      - Booking status
+    end note
+    
+    :User can perform actions on booking;
+    
+    if (Booking is upcoming?) then (yes)
+      if (User wants to modify?) then (yes)
+        :Navigate to booking modification;
+        stop
+      endif
+      
+      if (User wants to cancel?) then (yes)
+        :Show cancellation policy;
+        :User confirms cancellation;
+        :Process cancellation;
+        :Update booking status;
+        :Send cancellation confirmation;
+      endif
+      
+      if (User wants to download invoice?) then (yes)
+        :Generate invoice PDF;
+        :Download invoice;
+      endif
+      
+    else (no)
+      if (User wants to leave review?) then (yes)
+        :Navigate to review form;
+        stop
+      endif
+      
+      if (User wants to rebook?) then (yes)
+        :Navigate to hotel detail page;
+        stop
+      endif
+    endif
+  endif
+  
+  if (User exports history?) then (yes)
+    :User selects export format;
+    :Generate export file;
+    :Download booking history;
+  endif
+endwhile (no)
+
+if (User wants to return to main page?) then (yes)
+  :Navigate to dashboard;
+else (no)
+  :Stay on booking history page;
+endif
+
+stop
+@enduml

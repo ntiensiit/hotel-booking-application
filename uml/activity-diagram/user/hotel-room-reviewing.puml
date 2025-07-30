@@ -1,0 +1,113 @@
+@startuml hotel-room-reviewing
+title Hotel Room Reviewing Activity Diagram
+
+start
+
+:User logs into account;
+:User navigates to review section;
+
+:Check if user has completed stays;
+
+if (User has completed stays?) then (yes)
+  :Load user's completed bookings;
+  :Display hotels eligible for review;
+  
+  :User selects hotel to review;
+  
+  if (User has already reviewed?) then (yes)
+    :Show existing review;
+    :User can edit review;
+    
+    if (User wants to edit?) then (yes)
+      :Load existing review data;
+      :User modifies review;
+      :Validate review content;
+      
+      if (Review valid?) then (yes)
+        :Update review;
+        :Save changes;
+        :Display updated review;
+      else (no)
+        :Show validation errors;
+        :User corrects review;
+        :Return to validation;
+      endif
+    endif
+    
+  else (no)
+    :User creates new review;
+    
+    :Display review form;
+    :User fills review details;
+    
+    note right
+      - Overall rating (1-5 stars)
+      - Cleanliness rating
+      - Service rating
+      - Location rating
+      - Value for money rating
+      - Written review text
+      - Photos (optional)
+      - Pros and cons
+    end note
+    
+    :User submits review;
+    :Validate review content;
+    
+    if (Review valid?) then (yes)
+      :Check for inappropriate content;
+      
+      if (Content appropriate?) then (yes)
+        :Save review to database;
+        :Update hotel average rating;
+        :Send notification to hotel;
+        :Display review confirmation;
+        
+        if (User wants to review another hotel?) then (yes)
+          :Return to hotel selection;
+        else (no)
+          :Navigate to review history;
+        endif
+        
+      else (no)
+        :Flag review for moderation;
+        :Display moderation message;
+        :Review pending approval;
+      endif
+      
+    else (no)
+      :Display validation errors;
+      :User corrects review;
+      :Return to validation;
+    endif
+  endif
+  
+else (no)
+  :Display "No completed stays" message;
+  :Suggest booking a hotel;
+  :Navigate to hotel search;
+endif
+
+if (User wants to view review history?) then (yes)
+  :Load user's review history;
+  :Display all user reviews;
+  
+  while (User browsing reviews?) is (yes)
+    if (User edits review?) then (yes)
+      :Navigate to review editing;
+    endif
+    
+    if (User deletes review?) then (yes)
+      :Confirm deletion;
+      :Remove review;
+      :Update hotel rating;
+    endif
+    
+    if (User shares review?) then (yes)
+      :Share review on social media;
+    endif
+  endwhile (no)
+endif
+
+stop
+@enduml

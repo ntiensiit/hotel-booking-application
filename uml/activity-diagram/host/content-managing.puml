@@ -1,0 +1,252 @@
+@startuml content-managing
+title Host Content Managing Activity Diagram
+
+start
+
+:Host logs into management portal;
+:Host navigates to content management;
+
+:Load content data for host's hotels;
+:Display content dashboard;
+
+:Host manages content;
+
+while (Host managing content?) is (yes)
+  if (Host views content overview?) then (yes)
+    :Display all hotel content;
+    :Show content status and statistics;
+    :Display content performance metrics;
+    
+    if (Host applies filters?) then (yes)
+      :Host selects filter criteria;
+      note right
+        - Content type
+        - Status (published/draft)
+        - Hotel property
+        - Content category
+        - Performance rating
+      end note
+      
+      :Apply filters to content list;
+      :Display filtered results;
+    endif
+  endif
+  
+  if (Host manages hotel descriptions?) then (yes)
+    :Host selects hotel;
+    :Display current description;
+    
+    if (Host edits description?) then (yes)
+      :Host modifies hotel description;
+      :Add key features and highlights;
+      :Include amenities information;
+      :Update description content;
+      :Save description changes;
+    endif
+    
+    if (Host manages multiple languages?) then (yes)
+      :Host selects language;
+      :Translate description content;
+      :Save translated version;
+    endif
+  endif
+  
+  if (Host manages hotel photos?) then (yes)
+    :Host selects hotel;
+    :Display photo gallery;
+    
+    if (Host uploads photos?) then (yes)
+      :Host selects photo files;
+      :Validate photo format and size;
+      :Upload photos to gallery;
+      :Organize photo collection;
+    endif
+    
+    if (Host organizes photos?) then (yes)
+      :Set primary photos;
+      :Arrange photo order;
+      :Add photo captions;
+      :Categorize photos by type;
+    endif
+    
+    if (Host edits photos?) then (yes)
+      :Host selects photo to edit;
+      :Apply photo enhancements;
+      :Crop or resize photos;
+      :Save edited photos;
+    endif
+  endif
+  
+  if (Host manages room content?) then (yes)
+    :Host selects room type;
+    :Display room content;
+    
+    if (Host edits room descriptions?) then (yes)
+      :Host modifies room description;
+      :Add room features and amenities;
+      :Update room information;
+      :Save room content;
+    endif
+    
+    if (Host manages room photos?) then (yes)
+      :Upload room photos;
+      :Organize room gallery;
+      :Add room photo captions;
+    endif
+  endif
+  
+  if (Host manages amenity content?) then (yes)
+    :Display amenity list;
+    :Show amenity descriptions;
+    
+    if (Host edits amenity content?) then (yes)
+      :Host selects amenity;
+      :Modify amenity description;
+      :Add amenity photos;
+      :Update amenity information;
+    endif
+  endif
+  
+  if (Host manages policies content?) then (yes)
+    :Display policy content;
+    :Show current policy information;
+    
+    if (Host edits policies?) then (yes)
+      :Host modifies policy content;
+      note right
+        - Check-in/out policies
+        - Cancellation policies
+        - Pet policies
+        - Smoking policies
+        - Age restrictions
+      end note
+      
+      :Update policy information;
+      :Save policy changes;
+    endif
+  endif
+  
+  if (Host manages location content?) then (yes)
+    :Display location information;
+    :Show address and directions;
+    
+    if (Host edits location content?) then (yes)
+      :Host updates address information;
+      :Add directions and maps;
+      :Include nearby attractions;
+      :Update location details;
+    endif
+  endif
+  
+  if (Host manages special offers content?) then (yes)
+    :Display special offers;
+    :Show promotional content;
+    
+    if (Host creates offer content?) then (yes)
+      :Host designs offer description;
+      :Add offer terms and conditions;
+      :Include offer images;
+      :Set offer display dates;
+    endif
+  endif
+  
+  if (Host manages FAQ content?) then (yes)
+    :Display FAQ section;
+    :Show current questions and answers;
+    
+    if (Host adds FAQ?) then (yes)
+      :Host adds new question;
+      :Host provides answer;
+      :Categorize FAQ topic;
+      :Save FAQ content;
+    endif
+    
+    if (Host edits FAQ?) then (yes)
+      :Host selects FAQ to edit;
+      :Modify question or answer;
+      :Update FAQ content;
+    endif
+  endif
+  
+  if (Host manages blog/content articles?) then (yes)
+    :Display content articles;
+    :Show article performance;
+    
+    if (Host creates article?) then (yes)
+      :Host writes article content;
+      :Add article images;
+      :Set article category;
+      :Publish article;
+    endif
+    
+    if (Host edits article?) then (yes)
+      :Host selects article;
+      :Modify article content;
+      :Update article images;
+      :Save article changes;
+    endif
+  endif
+  
+  if (Host manages SEO content?) then (yes)
+    :Display SEO settings;
+    :Show meta descriptions;
+    :Display keyword information;
+    
+    if (Host optimizes SEO?) then (yes)
+      :Host updates meta titles;
+      :Host modifies meta descriptions;
+      :Host adds keywords;
+      :Optimize content for search;
+    endif
+  endif
+  
+  if (Host manages content scheduling?) then (yes)
+    :Display content calendar;
+    :Show scheduled content;
+    :Display publishing timeline;
+    
+    if (Host schedules content?) then (yes)
+      :Host sets publish date;
+      :Host sets expiration date;
+      :Configure auto-publishing;
+    endif
+  endif
+  
+  if (Host manages content approval?) then (yes)
+    :Display pending content;
+    :Show content for review;
+    
+    if (Host approves content?) then (yes)
+      :Review content quality;
+      :Approve content for publishing;
+      :Publish approved content;
+    else (no)
+      :Reject content;
+      :Provide rejection feedback;
+      :Return content for revision;
+    endif
+  endif
+  
+  if (Host generates content reports?) then (yes)
+    :Host selects report type;
+    note right
+      - Content performance report
+      - Photo engagement report
+      - Content update history
+      - SEO performance report
+    end note
+    
+    :Generate content report;
+    :Export report in desired format;
+    :Download report file;
+  endif
+endwhile (no)
+
+if (Host wants to view analytics?) then (yes)
+  :Navigate to content analytics;
+else (no)
+  :Return to main dashboard;
+endif
+
+stop
+@enduml

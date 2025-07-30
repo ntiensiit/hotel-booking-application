@@ -1,0 +1,264 @@
+@startuml user-managing
+title Admin User Managing Activity Diagram
+
+start
+
+:Admin logs into admin portal;
+:Admin navigates to user management;
+
+:Load all user data from system;
+:Display user management dashboard;
+
+:Admin manages users;
+
+while (Admin managing users?) is (yes)
+  if (Admin views user overview?) then (yes)
+    :Display all users in system;
+    :Show user statistics and metrics;
+    :Display user types (customers, hosts, admins);
+    :Show user activity status;
+    
+    if (Admin applies filters?) then (yes)
+      :Admin selects filter criteria;
+      note right
+        - User type
+        - Account status
+        - Registration date
+        - Activity level
+        - Location/region
+      end note
+      
+      :Apply filters to user list;
+      :Display filtered results;
+    endif
+  endif
+  
+  if (Admin views user details?) then (yes)
+    :Admin clicks on specific user;
+    :Load detailed user information;
+    
+    :Display user profile;
+    note right
+      - Personal information
+      - Contact details
+      - Account history
+      - Booking history
+      - Payment information
+      - Security settings
+    end note
+  endif
+  
+  if (Admin manages user accounts?) then (yes)
+    :Display user account management;
+    :Show account status;
+    :Display account actions;
+    
+    if (Admin activates account?) then (yes)
+      :Admin selects user;
+      :Verify user information;
+      :Activate user account;
+      :Send activation notification;
+    endif
+    
+    if (Admin deactivates account?) then (yes)
+      :Admin selects user;
+      :Provide deactivation reason;
+      :Deactivate user account;
+      :Send deactivation notification;
+    endif
+    
+    if (Admin suspends account?) then (yes)
+      :Admin selects user;
+      :Review suspension reason;
+      :Set suspension period;
+      :Suspend user account;
+      :Notify user of suspension;
+    endif
+  endif
+  
+  if (Admin manages user permissions?) then (yes)
+    :Display user permission settings;
+    :Show current permissions;
+    :Display permission levels;
+    
+    if (Admin assigns permissions?) then (yes)
+      :Admin selects user;
+      :Choose permission level;
+      :Set specific permissions;
+      :Save permission changes;
+    endif
+    
+    if (Admin creates role?) then (yes)
+      :Admin defines new role;
+      :Set role permissions;
+      :Configure role settings;
+      :Save new role;
+    endif
+  endif
+  
+  if (Admin manages user verification?) then (yes)
+    :Display users requiring verification;
+    :Show verification requirements;
+    :Display verification status;
+    
+    if (Admin verifies user?) then (yes)
+      :Admin reviews user documents;
+      :Verify user identity;
+      :Check verification requirements;
+      
+      if (User meets verification standards?) then (yes)
+        :Mark user as verified;
+        :Update verification status;
+        :Send verification confirmation;
+      else (no)
+        :Request additional documentation;
+        :Send verification requirements;
+        :Update verification status;
+      endif
+    endif
+  endif
+  
+  if (Admin manages user disputes?) then (yes)
+    :Display active user disputes;
+    :Show dispute details;
+    :Display resolution status;
+    
+    if (Admin resolves dispute?) then (yes)
+      :Admin investigates dispute;
+      :Review evidence and claims;
+      :Make resolution decision;
+      :Implement resolution;
+      :Notify involved parties;
+    endif
+  endif
+  
+  if (Admin manages user security?) then (yes)
+    :Display user security settings;
+    :Show security incidents;
+    :Display security logs;
+    
+    if (Admin investigates security issue?) then (yes)
+      :Admin reviews security logs;
+      :Analyze suspicious activity;
+      :Take security action;
+      :Update security status;
+    endif
+    
+    if (Admin resets user password?) then (yes)
+      :Admin selects user;
+      :Generate new password;
+      :Send password reset;
+      :Update password status;
+    endif
+  endif
+  
+  if (Admin manages user data?) then (yes)
+    :Display user data management;
+    :Show data quality metrics;
+    :Display data update history;
+    
+    if (Admin updates user data?) then (yes)
+      :Admin corrects user information;
+      :Update user records;
+      :Validate data accuracy;
+      :Save data changes;
+    endif
+    
+    if (Admin exports user data?) then (yes)
+      :Admin selects data type;
+      :Choose export format;
+      :Generate export file;
+      :Download user data;
+    endif
+  endif
+  
+  if (Admin manages user communication?) then (yes)
+    :Display user communication history;
+    :Show message templates;
+    :Display notification settings;
+    
+    if (Admin sends system message?) then (yes)
+      :Admin composes message;
+      :Select target users;
+      :Send system notification;
+      :Track message delivery;
+    endif
+  endif
+  
+  if (Admin manages user analytics?) then (yes)
+    :Display user performance data;
+    :Show user behavior analytics;
+    :Display engagement metrics;
+    
+    if (Admin analyzes user behavior?) then (yes)
+      :Generate user reports;
+      :Identify user segments;
+      :Analyze user patterns;
+      :Generate insights;
+    endif
+  endif
+  
+  if (Admin manages user compliance?) then (yes)
+    :Display compliance requirements;
+    :Show compliance status;
+    :Display compliance reports;
+    
+    if (Admin checks compliance?) then (yes)
+      :Review compliance documentation;
+      :Verify regulatory requirements;
+      :Update compliance status;
+      :Generate compliance report;
+    endif
+  endif
+  
+  if (Admin manages user support?) then (yes)
+    :Display support tickets;
+    :Show support history;
+    :Display resolution status;
+    
+    if (Admin handles support ticket?) then (yes)
+      :Admin reviews ticket;
+      :Investigate user issue;
+      :Provide solution;
+      :Update ticket status;
+      :Notify user of resolution;
+    endif
+  endif
+  
+  if (Admin generates user reports?) then (yes)
+    :Admin selects report type;
+    note right
+      - User registration report
+      - User activity report
+      - User satisfaction report
+      - User security report
+      - User compliance report
+    end note
+    
+    :Generate user report;
+    :Export report in desired format;
+    :Download report file;
+  endif
+  
+  if (Admin manages user policies?) then (yes)
+    :Display user policy settings;
+    :Show policy requirements;
+    :Display policy compliance;
+    
+    if (Admin updates policies?) then (yes)
+      :Admin modifies policy requirements;
+      :Update policy guidelines;
+      :Notify users of changes;
+      :Monitor policy compliance;
+    endif
+  endif
+endwhile (no)
+
+if (Admin wants to view analytics?) then (yes)
+  :Navigate to user analytics;
+else (no)
+  :Return to main dashboard;
+endif
+
+stop
+@enduml

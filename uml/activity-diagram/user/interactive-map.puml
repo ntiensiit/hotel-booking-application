@@ -1,0 +1,115 @@
+@startuml interactive-map
+title Interactive Map Activity Diagram
+
+start
+
+:User accesses interactive map feature;
+:Load map interface;
+
+:Initialize map with user location;
+:Display map with hotel markers;
+
+:User interacts with map;
+
+while (User using map?) is (yes)
+  if (User searches location?) then (yes)
+    :User enters destination;
+    :Geocode search term;
+    :Center map on location;
+    :Display nearby hotels;
+  endif
+  
+  if (User filters hotels?) then (yes)
+    :User selects filter criteria;
+    note right
+      - Price range
+      - Star rating
+      - Amenities
+      - Distance from center
+      - Availability
+    end note
+    
+    :Apply filters to map markers;
+    :Update map display;
+  endif
+  
+  if (User clicks on hotel marker?) then (yes)
+    :Show hotel info window;
+    :Display hotel details;
+    note right
+      - Hotel name
+      - Star rating
+      - Price range
+      - Distance from center
+      - Quick booking option
+    end note
+    
+    if (User wants hotel details?) then (yes)
+      :Navigate to hotel detail page;
+      stop
+    endif
+    
+    if (User wants directions?) then (yes)
+      :Show route to hotel;
+      :Display travel options;
+      :Calculate travel time;
+    endif
+  endif
+  
+  if (User changes map view?) then (yes)
+    if (User zooms in/out?) then (yes)
+      :Adjust map zoom level;
+      :Update marker density;
+    endif
+    
+    if (User changes map type?) then (yes)
+      :Switch map view;
+      note right
+        - Satellite view
+        - Street view
+        - Terrain view
+        - Hybrid view
+      end note
+    endif
+    
+    if (User pans map?) then (yes)
+      :Update map center;
+      :Load hotels in new area;
+    endif
+  endif
+  
+  if (User uses location services?) then (yes)
+    :Request user location;
+    
+    if (Location permission granted?) then (yes)
+      :Get current coordinates;
+      :Center map on user location;
+      :Show nearby hotels;
+      :Calculate distances;
+    else (no)
+      :Show location permission message;
+      :Use default location;
+    endif
+  endif
+  
+  if (User saves location?) then (yes)
+    :Save current map view;
+    :Add to saved locations;
+    :Create location bookmark;
+  endif
+  
+  if (User shares location?) then (yes)
+    :Generate location link;
+    :Share via social media;
+    :Send to friends;
+  endif
+endwhile (no)
+
+if (User wants to book from map?) then (yes)
+  :Navigate to booking process;
+else (no)
+  :Return to main search;
+endif
+
+stop
+@enduml

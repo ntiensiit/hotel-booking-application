@@ -1,0 +1,211 @@
+@startuml financial-managing
+title Host Financial Managing Activity Diagram
+
+start
+
+:Host logs into management portal;
+:Host navigates to financial management;
+
+:Load financial data for host's hotels;
+:Display financial dashboard;
+
+:Host manages finances;
+
+while (Host managing finances?) is (yes)
+  if (Host views financial overview?) then (yes)
+    :Display financial summary;
+    :Show revenue and expenses;
+    :Display profit margins;
+    :Show cash flow status;
+    
+    if (Host applies date filters?) then (yes)
+      :Host selects date range;
+      :Update financial data;
+      :Display filtered results;
+    endif
+  endif
+  
+  if (Host manages revenue?) then (yes)
+    :Display revenue breakdown;
+    :Show revenue by hotel;
+    :Display revenue by room type;
+    :Show revenue trends;
+    
+    if (Host analyzes revenue sources?) then (yes)
+      :Break down revenue by source;
+      :Identify top revenue generators;
+      :Analyze seasonal patterns;
+      :Generate revenue insights;
+    endif
+  endif
+  
+  if (Host manages expenses?) then (yes)
+    :Display expense categories;
+    :Show expense breakdown;
+    :Display expense trends;
+    
+    if (Host adds expense?) then (yes)
+      :Host enters expense details;
+      note right
+        - Expense category
+        - Amount
+        - Date
+        - Description
+        - Receipt upload
+      end note
+      
+      :Validate expense data;
+      :Save expense record;
+    endif
+    
+    if (Host categorizes expenses?) then (yes)
+      :Host assigns expense categories;
+      :Update expense classification;
+      :Generate expense reports;
+    endif
+  endif
+  
+  if (Host manages payments?) then (yes)
+    :Display payment transactions;
+    :Show payment status;
+    :Display payment history;
+    
+    if (Host processes payments?) then (yes)
+      :Host selects payment to process;
+      :Verify payment details;
+      :Process payment transaction;
+      :Update payment status;
+      :Send payment confirmation;
+    endif
+    
+    if (Host manages refunds?) then (yes)
+      :Host reviews refund requests;
+      :Calculate refund amount;
+      :Process refund payment;
+      :Update refund status;
+    endif
+  endif
+  
+  if (Host manages pricing?) then (yes)
+    :Display current pricing;
+    :Show pricing strategies;
+    :Display competitor analysis;
+    
+    if (Host adjusts pricing?) then (yes)
+      :Host selects room type;
+      :Modify pricing structure;
+      :Set dynamic pricing rules;
+      :Update pricing calendar;
+      :Apply pricing changes;
+    endif
+    
+    if (Host sets seasonal rates?) then (yes)
+      :Configure seasonal pricing;
+      :Set peak/off-peak rates;
+      :Apply seasonal adjustments;
+    endif
+  endif
+  
+  if (Host manages commissions?) then (yes)
+    :Display commission structure;
+    :Show commission calculations;
+    :Display commission payments;
+    
+    if (Host calculates commissions?) then (yes)
+      :Calculate commission amounts;
+      :Generate commission reports;
+      :Process commission payments;
+    endif
+  endif
+  
+  if (Host generates financial reports?) then (yes)
+    :Host selects report type;
+    note right
+      - Profit and loss statement
+      - Cash flow statement
+      - Revenue analysis
+      - Expense breakdown
+      - Tax reports
+      - Commission reports
+    end note
+    
+    :Generate financial report;
+    :Export report in desired format;
+    :Download report file;
+  endif
+  
+  if (Host manages tax information?) then (yes)
+    :Display tax summary;
+    :Show tax calculations;
+    :Display tax deadlines;
+    
+    if (Host prepares tax data?) then (yes)
+      :Generate tax reports;
+      :Calculate tax liabilities;
+      :Prepare tax documentation;
+    endif
+  endif
+  
+  if (Host manages bank accounts?) then (yes)
+    :Display bank account information;
+    :Show account balances;
+    :Display transaction history;
+    
+    if (Host adds bank account?) then (yes)
+      :Host enters account details;
+      :Validate account information;
+      :Save account details;
+    endif
+    
+    if (Host manages transfers?) then (yes)
+      :Host initiates transfer;
+      :Verify transfer details;
+      :Process bank transfer;
+      :Update account balances;
+    endif
+  endif
+  
+  if (Host manages invoices?) then (yes)
+    :Display invoice list;
+    :Show invoice status;
+    :Display payment tracking;
+    
+    if (Host generates invoice?) then (yes)
+      :Host selects booking;
+      :Generate invoice template;
+      :Customize invoice details;
+      :Send invoice to customer;
+    endif
+    
+    if (Host tracks payments?) then (yes)
+      :Monitor payment status;
+      :Send payment reminders;
+      :Update invoice status;
+    endif
+  endif
+  
+  if (Host manages financial settings?) then (yes)
+    :Display financial configuration;
+    
+    if (Host configures payment methods?) then (yes)
+      :Set up payment gateways;
+      :Configure payment options;
+      :Test payment processing;
+    endif
+    
+    if (Host sets financial alerts?) then (yes)
+      :Configure alert thresholds;
+      :Set notification preferences;
+      :Enable financial monitoring;
+    endif
+  endif
+endwhile (no)
+
+if (Host wants to view analytics?) then (yes)
+  :Navigate to financial analytics;
+else (no)
+  :Return to main dashboard;
+endif
+
+stop
+@enduml

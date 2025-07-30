@@ -1,0 +1,77 @@
+@startuml search-browse-hotel
+title Search and Browse Hotel Activity Diagram
+
+start
+
+:User accesses hotel booking website;
+:User navigates to search page;
+
+if (User has saved preferences?) then (yes)
+  :Load saved search preferences;
+else (no)
+  :Show default search form;
+endif
+
+:User enters search criteria;
+note right
+  - Destination/Location
+  - Check-in date
+  - Check-out date
+  - Number of guests
+  - Room type preferences
+  - Price range
+  - Star rating
+  - Amenities
+end note
+
+:User clicks "Search Hotels";
+
+:Validate search parameters;
+
+if (Parameters valid?) then (yes)
+  :Query hotel database;
+  :Apply filters and sorting;
+  :Retrieve matching hotels;
+  
+  if (Hotels found?) then (yes)
+    :Display search results;
+    :Show hotel cards with basic info;
+    
+    :User can browse through results;
+    
+    while (User browsing results?) is (yes)
+      :User scrolls through hotel list;
+      :User applies additional filters;
+      :User sorts by price/rating/distance;
+      :User views hotel details;
+      
+      if (User wants to see more details?) then (yes)
+        :Navigate to hotel detail page;
+        stop
+      endif
+    endwhile (no)
+    
+    if (User wants to refine search?) then (yes)
+      :Return to search form;
+      :Modify search criteria;
+      :Repeat search process;
+    else (no)
+      :User selects a hotel;
+      :Navigate to hotel detail page;
+    endif
+    
+  else (no)
+    :Display "No hotels found" message;
+    :Suggest alternative search criteria;
+    :User modifies search parameters;
+    :Repeat search process;
+  endif
+  
+else (no)
+  :Display validation errors;
+  :User corrects input;
+  :Repeat validation;
+endif
+
+stop
+@enduml

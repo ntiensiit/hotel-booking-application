@@ -1,0 +1,178 @@
+@startuml feedback-managing
+title Host Feedback Managing Activity Diagram
+
+start
+
+:Host logs into management portal;
+:Host navigates to feedback management;
+
+:Load feedback data for host's hotels;
+:Display feedback dashboard;
+
+:Host manages feedback;
+
+while (Host managing feedback?) is (yes)
+  if (Host views feedback list?) then (yes)
+    :Display all reviews and feedback;
+    :Show feedback statistics and ratings;
+    :Display feedback trends;
+    
+    if (Host applies filters?) then (yes)
+      :Host selects filter criteria;
+      note right
+        - Rating range
+        - Date range
+        - Hotel property
+        - Review type
+        - Response status
+      end note
+      
+      :Apply filters to feedback list;
+      :Display filtered results;
+    endif
+  endif
+  
+  if (Host views feedback details?) then (yes)
+    :Host clicks on specific feedback;
+    :Load detailed feedback information;
+    
+    :Display feedback details;
+    note right
+      - Guest information
+      - Hotel and room details
+      - Stay dates
+      - Overall rating
+      - Detailed ratings
+      - Written review
+      - Photos (if any)
+      - Review date
+    end note
+  endif
+  
+  if (Host responds to feedback?) then (yes)
+    :Host selects feedback to respond;
+    :Display feedback content;
+    
+    if (Host composes response?) then (yes)
+      :Host writes response;
+      :Review response content;
+      
+      if (Response appropriate?) then (yes)
+        :Submit response;
+        :Post response to review;
+        :Notify guest of response;
+        :Update response status;
+      else (no)
+        :Revise response content;
+        :Return to review step;
+      endif
+    endif
+  endif
+  
+  if (Host manages feedback moderation?) then (yes)
+    :Display flagged feedback;
+    :Host reviews flagged content;
+    
+    if (Feedback is appropriate?) then (yes)
+      :Approve feedback;
+      :Remove flag;
+      :Make feedback visible;
+    else (no)
+      :Reject feedback;
+      :Hide inappropriate content;
+      :Notify system of violation;
+    endif
+  endif
+  
+  if (Host analyzes feedback trends?) then (yes)
+    :Generate feedback analytics;
+    :Display rating trends;
+    :Show common feedback themes;
+    :Identify improvement areas;
+    
+    if (Host exports feedback data?) then (yes)
+      :Select export format;
+      :Generate feedback report;
+      :Download feedback data;
+    endif
+  endif
+  
+  if (Host manages feedback settings?) then (yes)
+    :Display feedback management settings;
+    
+    if (Host configures auto-responses?) then (yes)
+      :Set up automated responses;
+      :Configure response templates;
+      :Enable/disable auto-responses;
+    endif
+    
+    if (Host sets feedback alerts?) then (yes)
+      :Configure alert thresholds;
+      :Set notification preferences;
+      :Enable real-time alerts;
+    endif
+  endif
+  
+  if (Host manages feedback categories?) then (yes)
+    :Display feedback categorization;
+    :Host categorizes feedback;
+    
+    if (Host creates custom categories?) then (yes)
+      :Define new category;
+      :Set category criteria;
+      :Apply category to existing feedback;
+    endif
+  endif
+  
+  if (Host generates feedback reports?) then (yes)
+    :Host selects report type;
+    note right
+      - Overall satisfaction report
+      - Rating breakdown by category
+      - Feedback response time report
+      - Guest satisfaction trends
+      - Improvement recommendations
+    end note
+    
+    :Generate feedback report;
+    :Export report in desired format;
+    :Download report file;
+  endif
+  
+  if (Host manages feedback improvement?) then (yes)
+    :Display feedback improvement suggestions;
+    :Host reviews suggestions;
+    
+    if (Host implements improvement?) then (yes)
+      :Select improvement action;
+      :Track improvement progress;
+      :Monitor feedback changes;
+    endif
+  endif
+  
+  if (Host manages feedback communication?) then (yes)
+    :Display feedback-related communications;
+    
+    if (Host sends feedback follow-up?) then (yes)
+      :Host composes follow-up message;
+      :Send message to guest;
+      :Record communication;
+    endif
+    
+    if (Host manages feedback disputes?) then (yes)
+      :Review dispute details;
+      :Investigate issue;
+      :Provide resolution;
+      :Update dispute status;
+    endif
+  endif
+endwhile (no)
+
+if (Host wants to view analytics?) then (yes)
+  :Navigate to feedback analytics;
+else (no)
+  :Return to main dashboard;
+endif
+
+stop
+@enduml

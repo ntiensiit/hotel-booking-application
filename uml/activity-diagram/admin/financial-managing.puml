@@ -1,0 +1,250 @@
+@startuml financial-managing
+title Admin Financial Managing Activity Diagram
+
+start
+
+:Admin logs into admin portal;
+:Admin navigates to financial management;
+
+:Load all financial data from system;
+:Display financial management dashboard;
+
+:Admin manages finances;
+
+while (Admin managing finances?) is (yes)
+  if (Admin views financial overview?) then (yes)
+    :Display system-wide financial summary;
+    :Show revenue and expense statistics;
+    :Display profit margins and trends;
+    :Show cash flow status;
+    
+    if (Admin applies date filters?) then (yes)
+      :Admin selects date range;
+      :Update financial data;
+      :Display filtered results;
+    endif
+  endif
+  
+  if (Admin manages system revenue?) then (yes)
+    :Display platform revenue breakdown;
+    :Show commission revenue;
+    :Display subscription revenue;
+    :Show advertising revenue;
+    
+    if (Admin analyzes revenue sources?) then (yes)
+      :Break down revenue by source;
+      :Identify top revenue generators;
+      :Analyze revenue trends;
+      :Generate revenue insights;
+    endif
+  endif
+  
+  if (Admin manages commission structure?) then (yes)
+    :Display commission rates;
+    :Show commission calculations;
+    :Display commission history;
+    
+    if (Admin adjusts commission rates?) then (yes)
+      :Admin modifies commission structure;
+      :Set new commission rates;
+      :Update commission calculations;
+      :Notify hosts of changes;
+    endif
+    
+    if (Admin manages commission payments?) then (yes)
+      :Calculate commission amounts;
+      :Generate commission reports;
+      :Process commission payments;
+      :Track payment status;
+    endif
+  endif
+  
+  if (Admin manages platform expenses?) then (yes)
+    :Display expense categories;
+    :Show expense breakdown;
+    :Display expense trends;
+    
+    if (Admin adds expense?) then (yes)
+      :Admin enters expense details;
+      note right
+        - Expense category
+        - Amount
+        - Date
+        - Description
+        - Receipt upload
+      end note
+      
+      :Validate expense data;
+      :Save expense record;
+    endif
+    
+    if (Admin categorizes expenses?) then (yes)
+      :Admin assigns expense categories;
+      :Update expense classification;
+      :Generate expense reports;
+    endif
+  endif
+  
+  if (Admin manages payment processing?) then (yes)
+    :Display payment transactions;
+    :Show payment status;
+    :Display payment history;
+    
+    if (Admin processes payments?) then (yes)
+      :Admin selects payment to process;
+      :Verify payment details;
+      :Process payment transaction;
+      :Update payment status;
+      :Send payment confirmation;
+    endif
+    
+    if (Admin manages refunds?) then (yes)
+      :Admin reviews refund requests;
+      :Calculate refund amount;
+      :Process refund payment;
+      :Update refund status;
+    endif
+  endif
+  
+  if (Admin manages pricing policies?) then (yes)
+    :Display pricing structure;
+    :Show pricing strategies;
+    :Display pricing history;
+    
+    if (Admin adjusts pricing?) then (yes)
+      :Admin modifies pricing structure;
+      :Set new pricing policies;
+      :Update pricing calculations;
+      :Notify stakeholders of changes;
+    endif
+  endif
+  
+  if (Admin manages financial compliance?) then (yes)
+    :Display compliance requirements;
+    :Show compliance status;
+    :Display compliance reports;
+    
+    if (Admin checks compliance?) then (yes)
+      :Review compliance documentation;
+      :Verify regulatory requirements;
+      :Update compliance status;
+      :Generate compliance report;
+    endif
+  endif
+  
+  if (Admin manages tax information?) then (yes)
+    :Display tax summary;
+    :Show tax calculations;
+    :Display tax deadlines;
+    
+    if (Admin prepares tax data?) then (yes)
+      :Generate tax reports;
+      :Calculate tax liabilities;
+      :Prepare tax documentation;
+    endif
+  endif
+  
+  if (Admin manages financial partnerships?) then (yes)
+    :Display partnership agreements;
+    :Show partnership status;
+    :Display partnership benefits;
+    
+    if (Admin creates partnership?) then (yes)
+      :Admin negotiates terms;
+      :Set partnership conditions;
+      :Configure partnership benefits;
+      :Activate partnership;
+    endif
+  endif
+  
+  if (Admin manages financial analytics?) then (yes)
+    :Display financial performance data;
+    :Show revenue analytics;
+    :Display expense trends;
+    
+    if (Admin analyzes performance?) then (yes)
+      :Generate financial reports;
+      :Identify revenue opportunities;
+      :Analyze cost optimization;
+      :Generate financial insights;
+    endif
+  endif
+  
+  if (Admin manages financial disputes?) then (yes)
+    :Display active financial disputes;
+    :Show dispute details;
+    :Display resolution status;
+    
+    if (Admin resolves dispute?) then (yes)
+      :Admin investigates dispute;
+      :Review financial evidence;
+      :Make resolution decision;
+      :Implement resolution;
+      :Notify involved parties;
+    endif
+  endif
+  
+  if (Admin manages financial policies?) then (yes)
+    :Display financial policy settings;
+    :Show policy requirements;
+    :Display policy compliance;
+    
+    if (Admin updates policies?) then (yes)
+      :Admin modifies policy requirements;
+      :Update financial guidelines;
+      :Notify stakeholders of changes;
+      :Monitor policy compliance;
+    endif
+  endif
+  
+  if (Admin manages financial reports?) then (yes)
+    :Admin selects report type;
+    note right
+      - Revenue analysis report
+      - Commission distribution report
+      - Expense breakdown report
+      - Profit and loss statement
+      - Cash flow statement
+      - Tax report
+    end note
+    
+    :Generate financial report;
+    :Export report in desired format;
+    :Download report file;
+  endif
+  
+  if (Admin manages financial data?) then (yes)
+    :Display financial data management;
+    :Show data quality metrics;
+    :Display data update history;
+    
+    if (Admin updates financial data?) then (yes)
+      :Admin corrects financial information;
+      :Update financial records;
+      :Validate data accuracy;
+      :Save data changes;
+    endif
+  endif
+  
+  if (Admin manages financial audits?) then (yes)
+    :Display audit schedule;
+    :Show audit requirements;
+    :Display audit history;
+    
+    if (Admin conducts audit?) then (yes)
+      :Admin reviews financial records;
+      :Verify transaction accuracy;
+      :Check compliance requirements;
+      :Generate audit report;
+    endif
+  endif
+endwhile (no)
+
+if (Admin wants to view analytics?) then (yes)
+  :Navigate to financial analytics;
+else (no)
+  :Return to main dashboard;
+endif
+
+stop
+@enduml

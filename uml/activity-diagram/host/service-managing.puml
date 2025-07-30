@@ -1,0 +1,231 @@
+@startuml service-managing
+title Host Service Managing Activity Diagram
+
+start
+
+:Host logs into management portal;
+:Host navigates to service management;
+
+:Load service data for host's hotels;
+:Display service dashboard;
+
+:Host manages services;
+
+while (Host managing services?) is (yes)
+  if (Host views service list?) then (yes)
+    :Display all hotel services;
+    :Show service status and availability;
+    :Display service performance metrics;
+    
+    if (Host applies filters?) then (yes)
+      :Host selects filter criteria;
+      note right
+        - Service type
+        - Availability status
+        - Hotel property
+        - Service category
+        - Performance rating
+      end note
+      
+      :Apply filters to service list;
+      :Display filtered results;
+    endif
+  endif
+  
+  if (Host adds new service?) then (yes)
+    :Host clicks "Add New Service";
+    :Display service registration form;
+    
+    :Host enters service information;
+    note right
+      - Service name and description
+      - Service category
+      - Pricing information
+      - Availability schedule
+      - Service requirements
+      - Photos and details
+    end note
+    
+    :Host submits service information;
+    :Validate service data;
+    
+    if (Data valid?) then (yes)
+      :Save service to database;
+      :Generate service ID;
+      :Set up service availability;
+      :Display confirmation message;
+    else (no)
+      :Show validation errors;
+      :Host corrects information;
+      :Return to validation;
+    endif
+  endif
+  
+  if (Host edits service?) then (yes)
+    :Host selects service to edit;
+    :Load service details;
+    :Display edit form;
+    
+    :Host modifies service information;
+    :Validate changes;
+    
+    if (Changes valid?) then (yes)
+      :Update service information;
+      :Save changes;
+      :Display update confirmation;
+    else (no)
+      :Show validation errors;
+      :Host corrects information;
+      :Return to validation;
+    endif
+  endif
+  
+  if (Host manages service availability?) then (yes)
+    :Host selects service;
+    :Display availability calendar;
+    
+    if (Host sets availability schedule?) then (yes)
+      :Configure service hours;
+      :Set availability dates;
+      :Define service capacity;
+      :Update availability calendar;
+    endif
+    
+    if (Host manages service bookings?) then (yes)
+      :Display service bookings;
+      :Host manages booking requests;
+      :Update booking status;
+      :Send booking confirmations;
+    endif
+  endif
+  
+  if (Host manages service pricing?) then (yes)
+    :Display current pricing;
+    :Show pricing structure;
+    :Display pricing history;
+    
+    if (Host adjusts pricing?) then (yes)
+      :Host modifies pricing;
+      :Set dynamic pricing rules;
+      :Apply seasonal pricing;
+      :Update pricing calendar;
+    endif
+    
+    if (Host sets special offers?) then (yes)
+      :Create promotional pricing;
+      :Set discount rates;
+      :Configure offer terms;
+    endif
+  endif
+  
+  if (Host manages service staff?) then (yes)
+    :Display service staff list;
+    :Show staff assignments;
+    :Display staff performance;
+    
+    if (Host assigns staff?) then (yes)
+      :Host selects staff member;
+      :Assign to service;
+      :Set work schedule;
+      :Update staff assignments;
+    endif
+    
+    if (Host manages staff training?) then (yes)
+      :Track training requirements;
+      :Schedule training sessions;
+      :Monitor training completion;
+    endif
+  endif
+  
+  if (Host manages service quality?) then (yes)
+    :Display service quality metrics;
+    :Show customer satisfaction;
+    :Display service ratings;
+    
+    if (Host reviews feedback?) then (yes)
+      :Review service feedback;
+      :Identify improvement areas;
+      :Implement quality improvements;
+    endif
+    
+    if (Host sets quality standards?) then (yes)
+      :Define quality criteria;
+      :Set performance targets;
+      :Monitor quality metrics;
+    endif
+  endif
+  
+  if (Host manages service inventory?) then (yes)
+    :Display service inventory;
+    :Show stock levels;
+    :Display inventory alerts;
+    
+    if (Host adds inventory?) then (yes)
+      :Host enters inventory details;
+      :Update stock levels;
+      :Set reorder points;
+    endif
+    
+    if (Host manages suppliers?) then (yes)
+      :Display supplier list;
+      :Manage supplier relationships;
+      :Track supplier performance;
+    endif
+  endif
+  
+  if (Host generates service reports?) then (yes)
+    :Host selects report type;
+    note right
+      - Service utilization report
+      - Revenue by service
+      - Customer satisfaction
+      - Staff performance
+      - Inventory reports
+    end note
+    
+    :Generate service report;
+    :Export report in desired format;
+    :Download report file;
+  endif
+  
+  if (Host manages service categories?) then (yes)
+    :Display service categories;
+    :Show category hierarchy;
+    :Display category performance;
+    
+    if (Host creates category?) then (yes)
+      :Define new category;
+      :Set category criteria;
+      :Organize services by category;
+    endif
+  endif
+  
+  if (Host manages service promotions?) then (yes)
+    :Display active promotions;
+    :Show promotion performance;
+    :Display promotion calendar;
+    
+    if (Host creates promotion?) then (yes)
+      :Host designs promotion;
+      :Set promotion terms;
+      :Configure promotion rules;
+      :Launch promotion;
+    endif
+  endif
+  
+  if (Host deactivates service?) then (yes)
+    :Host selects service;
+    :Confirm deactivation;
+    :Update service status;
+    :Notify existing bookings;
+  endif
+endwhile (no)
+
+if (Host wants to view analytics?) then (yes)
+  :Navigate to service analytics;
+else (no)
+  :Return to main dashboard;
+endif
+
+stop
+@enduml

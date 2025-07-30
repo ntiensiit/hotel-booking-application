@@ -1,0 +1,165 @@
+@startuml order-managing
+title Host Order Managing Activity Diagram
+
+start
+
+:Host logs into management portal;
+:Host navigates to order management;
+
+:Load host's hotel orders;
+:Display order dashboard;
+
+:Host manages orders;
+
+while (Host managing orders?) is (yes)
+  if (Host views order list?) then (yes)
+    :Display all orders for host's hotels;
+    :Show order status and details;
+    :Display order statistics;
+    
+    if (Host applies filters?) then (yes)
+      :Host selects filter criteria;
+      note right
+        - Order status
+        - Date range
+        - Hotel property
+        - Guest name
+        - Payment status
+      end note
+      
+      :Apply filters to order list;
+      :Display filtered results;
+    endif
+  endif
+  
+  if (Host views order details?) then (yes)
+    :Host clicks on specific order;
+    :Load detailed order information;
+    
+    :Display order details;
+    note right
+      - Order ID and reference
+      - Guest information
+      - Hotel and room details
+      - Check-in/out dates
+      - Payment information
+      - Order status
+      - Special requests
+    end note
+  endif
+  
+  if (Host manages order status?) then (yes)
+    :Host selects order;
+    :Display current status;
+    
+    if (Order is pending?) then (yes)
+      if (Host confirms booking?) then (yes)
+        :Update order status to confirmed;
+        :Send confirmation to guest;
+        :Generate booking voucher;
+      endif
+      
+      if (Host rejects booking?) then (yes)
+        :Provide rejection reason;
+        :Update order status to rejected;
+        :Send rejection notification;
+        :Process refund if needed;
+      endif
+    endif
+    
+    if (Order is confirmed?) then (yes)
+      if (Host modifies booking?) then (yes)
+        :Host modifies booking details;
+        :Notify guest of changes;
+        :Update order information;
+      endif
+      
+      if (Host cancels booking?) then (yes)
+        :Provide cancellation reason;
+        :Update order status to cancelled;
+        :Process refund;
+        :Send cancellation notification;
+      endif
+    endif
+  endif
+  
+  if (Host manages check-ins?) then (yes)
+    :Display upcoming check-ins;
+    :Host selects check-in to process;
+    
+    if (Guest arrives?) then (yes)
+      :Host confirms guest arrival;
+      :Update order status to checked-in;
+      :Record check-in time;
+      :Provide room access;
+    else (no)
+      if (Guest is late?) then (yes)
+        :Contact guest;
+        :Update arrival status;
+        :Handle late check-in;
+      endif
+    endif
+  endif
+  
+  if (Host manages check-outs?) then (yes)
+    :Display check-outs for today;
+    :Host selects check-out to process;
+    
+    :Host confirms guest departure;
+    :Update order status to completed;
+    :Record check-out time;
+    :Process final payment if needed;
+    :Send completion notification;
+  endif
+  
+  if (Host manages special requests?) then (yes)
+    :Display pending special requests;
+    :Host reviews request;
+    
+    if (Host approves request?) then (yes)
+      :Update request status;
+      :Notify guest of approval;
+      :Arrange for request fulfillment;
+    else (no)
+      :Provide rejection reason;
+      :Notify guest of rejection;
+    endif
+  endif
+  
+  if (Host generates reports?) then (yes)
+    :Host selects report type;
+    note right
+      - Daily occupancy report
+      - Revenue report
+      - Guest statistics
+      - Cancellation report
+    end note
+    
+    :Generate report;
+    :Export report in desired format;
+    :Download report file;
+  endif
+  
+  if (Host manages refunds?) then (yes)
+    :Display refund requests;
+    :Host reviews refund request;
+    
+    if (Host approves refund?) then (yes)
+      :Process refund payment;
+      :Update order status;
+      :Send refund confirmation;
+    else (no)
+      :Provide rejection reason;
+      :Notify guest of rejection;
+    endif
+  endif
+endwhile (no)
+
+if (Host wants to view analytics?) then (yes)
+  :Navigate to analytics dashboard;
+else (no)
+  :Return to main dashboard;
+endif
+
+stop
+@enduml

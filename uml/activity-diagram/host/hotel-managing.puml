@@ -1,0 +1,155 @@
+@startuml hotel-managing
+title Host Hotel Managing Activity Diagram
+
+start
+
+:Host logs into management portal;
+:Host navigates to hotel management;
+
+:Load host's hotel properties;
+:Display hotel list;
+
+:Host manages hotels;
+
+while (Host managing hotels?) is (yes)
+  if (Host views hotel list?) then (yes)
+    :Display all hotel properties;
+    :Show hotel status and statistics;
+    :Display performance metrics;
+  endif
+  
+  if (Host adds new hotel?) then (yes)
+    :Host clicks "Add New Hotel";
+    :Display hotel registration form;
+    
+    :Host enters hotel information;
+    note right
+      - Hotel name and description
+      - Address and location
+      - Contact information
+      - Star rating
+      - Hotel type
+      - Amenities
+      - Photos
+    end note
+    
+    :Host submits hotel information;
+    :Validate hotel data;
+    
+    if (Data valid?) then (yes)
+      :Save hotel to database;
+      :Generate hotel ID;
+      :Send for approval;
+      :Display confirmation message;
+    else (no)
+      :Show validation errors;
+      :Host corrects information;
+      :Return to validation;
+    endif
+  endif
+  
+  if (Host edits hotel?) then (yes)
+    :Host selects hotel to edit;
+    :Load hotel details;
+    :Display edit form;
+    
+    :Host modifies hotel information;
+    :Validate changes;
+    
+    if (Changes valid?) then (yes)
+      :Update hotel information;
+      :Save changes;
+      :Display update confirmation;
+    else (no)
+      :Show validation errors;
+      :Host corrects information;
+      :Return to validation;
+    endif
+  endif
+  
+  if (Host manages rooms?) then (yes)
+    :Host selects hotel;
+    :Display room management interface;
+    
+    if (Host adds room?) then (yes)
+      :Host enters room details;
+      note right
+        - Room type and name
+        - Capacity and amenities
+        - Pricing information
+        - Room photos
+        - Availability settings
+      end note
+      
+      :Validate room information;
+      :Save room to database;
+    endif
+    
+    if (Host edits room?) then (yes)
+      :Host selects room;
+      :Modify room details;
+      :Update room information;
+    endif
+    
+    if (Host manages room availability?) then (yes)
+      :Set room availability dates;
+      :Configure pricing rules;
+      :Set minimum stay requirements;
+      :Update availability calendar;
+    endif
+  endif
+  
+  if (Host manages hotel photos?) then (yes)
+    :Host selects hotel;
+    :Display photo gallery;
+    
+    if (Host uploads photos?) then (yes)
+      :Host selects photos;
+      :Validate photo format;
+      :Upload photos;
+      :Organize photo gallery;
+    endif
+    
+    if (Host organizes photos?) then (yes)
+      :Set primary photos;
+      :Arrange photo order;
+      :Add photo captions;
+    endif
+  endif
+  
+  if (Host manages hotel amenities?) then (yes)
+    :Display amenities list;
+    :Host adds/removes amenities;
+    :Update hotel amenities;
+  endif
+  
+  if (Host manages hotel policies?) then (yes)
+    :Display policy settings;
+    note right
+      - Check-in/out times
+      - Cancellation policy
+      - Pet policy
+      - Smoking policy
+      - Age restrictions
+    end note
+    
+    :Host modifies policies;
+    :Save policy changes;
+  endif
+  
+  if (Host deactivates hotel?) then (yes)
+    :Host selects hotel;
+    :Confirm deactivation;
+    :Update hotel status;
+    :Notify existing bookings;
+  endif
+endwhile (no)
+
+if (Host wants to view analytics?) then (yes)
+  :Navigate to analytics dashboard;
+else (no)
+  :Return to main dashboard;
+endif
+
+stop
+@enduml

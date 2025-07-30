@@ -1,0 +1,268 @@
+@startuml statistic-report
+title Admin Statistic Report Activity Diagram
+
+start
+
+:Admin logs into admin portal;
+:Admin navigates to statistics and reports;
+
+:Load all system data for analysis;
+:Display statistics dashboard;
+
+:Admin manages statistics and reports;
+
+while (Admin managing statistics/reports?) is (yes)
+  if (Admin views system overview?) then (yes)
+    :Display key performance indicators;
+    :Show system-wide statistics;
+    :Display platform metrics;
+    :Show real-time data;
+    
+    if (Admin applies date filters?) then (yes)
+      :Admin selects date range;
+      :Update statistical data;
+      :Display filtered results;
+    endif
+  endif
+  
+  if (Admin generates platform reports?) then (yes)
+    :Admin selects platform report type;
+    note right
+      - Platform usage report
+      - User activity report
+      - System performance report
+      - Revenue distribution report
+      - Growth metrics report
+    end note
+    
+    :Admin sets report parameters;
+    :Generate platform report;
+    :Display report results;
+    
+    if (Admin exports report?) then (yes)
+      :Select export format (PDF/Excel/CSV);
+      :Generate export file;
+      :Download report file;
+    endif
+  endif
+  
+  if (Admin generates user reports?) then (yes)
+    :Admin selects user report type;
+    note right
+      - User registration report
+      - User activity report
+      - User satisfaction report
+      - User demographics report
+      - User behavior analysis
+    end note
+    
+    :Admin sets report parameters;
+    :Generate user report;
+    :Display user statistics;
+    
+    if (Admin analyzes user patterns?) then (yes)
+      :Identify user segments;
+      :Analyze user behavior;
+      :Generate user insights;
+    endif
+  endif
+  
+  if (Admin generates hotel reports?) then (yes)
+    :Admin selects hotel report type;
+    note right
+      - Hotel performance report
+      - Hotel approval report
+      - Hotel quality report
+      - Hotel revenue report
+      - Hotel compliance report
+    end note
+    
+    :Admin sets report parameters;
+    :Generate hotel report;
+    :Display hotel statistics;
+    
+    if (Admin analyzes hotel performance?) then (yes)
+      :Identify top performing hotels;
+      :Analyze hotel trends;
+      :Generate hotel insights;
+    endif
+  endif
+  
+  if (Admin generates booking reports?) then (yes)
+    :Admin selects booking report type;
+    note right
+      - Booking volume report
+      - Booking revenue report
+      - Booking cancellation report
+      - Booking source report
+      - Booking trends report
+    end note
+    
+    :Admin sets report parameters;
+    :Generate booking report;
+    :Display booking statistics;
+    
+    if (Admin analyzes booking patterns?) then (yes)
+      :Identify booking trends;
+      :Analyze cancellation reasons;
+      :Generate booking insights;
+    endif
+  endif
+  
+  if (Admin generates financial reports?) then (yes)
+    :Admin selects financial report type;
+    note right
+      - Revenue analysis report
+      - Commission distribution report
+      - Expense breakdown report
+      - Profit and loss report
+      - Cash flow report
+    end note
+    
+    :Admin sets report parameters;
+    :Generate financial report;
+    :Display financial statistics;
+    
+    if (Admin analyzes financial performance?) then (yes)
+      :Identify revenue opportunities;
+      :Analyze cost optimization;
+      :Generate financial insights;
+    endif
+  endif
+  
+  if (Admin generates quality reports?) then (yes)
+    :Admin selects quality report type;
+    note right
+      - Customer satisfaction report
+      - Service quality report
+      - Content quality report
+      - System reliability report
+      - Performance metrics report
+    end note
+    
+    :Admin sets report parameters;
+    :Generate quality report;
+    :Display quality statistics;
+    
+    if (Admin analyzes quality metrics?) then (yes)
+      :Identify quality issues;
+      :Analyze improvement areas;
+      :Generate quality insights;
+    endif
+  endif
+  
+  if (Admin creates custom reports?) then (yes)
+    :Admin clicks "Create Custom Report";
+    :Display report builder interface;
+    
+    :Admin selects data sources;
+    :Admin defines report criteria;
+    :Admin sets report format;
+    
+    :Admin builds custom report;
+    :Validate report configuration;
+    
+    if (Configuration valid?) then (yes)
+      :Generate custom report;
+      :Display custom report results;
+      :Save custom report template;
+    else (no)
+      :Show configuration errors;
+      :Admin corrects configuration;
+      :Return to validation;
+    endif
+  endif
+  
+  if (Admin schedules automated reports?) then (yes)
+    :Admin selects report to schedule;
+    :Admin sets schedule parameters;
+    note right
+      - Report frequency (daily/weekly/monthly)
+      - Delivery method (email/dashboard)
+      - Recipients
+      - Report format
+    end note
+    
+    :Admin configures automation;
+    :Save scheduled report;
+    :Set up automated delivery;
+  endif
+  
+  if (Admin manages report templates?) then (yes)
+    :Display saved report templates;
+    :Show template categories;
+    :Display template usage;
+    
+    if (Admin creates template?) then (yes)
+      :Admin designs report template;
+      :Set template parameters;
+      :Save template configuration;
+    endif
+    
+    if (Admin modifies template?) then (yes)
+      :Admin selects template;
+      :Modify template settings;
+      :Update template configuration;
+    endif
+  endif
+  
+  if (Admin exports data for analysis?) then (yes)
+    :Admin selects data export type;
+    :Admin sets export parameters;
+    :Generate data export;
+    :Download data file;
+  endif
+  
+  if (Admin shares reports?) then (yes)
+    :Admin selects report to share;
+    :Admin enters recipient information;
+    :Admin sets sharing permissions;
+    :Send report to recipients;
+  endif
+  
+  if (Admin manages report alerts?) then (yes)
+    :Display alert configurations;
+    :Show alert thresholds;
+    :Display alert history;
+    
+    if (Admin sets up alerts?) then (yes)
+      :Admin defines alert criteria;
+      :Admin sets alert thresholds;
+      :Configure alert notifications;
+    endif
+  endif
+  
+  if (Admin manages real-time analytics?) then (yes)
+    :Display real-time dashboard;
+    :Show live system metrics;
+    :Display current activity;
+    
+    if (Admin monitors real-time data?) then (yes)
+      :Track system performance;
+      :Monitor user activity;
+      :Watch for anomalies;
+      :Generate real-time insights;
+    endif
+  endif
+  
+  if (Admin manages predictive analytics?) then (yes)
+    :Display predictive models;
+    :Show forecasting data;
+    :Display trend predictions;
+    
+    if (Admin analyzes predictions?) then (yes)
+      :Review predictive models;
+      :Analyze forecast accuracy;
+      :Generate predictive insights;
+    endif
+  endif
+endwhile (no)
+
+if (Admin wants to view real-time analytics?) then (yes)
+  :Navigate to real-time dashboard;
+else (no)
+  :Return to main dashboard;
+endif
+
+stop
+@enduml

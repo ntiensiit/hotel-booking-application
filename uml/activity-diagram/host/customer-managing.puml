@@ -1,0 +1,180 @@
+@startuml customer-managing
+title Host Customer Managing Activity Diagram
+
+start
+
+:Host logs into management portal;
+:Host navigates to customer management;
+
+:Load customer data for host's hotels;
+:Display customer dashboard;
+
+:Host manages customers;
+
+while (Host managing customers?) is (yes)
+  if (Host views customer list?) then (yes)
+    :Display all customers who stayed at host's hotels;
+    :Show customer statistics and history;
+    :Display customer preferences;
+    
+    if (Host applies filters?) then (yes)
+      :Host selects filter criteria;
+      note right
+        - Stay date range
+        - Hotel property
+        - Customer rating
+        - Repeat customer status
+        - Booking frequency
+      end note
+      
+      :Apply filters to customer list;
+      :Display filtered results;
+    endif
+  endif
+  
+  if (Host views customer details?) then (yes)
+    :Host clicks on specific customer;
+    :Load detailed customer information;
+    
+    :Display customer profile;
+    note right
+      - Personal information
+      - Contact details
+      - Booking history
+      - Preferences and special requests
+      - Reviews and ratings given
+      - Payment history
+    end note
+  endif
+  
+  if (Host manages customer communication?) then (yes)
+    :Host selects customer;
+    :Display communication history;
+    
+    if (Host sends message?) then (yes)
+      :Host composes message;
+      :Select message type;
+      note right
+        - Welcome message
+        - Booking confirmation
+        - Check-in reminder
+        - Special offer
+        - Follow-up after stay
+      end note
+      
+      :Send message to customer;
+      :Record communication in history;
+    endif
+    
+    if (Host responds to customer inquiry?) then (yes)
+      :Host reviews customer inquiry;
+      :Compose response;
+      :Send response to customer;
+      :Update inquiry status;
+    endif
+  endif
+  
+  if (Host manages customer preferences?) then (yes)
+    :Host selects customer;
+    :Display customer preferences;
+    
+    if (Host updates preferences?) then (yes)
+      :Host modifies preference information;
+      note right
+        - Room preferences
+        - Amenity preferences
+        - Dietary restrictions
+        - Special needs
+        - Communication preferences
+      end note
+      
+      :Save preference updates;
+      :Notify relevant staff;
+    endif
+  endif
+  
+  if (Host manages customer feedback?) then (yes)
+    :Display customer reviews and feedback;
+    :Host reviews customer feedback;
+    
+    if (Host responds to feedback?) then (yes)
+      :Host composes response;
+      :Post response to review;
+      :Notify customer of response;
+    endif
+    
+    if (Host flags inappropriate feedback?) then (yes)
+      :Report feedback to system;
+      :Request review moderation;
+    endif
+  endif
+  
+  if (Host manages loyalty program?) then (yes)
+    :Display customer loyalty status;
+    :Host manages loyalty points;
+    
+    if (Host awards bonus points?) then (yes)
+      :Host selects customer;
+      :Specify bonus amount;
+      :Add points to customer account;
+      :Notify customer of bonus;
+    endif
+    
+    if (Host offers special discounts?) then (yes)
+      :Host selects customer;
+      :Create special offer;
+      :Send offer to customer;
+    endif
+  endif
+  
+  if (Host generates customer reports?) then (yes)
+    :Host selects report type;
+    note right
+      - Customer satisfaction report
+      - Repeat customer analysis
+      - Customer demographics
+      - Revenue per customer
+      - Customer lifetime value
+    end note
+    
+    :Generate customer report;
+    :Export report in desired format;
+    :Download report file;
+  endif
+  
+  if (Host manages customer issues?) then (yes)
+    :Display customer complaints/issues;
+    :Host reviews issue;
+    
+    if (Host resolves issue?) then (yes)
+      :Host provides solution;
+      :Update issue status;
+      :Notify customer of resolution;
+      :Record resolution details;
+    else (no)
+      :Escalate issue to management;
+      :Notify customer of escalation;
+    endif
+  endif
+  
+  if (Host manages customer data?) then (yes)
+    :Host requests customer data export;
+    :Generate customer data file;
+    :Download customer information;
+    
+    if (Host updates customer information?) then (yes)
+      :Host modifies customer data;
+      :Validate data changes;
+      :Save updated information;
+    endif
+  endif
+endwhile (no)
+
+if (Host wants to view analytics?) then (yes)
+  :Navigate to customer analytics;
+else (no)
+  :Return to main dashboard;
+endif
+
+stop
+@enduml

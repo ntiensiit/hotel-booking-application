@@ -1,0 +1,240 @@
+@startuml hotel-managing
+title Admin Hotel Managing Activity Diagram
+
+start
+
+:Admin logs into admin portal;
+:Admin navigates to hotel management;
+
+:Load all hotel data from system;
+:Display hotel management dashboard;
+
+:Admin manages hotels;
+
+while (Admin managing hotels?) is (yes)
+  if (Admin views hotel overview?) then (yes)
+    :Display all hotels in system;
+    :Show hotel statistics and metrics;
+    :Display approval status;
+    :Show performance indicators;
+    
+    if (Admin applies filters?) then (yes)
+      :Admin selects filter criteria;
+      note right
+        - Approval status
+        - Hotel rating
+        - Location/region
+        - Performance metrics
+        - Host information
+      end note
+      
+      :Apply filters to hotel list;
+      :Display filtered results;
+    endif
+  endif
+  
+  if (Admin reviews hotel applications?) then (yes)
+    :Display pending hotel applications;
+    :Show application details;
+    :Display host information;
+    
+    if (Admin approves hotel?) then (yes)
+      :Admin reviews application;
+      :Verify hotel information;
+      :Check host credentials;
+      
+      if (Application meets criteria?) then (yes)
+        :Approve hotel application;
+        :Update hotel status to active;
+        :Send approval notification to host;
+        :Generate hotel ID;
+        :Activate hotel listing;
+      else (no)
+        :Reject hotel application;
+        :Provide rejection reason;
+        :Send rejection notification;
+        :Archive application;
+      endif
+    endif
+  endif
+  
+  if (Admin manages hotel verification?) then (yes)
+    :Display hotels requiring verification;
+    :Show verification requirements;
+    :Display verification status;
+    
+    if (Admin verifies hotel?) then (yes)
+      :Admin reviews hotel documents;
+      :Verify hotel credentials;
+      :Check compliance requirements;
+      
+      if (Hotel meets verification standards?) then (yes)
+        :Mark hotel as verified;
+        :Update verification status;
+        :Send verification confirmation;
+      else (no)
+        :Request additional documentation;
+        :Send verification requirements;
+        :Update verification status;
+      endif
+    endif
+  endif
+  
+  if (Admin manages hotel suspension?) then (yes)
+    :Display hotels under review;
+    :Show suspension reasons;
+    :Display complaint history;
+    
+    if (Admin suspends hotel?) then (yes)
+      :Admin reviews complaints;
+      :Investigate hotel issues;
+      :Assess violation severity;
+      
+      if (Violation confirmed?) then (yes)
+        :Suspend hotel listing;
+        :Set suspension period;
+        :Notify host of suspension;
+        :Handle existing bookings;
+      else (no)
+        :Dismiss complaints;
+        :Restore hotel status;
+        :Send resolution notification;
+      endif
+    endif
+  endif
+  
+  if (Admin manages hotel categories?) then (yes)
+    :Display hotel categories;
+    :Show category assignments;
+    :Display category performance;
+    
+    if (Admin creates category?) then (yes)
+      :Admin defines new category;
+      :Set category criteria;
+      :Configure category settings;
+      :Save new category;
+    endif
+    
+    if (Admin assigns categories?) then (yes)
+      :Admin selects hotel;
+      :Assign hotel to category;
+      :Update category assignment;
+    endif
+  endif
+  
+  if (Admin manages hotel ratings?) then (yes)
+    :Display hotel rating system;
+    :Show rating calculations;
+    :Display rating history;
+    
+    if (Admin adjusts ratings?) then (yes)
+      :Admin reviews rating data;
+      :Analyze rating patterns;
+      :Adjust rating calculations;
+      :Update hotel ratings;
+    endif
+  endif
+  
+  if (Admin manages hotel compliance?) then (yes)
+    :Display compliance requirements;
+    :Show compliance status;
+    :Display compliance reports;
+    
+    if (Admin checks compliance?) then (yes)
+      :Review compliance documentation;
+      :Verify regulatory requirements;
+      :Update compliance status;
+      :Generate compliance report;
+    endif
+  endif
+  
+  if (Admin manages hotel partnerships?) then (yes)
+    :Display partnership agreements;
+    :Show partnership status;
+    :Display partnership benefits;
+    
+    if (Admin creates partnership?) then (yes)
+      :Admin negotiates terms;
+      :Set partnership conditions;
+      :Configure partnership benefits;
+      :Activate partnership;
+    endif
+  endif
+  
+  if (Admin manages hotel analytics?) then (yes)
+    :Display hotel performance data;
+    :Show booking analytics;
+    :Display revenue metrics;
+    
+    if (Admin analyzes performance?) then (yes)
+      :Generate performance reports;
+      :Identify top performers;
+      :Analyze booking patterns;
+      :Generate insights;
+    endif
+  endif
+  
+  if (Admin manages hotel disputes?) then (yes)
+    :Display active disputes;
+    :Show dispute details;
+    :Display resolution status;
+    
+    if (Admin resolves dispute?) then (yes)
+      :Admin investigates dispute;
+      :Review evidence and claims;
+      :Make resolution decision;
+      :Implement resolution;
+      :Notify involved parties;
+    endif
+  endif
+  
+  if (Admin manages hotel policies?) then (yes)
+    :Display hotel policy settings;
+    :Show policy requirements;
+    :Display policy compliance;
+    
+    if (Admin updates policies?) then (yes)
+      :Admin modifies policy requirements;
+      :Update policy guidelines;
+      :Notify hotels of changes;
+      :Monitor policy compliance;
+    endif
+  endif
+  
+  if (Admin generates hotel reports?) then (yes)
+    :Admin selects report type;
+    note right
+      - Hotel approval report
+      - Performance analysis report
+      - Compliance report
+      - Revenue distribution report
+      - Quality metrics report
+    end note
+    
+    :Generate hotel report;
+    :Export report in desired format;
+    :Download report file;
+  endif
+  
+  if (Admin manages hotel data?) then (yes)
+    :Display hotel data management;
+    :Show data quality metrics;
+    :Display data update history;
+    
+    if (Admin updates hotel data?) then (yes)
+      :Admin corrects hotel information;
+      :Update hotel records;
+      :Validate data accuracy;
+      :Save data changes;
+    endif
+  endif
+endwhile (no)
+
+if (Admin wants to view analytics?) then (yes)
+  :Navigate to hotel analytics;
+else (no)
+  :Return to main dashboard;
+endif
+
+stop
+@enduml

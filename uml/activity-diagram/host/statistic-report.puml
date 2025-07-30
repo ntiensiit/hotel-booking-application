@@ -1,0 +1,222 @@
+@startuml statistic-report
+title Host Statistic Report Activity Diagram
+
+start
+
+:Host logs into management portal;
+:Host navigates to statistics and reports;
+
+:Load statistical data for host's hotels;
+:Display statistics dashboard;
+
+:Host manages statistics and reports;
+
+while (Host managing statistics/reports?) is (yes)
+  if (Host views dashboard overview?) then (yes)
+    :Display key performance indicators;
+    :Show revenue statistics;
+    :Display occupancy rates;
+    :Show customer satisfaction metrics;
+    
+    if (Host applies date filters?) then (yes)
+      :Host selects date range;
+      :Update statistical data;
+      :Display filtered results;
+    endif
+  endif
+  
+  if (Host generates revenue reports?) then (yes)
+    :Host selects revenue report type;
+    note right
+      - Daily revenue report
+      - Monthly revenue summary
+      - Revenue by hotel property
+      - Revenue by room type
+      - Revenue trends analysis
+    end note
+    
+    :Host sets report parameters;
+    :Generate revenue report;
+    :Display report results;
+    
+    if (Host exports report?) then (yes)
+      :Select export format (PDF/Excel/CSV);
+      :Generate export file;
+      :Download report file;
+    endif
+  endif
+  
+  if (Host generates occupancy reports?) then (yes)
+    :Host selects occupancy report type;
+    note right
+      - Daily occupancy rates
+      - Monthly occupancy summary
+      - Occupancy by room type
+      - Occupancy trends
+      - Peak/off-peak analysis
+    end note
+    
+    :Host sets report parameters;
+    :Generate occupancy report;
+    :Display occupancy statistics;
+    
+    if (Host analyzes occupancy patterns?) then (yes)
+      :Identify peak periods;
+      :Analyze booking patterns;
+      :Generate occupancy insights;
+    endif
+  endif
+  
+  if (Host generates customer reports?) then (yes)
+    :Host selects customer report type;
+    note right
+      - Customer demographics
+      - Customer satisfaction scores
+      - Repeat customer analysis
+      - Customer lifetime value
+      - Customer feedback summary
+    end note
+    
+    :Host sets report parameters;
+    :Generate customer report;
+    :Display customer statistics;
+    
+    if (Host analyzes customer behavior?) then (yes)
+      :Identify customer segments;
+      :Analyze booking preferences;
+      :Generate customer insights;
+    endif
+  endif
+  
+  if (Host generates booking reports?) then (yes)
+    :Host selects booking report type;
+    note right
+      - Booking volume trends
+      - Booking lead time analysis
+      - Cancellation rates
+      - Booking source analysis
+      - Average booking value
+    end note
+    
+    :Host sets report parameters;
+    :Generate booking report;
+    :Display booking statistics;
+    
+    if (Host analyzes booking patterns?) then (yes)
+      :Identify booking trends;
+      :Analyze cancellation reasons;
+      :Generate booking insights;
+    endif
+  endif
+  
+  if (Host generates performance reports?) then (yes)
+    :Host selects performance report type;
+    note right
+      - Hotel performance comparison
+      - Room type performance
+      - Service performance metrics
+      - Staff performance analysis
+      - Quality metrics
+    end note
+    
+    :Host sets report parameters;
+    :Generate performance report;
+    :Display performance statistics;
+    
+    if (Host analyzes performance trends?) then (yes)
+      :Identify performance gaps;
+      :Analyze improvement areas;
+      :Generate performance insights;
+    endif
+  endif
+  
+  if (Host creates custom reports?) then (yes)
+    :Host clicks "Create Custom Report";
+    :Display report builder interface;
+    
+    :Host selects data sources;
+    :Host defines report criteria;
+    :Host sets report format;
+    
+    :Host builds custom report;
+    :Validate report configuration;
+    
+    if (Configuration valid?) then (yes)
+      :Generate custom report;
+      :Display custom report results;
+      :Save custom report template;
+    else (no)
+      :Show configuration errors;
+      :Host corrects configuration;
+      :Return to validation;
+    endif
+  endif
+  
+  if (Host schedules automated reports?) then (yes)
+    :Host selects report to schedule;
+    :Host sets schedule parameters;
+    note right
+      - Report frequency (daily/weekly/monthly)
+      - Delivery method (email/dashboard)
+      - Recipients
+      - Report format
+    end note
+    
+    :Host configures automation;
+    :Save scheduled report;
+    :Set up automated delivery;
+  endif
+  
+  if (Host manages report templates?) then (yes)
+    :Display saved report templates;
+    :Show template categories;
+    :Display template usage;
+    
+    if (Host creates template?) then (yes)
+      :Host designs report template;
+      :Set template parameters;
+      :Save template configuration;
+    endif
+    
+    if (Host modifies template?) then (yes)
+      :Host selects template;
+      :Modify template settings;
+      :Update template configuration;
+    endif
+  endif
+  
+  if (Host exports data for analysis?) then (yes)
+    :Host selects data export type;
+    :Host sets export parameters;
+    :Generate data export;
+    :Download data file;
+  endif
+  
+  if (Host shares reports?) then (yes)
+    :Host selects report to share;
+    :Host enters recipient information;
+    :Host sets sharing permissions;
+    :Send report to recipients;
+  endif
+  
+  if (Host manages report alerts?) then (yes)
+    :Display alert configurations;
+    :Show alert thresholds;
+    :Display alert history;
+    
+    if (Host sets up alerts?) then (yes)
+      :Host defines alert criteria;
+      :Host sets alert thresholds;
+      :Configure alert notifications;
+    endif
+  endif
+endwhile (no)
+
+if (Host wants to view real-time analytics?) then (yes)
+  :Navigate to real-time dashboard;
+else (no)
+  :Return to main dashboard;
+endif
+
+stop
+@enduml

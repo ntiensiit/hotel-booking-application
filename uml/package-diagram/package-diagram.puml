@@ -1,0 +1,18 @@
+@startuml package-diagram
+package "UI Layer" {
+    [LoginPage]
+    [Dashboard]
+}
+
+package "Business Logic" {
+    [AuthService]
+    [UserService]
+}
+
+package "Data Access" {
+    [UserRepository]
+}
+
+"UI Layer" ..> "Business Logic"
+"Business Logic" ..> "Data Access"
+@enduml

@@ -1,0 +1,82 @@
+@startuml hotel-detail
+title Hotel Detail Activity Diagram
+
+start
+
+:User navigates to hotel detail page;
+:Load hotel information;
+
+:Display hotel overview;
+note right
+  - Hotel name and description
+  - Star rating
+  - Location and address
+  - Contact information
+  - Hotel photos
+end note
+
+:Show hotel amenities;
+:Display room types and availability;
+
+:User explores hotel details;
+
+while (User exploring details?) is (yes)
+  if (User clicks on photos?) then (yes)
+    :Open photo gallery;
+    :User browses hotel images;
+    :User views room photos;
+    :User views facility photos;
+  endif
+  
+  if (User checks amenities?) then (yes)
+    :Display detailed amenities list;
+    :Show facility descriptions;
+    :Show service offerings;
+  endif
+  
+  if (User views location?) then (yes)
+    :Show interactive map;
+    :Display nearby attractions;
+    :Show transportation options;
+    :Display distance to key locations;
+  endif
+  
+  if (User reads reviews?) then (yes)
+    :Load customer reviews;
+    :Display rating breakdown;
+    :Show review filters;
+    :User filters reviews by rating;
+    :User reads detailed reviews;
+  endif
+  
+  if (User checks room availability?) then (yes)
+    :User selects dates;
+    :User specifies guest count;
+    :Check room availability;
+    :Display available room types;
+    :Show pricing for each room;
+  endif
+endwhile (no)
+
+if (User wants to book?) then (yes)
+  :Navigate to booking process;
+  stop
+else (no)
+  if (User wants to save hotel?) then (yes)
+    :Add to favorites;
+    :Save hotel preferences;
+  endif
+  
+  if (User wants to share?) then (yes)
+    :Share hotel link;
+    :Send to friends/family;
+  endif
+  
+  if (User wants to compare?) then (yes)
+    :Add to comparison list;
+    :Navigate to comparison page;
+  endif
+endif
+
+stop
+@enduml

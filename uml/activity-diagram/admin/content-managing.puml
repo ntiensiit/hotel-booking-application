@@ -1,0 +1,268 @@
+@startuml content-managing
+title Admin Content Managing Activity Diagram
+
+start
+
+:Admin logs into admin portal;
+:Admin navigates to content management;
+
+:Load all content data from system;
+:Display content management dashboard;
+
+:Admin manages content;
+
+while (Admin managing content?) is (yes)
+  if (Admin views content overview?) then (yes)
+    :Display all system content;
+    :Show content statistics and metrics;
+    :Display content approval status;
+    :Show content performance indicators;
+    
+    if (Admin applies filters?) then (yes)
+      :Admin selects filter criteria;
+      note right
+        - Content type
+        - Approval status
+        - Content category
+        - Performance metrics
+        - Creator information
+      end note
+      
+      :Apply filters to content list;
+      :Display filtered results;
+    endif
+  endif
+  
+  if (Admin reviews content submissions?) then (yes)
+    :Display pending content submissions;
+    :Show content details;
+    :Display creator information;
+    
+    if (Admin approves content?) then (yes)
+      :Admin reviews content;
+      :Check content quality;
+      :Verify content guidelines;
+      
+      if (Content meets standards?) then (yes)
+        :Approve content submission;
+        :Update content status to published;
+        :Send approval notification to creator;
+        :Publish content to platform;
+      else (no)
+        :Reject content submission;
+        :Provide rejection reason;
+        :Send rejection notification;
+        :Return content for revision;
+      endif
+    endif
+  endif
+  
+  if (Admin manages content moderation?) then (yes)
+    :Display flagged content;
+    :Show moderation queue;
+    :Display content violations;
+    
+    if (Admin moderates content?) then (yes)
+      :Admin reviews flagged content;
+      :Assess content appropriateness;
+      :Check community guidelines;
+      
+      if (Content is appropriate?) then (yes)
+        :Approve flagged content;
+        :Remove content flag;
+        :Restore content visibility;
+      else (no)
+        :Remove inappropriate content;
+        :Update content status;
+        :Notify content creator;
+        :Record moderation action;
+      endif
+    endif
+  endif
+  
+  if (Admin manages content categories?) then (yes)
+    :Display content categories;
+    :Show category assignments;
+    :Display category performance;
+    
+    if (Admin creates category?) then (yes)
+      :Admin defines new category;
+      :Set category criteria;
+      :Configure category settings;
+      :Save new category;
+    endif
+    
+    if (Admin assigns categories?) then (yes)
+      :Admin selects content;
+      :Assign content to category;
+      :Update category assignment;
+    endif
+  endif
+  
+  if (Admin manages content quality?) then (yes)
+    :Display content quality metrics;
+    :Show quality assessment;
+    :Display quality trends;
+    
+    if (Admin assesses quality?) then (yes)
+      :Review content quality;
+      :Analyze quality patterns;
+      :Update quality standards;
+      :Generate quality report;
+    endif
+  endif
+  
+  if (Admin manages content policies?) then (yes)
+    :Display content policy settings;
+    :Show policy requirements;
+    :Display policy compliance;
+    
+    if (Admin updates policies?) then (yes)
+      :Admin modifies policy requirements;
+      :Update content guidelines;
+      :Notify creators of changes;
+      :Monitor policy compliance;
+    endif
+  endif
+  
+  if (Admin manages content analytics?) then (yes)
+    :Display content performance data;
+    :Show engagement metrics;
+    :Display content trends;
+    
+    if (Admin analyzes performance?) then (yes)
+      :Generate performance reports;
+      :Identify top performing content;
+      :Analyze engagement patterns;
+      :Generate insights;
+    endif
+  endif
+  
+  if (Admin manages content disputes?) then (yes)
+    :Display active content disputes;
+    :Show dispute details;
+    :Display resolution status;
+    
+    if (Admin resolves dispute?) then (yes)
+      :Admin investigates dispute;
+      :Review evidence and claims;
+      :Make resolution decision;
+      :Implement resolution;
+      :Notify involved parties;
+    endif
+  endif
+  
+  if (Admin manages content scheduling?) then (yes)
+    :Display content calendar;
+    :Show scheduled content;
+    :Display publishing timeline;
+    
+    if (Admin schedules content?) then (yes)
+      :Admin sets publish date;
+      :Admin sets expiration date;
+      :Configure auto-publishing;
+      :Set up content reminders;
+    endif
+  endif
+  
+  if (Admin manages content templates?) then (yes)
+    :Display content templates;
+    :Show template categories;
+    :Display template usage;
+    
+    if (Admin creates template?) then (yes)
+      :Admin designs template;
+      :Set template parameters;
+      :Save template configuration;
+    endif
+    
+    if (Admin modifies template?) then (yes)
+      :Admin selects template;
+      :Modify template settings;
+      :Update template configuration;
+    endif
+  endif
+  
+  if (Admin manages content localization?) then (yes)
+    :Display localization settings;
+    :Show language options;
+    :Display translation status;
+    
+    if (Admin manages translations?) then (yes)
+      :Admin reviews translations;
+      :Approve translated content;
+      :Update translation status;
+      :Publish localized content;
+    endif
+  endif
+  
+  if (Admin manages content SEO?) then (yes)
+    :Display SEO settings;
+    :Show meta descriptions;
+    :Display keyword information;
+    
+    if (Admin optimizes SEO?) then (yes)
+      :Admin updates meta titles;
+      :Admin modifies meta descriptions;
+      :Admin adds keywords;
+      :Optimize content for search;
+    endif
+  endif
+  
+  if (Admin manages content backup?) then (yes)
+    :Display backup status;
+    :Show backup schedule;
+    :Display recovery options;
+    
+    if (Admin creates backup?) then (yes)
+      :Admin initiates backup;
+      :Backup content data;
+      :Verify backup integrity;
+      :Store backup securely;
+    endif
+    
+    if (Admin restores from backup?) then (yes)
+      :Admin selects backup point;
+      :Verify backup data;
+      :Restore content from backup;
+      :Confirm restoration success;
+    endif
+  endif
+  
+  if (Admin generates content reports?) then (yes)
+    :Admin selects report type;
+    note right
+      - Content approval report
+      - Performance analysis report
+      - Quality metrics report
+      - Engagement report
+      - Moderation report
+    end note
+    
+    :Generate content report;
+    :Export report in desired format;
+    :Download report file;
+  endif
+  
+  if (Admin manages content data?) then (yes)
+    :Display content data management;
+    :Show data quality metrics;
+    :Display data update history;
+    
+    if (Admin updates content data?) then (yes)
+      :Admin corrects content information;
+      :Update content records;
+      :Validate data accuracy;
+      :Save data changes;
+    endif
+  endif
+endwhile (no)
+
+if (Admin wants to view analytics?) then (yes)
+  :Navigate to content analytics;
+else (no)
+  :Return to main dashboard;
+endif
+
+stop
+@enduml

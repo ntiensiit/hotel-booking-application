@@ -1,0 +1,16 @@
+@startuml deployment-diagram
+node "Client" {
+    artifact "Browser"
+}
+
+node "Web Server" {
+    artifact "Web App"
+}
+
+node "Database Server" {
+    artifact "Oracle Database"
+}
+
+"Client" --> "Web Server" : HTTP
+"Web Server" --> "Database Server" : JDBC
+@enduml

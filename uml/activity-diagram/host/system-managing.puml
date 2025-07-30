@@ -1,0 +1,238 @@
+@startuml system-managing
+title Host System Managing Activity Diagram
+
+start
+
+:Host logs into management portal;
+:Host navigates to system management;
+
+:Load system configuration data;
+:Display system management dashboard;
+
+:Host manages system settings;
+
+while (Host managing system?) is (yes)
+  if (Host views system overview?) then (yes)
+    :Display system status;
+    :Show system performance metrics;
+    :Display system alerts;
+    :Show maintenance schedules;
+    
+    if (Host checks system health?) then (yes)
+      :Run system diagnostics;
+      :Check system performance;
+      :Display health report;
+    endif
+  endif
+  
+  if (Host manages account settings?) then (yes)
+    :Display account configuration;
+    :Show profile settings;
+    :Display security settings;
+    
+    if (Host updates profile?) then (yes)
+      :Host modifies profile information;
+      :Update contact details;
+      :Save profile changes;
+    endif
+    
+    if (Host manages security?) then (yes)
+      :Host changes password;
+      :Host enables 2FA;
+      :Host manages login devices;
+      :Update security settings;
+    endif
+  endif
+  
+  if (Host manages notification settings?) then (yes)
+    :Display notification preferences;
+    :Show notification channels;
+    :Display alert settings;
+    
+    if (Host configures notifications?) then (yes)
+      :Host sets email notifications;
+      :Host sets SMS notifications;
+      :Host sets push notifications;
+      :Save notification preferences;
+    endif
+    
+    if (Host manages alert thresholds?) then (yes)
+      :Host sets booking alerts;
+      :Host sets revenue alerts;
+      :Host sets system alerts;
+      :Configure alert rules;
+    endif
+  endif
+  
+  if (Host manages integration settings?) then (yes)
+    :Display integration options;
+    :Show connected services;
+    :Display API settings;
+    
+    if (Host configures payment gateways?) then (yes)
+      :Host sets up payment methods;
+      :Configure payment processing;
+      :Test payment integration;
+    endif
+    
+    if (Host manages channel manager?) then (yes)
+      :Configure channel connections;
+      :Set up rate synchronization;
+      :Manage inventory sync;
+    endif
+    
+    if (Host configures third-party services?) then (yes)
+      :Set up analytics integration;
+      :Configure marketing tools;
+      :Connect CRM systems;
+    endif
+  endif
+  
+  if (Host manages backup and recovery?) then (yes)
+    :Display backup status;
+    :Show backup schedule;
+    :Display recovery options;
+    
+    if (Host creates backup?) then (yes)
+      :Host initiates backup;
+      :Backup system data;
+      :Verify backup integrity;
+      :Store backup securely;
+    endif
+    
+    if (Host restores from backup?) then (yes)
+      :Host selects backup point;
+      :Verify backup data;
+      :Restore system from backup;
+      :Confirm restoration success;
+    endif
+  endif
+  
+  if (Host manages system updates?) then (yes)
+    :Display update status;
+    :Show available updates;
+    :Display update history;
+    
+    if (Host installs updates?) then (yes)
+      :Host reviews update details;
+      :Host approves update;
+      :Download update package;
+      :Install system updates;
+      :Verify update success;
+    endif
+  endif
+  
+  if (Host manages user permissions?) then (yes)
+    :Display user accounts;
+    :Show permission levels;
+    :Display access logs;
+    
+    if (Host creates user account?) then (yes)
+      :Host enters user details;
+      :Set user permissions;
+      :Create user account;
+      :Send login credentials;
+    endif
+    
+    if (Host manages permissions?) then (yes)
+      :Host selects user;
+      :Modify user permissions;
+      :Update access levels;
+      :Save permission changes;
+    endif
+  endif
+  
+  if (Host manages system logs?) then (yes)
+    :Display system logs;
+    :Show activity logs;
+    :Display error logs;
+    
+    if (Host reviews logs?) then (yes)
+      :Filter log entries;
+      :Search specific events;
+      :Export log data;
+      :Analyze log patterns;
+    endif
+  endif
+  
+  if (Host manages data export/import?) then (yes)
+    :Display data management options;
+    :Show export formats;
+    :Display import options;
+    
+    if (Host exports data?) then (yes)
+      :Host selects data type;
+      :Host chooses export format;
+      :Generate export file;
+      :Download data export;
+    endif
+    
+    if (Host imports data?) then (yes)
+      :Host uploads data file;
+      :Validate import data;
+      :Process data import;
+      :Confirm import success;
+    endif
+  endif
+  
+  if (Host manages system maintenance?) then (yes)
+    :Display maintenance schedule;
+    :Show maintenance history;
+    :Display maintenance tasks;
+    
+    if (Host schedules maintenance?) then (yes)
+      :Host sets maintenance window;
+      :Schedule maintenance tasks;
+      :Notify users of maintenance;
+      :Execute maintenance procedures;
+    endif
+  endif
+  
+  if (Host manages system performance?) then (yes)
+    :Display performance metrics;
+    :Show system resources;
+    :Display performance trends;
+    
+    if (Host optimizes performance?) then (yes)
+      :Analyze performance bottlenecks;
+      :Optimize system settings;
+      :Monitor performance improvements;
+    endif
+  endif
+  
+  if (Host manages system security?) then (yes)
+    :Display security settings;
+    :Show security logs;
+    :Display threat alerts;
+    
+    if (Host configures security?) then (yes)
+      :Set up firewall rules;
+      :Configure access controls;
+      :Enable security monitoring;
+    endif
+  endif
+  
+  if (Host generates system reports?) then (yes)
+    :Host selects report type;
+    note right
+      - System performance report
+      - Security audit report
+      - User activity report
+      - Error log report
+      - Maintenance report
+    end note
+    
+    :Generate system report;
+    :Export report in desired format;
+    :Download report file;
+  endif
+endwhile (no)
+
+if (Host wants to view system analytics?) then (yes)
+  :Navigate to system analytics;
+else (no)
+  :Return to main dashboard;
+endif
+
+stop
+@enduml

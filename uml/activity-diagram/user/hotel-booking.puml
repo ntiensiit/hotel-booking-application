@@ -1,0 +1,107 @@
+@startuml hotel-booking
+title Hotel Booking Activity Diagram
+
+start
+
+:User selects hotel for booking;
+:User clicks "Book Now" or "Reserve";
+
+:Check if user is logged in;
+
+if (User logged in?) then (yes)
+  :Load user profile;
+else (no)
+  :Redirect to login page;
+  :User logs in or registers;
+  :Return to booking process;
+endif
+
+:Display booking form;
+:User enters booking details;
+
+note right
+  - Check-in date
+  - Check-out date
+  - Number of guests
+  - Room type selection
+  - Special requests
+  - Contact information
+end note
+
+:Validate booking parameters;
+
+if (Parameters valid?) then (yes)
+  :Check room availability;
+  
+  if (Room available?) then (yes)
+    :Calculate total price;
+    :Apply any discounts/promotions;
+    :Show price breakdown;
+    
+    :User reviews booking details;
+    
+    if (User confirms booking?) then (yes)
+      :Proceed to payment;
+      
+      :Display payment options;
+      note right
+        - Credit/Debit card
+        - PayPal
+        - Bank transfer
+        - Digital wallets
+      end note
+      
+      :User selects payment method;
+      :User enters payment details;
+      
+      :Validate payment information;
+      
+      if (Payment valid?) then (yes)
+        :Process payment;
+        
+        if (Payment successful?) then (yes)
+          :Create booking record;
+          :Generate booking confirmation;
+          :Send confirmation email;
+          :Send SMS notification;
+          :Update room inventory;
+          
+          :Display booking confirmation;
+          :Show booking reference number;
+          
+          :User receives booking details;
+          
+          stop
+        else (no)
+          :Display payment error;
+          :User retries payment;
+          :Return to payment step;
+        endif
+        
+      else (no)
+        :Display validation errors;
+        :User corrects payment details;
+        :Return to payment validation;
+      endif
+      
+    else (no)
+      :User cancels booking;
+      :Return to hotel detail page;
+      stop
+    endif
+    
+  else (no)
+    :Display "Room not available" message;
+    :Suggest alternative dates;
+    :User modifies booking dates;
+    :Return to availability check;
+  endif
+  
+else (no)
+  :Display validation errors;
+  :User corrects booking details;
+  :Return to validation step;
+endif
+
+stop
+@enduml

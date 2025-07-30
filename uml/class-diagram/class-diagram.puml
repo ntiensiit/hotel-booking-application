@@ -1,0 +1,647 @@
+@startuml class-diagram
+title Hotel Booking Application - Class Diagram
+
+' Domain Layer - Core Entities and Value Objects
+package "Domain Layer" {
+  ' User Domain
+  class User {
+    +UserId: Guid
+    +Email: Email
+    +Password: Password
+    +FirstName: string
+    +LastName: string
+    +PhoneNumber: PhoneNumber
+    +DateOfBirth: Date
+    +RegistrationDate: DateTime
+    +LastLoginDate: DateTime
+    +IsActive: bool
+    +UserType: UserType
+    +create()
+    +updateProfile()
+    +deactivate()
+    +activate()
+  }
+
+  class UserType {
+    <<enumeration>>
+    Customer
+    Host
+    Admin
+  }
+
+  class Email {
+    <<value object>>
+    +Value: string
+    +validate()
+  }
+
+  class Password {
+    <<value object>>
+    +Hash: string
+    +Salt: string
+    +hash()
+    +verify()
+  }
+
+  class PhoneNumber {
+    <<value object>>
+    +CountryCode: string
+    +Number: string
+    +validate()
+  }
+
+  ' Hotel Domain
+  class Hotel {
+    +HotelId: Guid
+    +Name: string
+    +Description: string
+    +Address: Address
+    +StarRating: StarRating
+    +HotelType: HotelType
+    +ContactInfo: ContactInfo
+    +Policies: HotelPolicies
+    +Status: HotelStatus
+    +HostId: Guid
+    +RegistrationDate: DateTime
+    +ApprovalDate: DateTime
+    +create()
+    +update()
+    +approve()
+    +suspend()
+    +activate()
+  }
+
+  class Address {
+    <<value object>>
+    +Street: string
+    +City: string
+    +State: string
+    +Country: string
+    +PostalCode: string
+    +Coordinates: Coordinates
+  }
+
+  class Coordinates {
+    <<value object>>
+    +Latitude: decimal
+    +Longitude: decimal
+  }
+
+  class StarRating {
+    <<value object>>
+    +Value: int
+    +validate()
+  }
+
+  class HotelType {
+    <<enumeration>>
+    Budget
+    Standard
+    Luxury
+    Boutique
+    Resort
+  }
+
+  class HotelStatus {
+    <<enumeration>>
+    Pending
+    Active
+    Suspended
+    Inactive
+  }
+
+  class ContactInfo {
+    <<value object>>
+    +Email: Email
+    +Phone: PhoneNumber
+    +Website: string
+  }
+
+  class HotelPolicies {
+    <<value object>>
+    +CheckInTime: Time
+    +CheckOutTime: Time
+    +CancellationPolicy: CancellationPolicy
+    +PetPolicy: PetPolicy
+    +SmokingPolicy: SmokingPolicy
+  }
+
+  ' Room Domain
+  class Room {
+    +RoomId: Guid
+    +HotelId: Guid
+    +RoomNumber: string
+    +RoomType: RoomType
+    +Capacity: int
+    +Amenities: List<Amenity>
+    +Pricing: Pricing
+    +Status: RoomStatus
+    +create()
+    +update()
+    +setPricing()
+    +setAvailability()
+  }
+
+  class RoomType {
+    <<enumeration>>
+    Single
+    Double
+    Triple
+    Suite
+    Deluxe
+  }
+
+  class RoomStatus {
+    <<enumeration>>
+    Available
+    Occupied
+    Maintenance
+    Reserved
+  }
+
+  class Pricing {
+    <<value object>>
+    +BasePrice: Money
+    +SeasonalRates: List<SeasonalRate>
+    +Discounts: List<Discount>
+    +calculatePrice()
+  }
+
+  class Money {
+    <<value object>>
+    +Amount: decimal
+    +Currency: Currency
+    +add()
+    +subtract()
+    +multiply()
+  }
+
+  class Currency {
+    <<enumeration>>
+    USD
+    EUR
+    GBP
+    JPY
+  }
+
+  ' Booking Domain
+  class Booking {
+    +BookingId: Guid
+    +UserId: Guid
+    +HotelId: Guid
+    +RoomId: Guid
+    +CheckInDate: Date
+    +CheckOutDate: Date
+    +NumberOfGuests: int
+    +TotalAmount: Money
+    +Status: BookingStatus
+    +SpecialRequests: List<SpecialRequest>
+    +PaymentInfo: PaymentInfo
+    +CreatedDate: DateTime
+    +ModifiedDate: DateTime
+    +create()
+    +confirm()
+    +cancel()
+    +modify()
+    +calculateTotal()
+  }
+
+  class BookingStatus {
+    <<enumeration>>
+    Pending
+    Confirmed
+    Cancelled
+    Completed
+    CheckedIn
+    CheckedOut
+  }
+
+  class SpecialRequest {
+    <<value object>>
+    +Type: RequestType
+    +Description: string
+    +IsFulfilled: bool
+  }
+
+  class RequestType {
+    <<enumeration>>
+    EarlyCheckIn
+    LateCheckOut
+    ExtraBed
+    AirportTransfer
+    SpecialDiet
+  }
+
+  ' Payment Domain
+  class Payment {
+    +PaymentId: Guid
+    +BookingId: Guid
+    +Amount: Money
+    +PaymentMethod: PaymentMethod
+    +Status: PaymentStatus
+    +TransactionId: string
+    +ProcessedDate: DateTime
+    +create()
+    +process()
+    +refund()
+  }
+
+  class PaymentMethod {
+    <<enumeration>>
+    CreditCard
+    DebitCard
+    PayPal
+    BankTransfer
+    DigitalWallet
+  }
+
+  class PaymentStatus {
+    <<enumeration>>
+    Pending
+    Processing
+    Completed
+    Failed
+    Refunded
+  }
+
+  class PaymentInfo {
+    <<value object>>
+    +PaymentMethod: PaymentMethod
+    +CardNumber: string
+    +ExpiryDate: Date
+    +CVV: string
+  }
+
+  ' Review Domain
+  class Review {
+    +ReviewId: Guid
+    +UserId: Guid
+    +HotelId: Guid
+    +BookingId: Guid
+    +Rating: Rating
+    +Comment: string
+    +Photos: List<Photo>
+    +CreatedDate: DateTime
+    +IsVerified: bool
+    +create()
+    +update()
+    +delete()
+  }
+
+  class Rating {
+    <<value object>>
+    +OverallRating: int
+    +CleanlinessRating: int
+    +ServiceRating: int
+    +LocationRating: int
+    +ValueRating: int
+    +calculateAverage()
+  }
+
+  class Photo {
+    <<value object>>
+    +Url: string
+    +Caption: string
+    +UploadDate: DateTime
+  }
+
+  ' Offer Domain
+  class Offer {
+    +OfferId: Guid
+    +HotelId: Guid
+    +Name: string
+    +Description: string
+    +DiscountType: DiscountType
+    +DiscountValue: decimal
+    +ValidFrom: DateTime
+    +ValidTo: DateTime
+    +IsActive: bool
+    +create()
+    +activate()
+    +deactivate()
+    +isValid()
+  }
+
+  class DiscountType {
+    <<enumeration>>
+    Percentage
+    FixedAmount
+    FreeNight
+  }
+
+  class Voucher {
+    +VoucherId: Guid
+    +Code: string
+    +DiscountType: DiscountType
+    +DiscountValue: decimal
+    +MinimumBookingValue: Money
+    +ValidFrom: DateTime
+    +ValidTo: DateTime
+    +UsageLimit: int
+    +UsedCount: int
+    +IsActive: bool
+    +create()
+    +use()
+    +isValid()
+  }
+
+  ' Service Domain
+  class Service {
+    +ServiceId: Guid
+    +HotelId: Guid
+    +Name: string
+    +Description: string
+    +Category: ServiceCategory
+    +Price: Money
+    +IsAvailable: bool
+    +create()
+    +update()
+    +setAvailability()
+  }
+
+  class ServiceCategory {
+    <<enumeration>>
+    Spa
+    Restaurant
+    Transportation
+    Entertainment
+    Business
+  }
+
+  ' Notification Domain
+  class Notification {
+    +NotificationId: Guid
+    +UserId: Guid
+    +Type: NotificationType
+    +Title: string
+    +Message: string
+    +IsRead: bool
+    +CreatedDate: DateTime
+    +send()
+    +markAsRead()
+  }
+
+  class NotificationType {
+    <<enumeration>>
+    BookingConfirmation
+    BookingReminder
+    PaymentConfirmation
+    ReviewRequest
+    SystemAlert
+  }
+}
+
+' Application Layer - Services and DTOs
+package "Application Layer" {
+  class BookingService {
+    +createBooking()
+    +confirmBooking()
+    +cancelBooking()
+    +modifyBooking()
+    +getBookingDetails()
+  }
+
+  class HotelService {
+    +registerHotel()
+    +approveHotel()
+    +updateHotel()
+    +getHotelDetails()
+    +searchHotels()
+  }
+
+  class UserService {
+    +registerUser()
+    +authenticateUser()
+    +updateProfile()
+    +getUserDetails()
+  }
+
+  class PaymentService {
+    +processPayment()
+    +refundPayment()
+    +getPaymentStatus()
+  }
+
+  class ReviewService {
+    +createReview()
+    +updateReview()
+    +getReviews()
+    +moderateReview()
+  }
+
+  class NotificationService {
+    +sendNotification()
+    +getNotifications()
+    +markAsRead()
+  }
+}
+
+' Infrastructure Layer - Repositories and External Services
+package "Infrastructure Layer" {
+  interface IUserRepository {
+    +getById()
+    +getByEmail()
+    +add()
+    +update()
+    +delete()
+  }
+
+  interface IHotelRepository {
+    +getById()
+    +getByHostId()
+    +search()
+    +add()
+    +update()
+  }
+
+  interface IBookingRepository {
+    +getById()
+    +getByUserId()
+    +getByHotelId()
+    +add()
+    +update()
+  }
+
+  interface IPaymentRepository {
+    +getById()
+    +getByBookingId()
+    +add()
+    +update()
+  }
+
+  interface IReviewRepository {
+    +getById()
+    +getByHotelId()
+    +add()
+    +update()
+    +delete()
+  }
+
+  class UserRepository {
+    -_context: ApplicationDbContext
+    +getById()
+    +getByEmail()
+    +add()
+    +update()
+    +delete()
+  }
+
+  class HotelRepository {
+    -_context: ApplicationDbContext
+    +getById()
+    +getByHostId()
+    +search()
+    +add()
+    +update()
+  }
+
+  class BookingRepository {
+    -_context: ApplicationDbContext
+    +getById()
+    +getByUserId()
+    +getByHotelId()
+    +add()
+    +update()
+  }
+
+  class PaymentRepository {
+    -_context: ApplicationDbContext
+    +getById()
+    +getByBookingId()
+    +add()
+    +update()
+  }
+
+  class ReviewRepository {
+    -_context: ApplicationDbContext
+    +getById()
+    +getByHotelId()
+    +add()
+    +update()
+    +delete()
+  }
+
+  class EmailService {
+    +sendEmail()
+    +sendConfirmation()
+    +sendReminder()
+  }
+
+  class PaymentGatewayService {
+    +processPayment()
+    +refundPayment()
+    +getTransactionStatus()
+  }
+
+  class NotificationGatewayService {
+    +sendSMS()
+    +sendPushNotification()
+    +sendEmail()
+  }
+}
+
+' Presentation Layer - Controllers and ViewModels
+package "Presentation Layer" {
+  class HotelController {
+    +Index()
+    +Details()
+    +Search()
+    +Book()
+  }
+
+  class BookingController {
+    +Create()
+    +Confirm()
+    +Cancel()
+    +History()
+  }
+
+  class UserController {
+    +Register()
+    +Login()
+    +Profile()
+    +Update()
+  }
+
+  class AdminController {
+    +Dashboard()
+    +ManageHotels()
+    +ManageUsers()
+    +Reports()
+  }
+
+  class HostController {
+    +Dashboard()
+    +ManageHotels()
+    +ManageBookings()
+    +Analytics()
+  }
+}
+
+' Relationships
+User ||--o{ Booking : "makes"
+User ||--o{ Review : "writes"
+User ||--o{ Notification : "receives"
+User ||--o{ Hotel : "owns" (Host)
+
+Hotel ||--o{ Room : "contains"
+Hotel ||--o{ Service : "offers"
+Hotel ||--o{ Offer : "provides"
+Hotel ||--o{ Review : "receives"
+
+Room ||--o{ Booking : "booked in"
+Booking ||--o{ Payment : "has"
+Booking ||--o{ SpecialRequest : "includes"
+
+Payment ||--|| PaymentInfo : "uses"
+Review ||--|| Rating : "has"
+Review ||--o{ Photo : "includes"
+
+Offer ||--o{ Voucher : "generates"
+
+' Application Layer Dependencies
+BookingService --> IBookingRepository
+BookingService --> IHotelRepository
+BookingService --> IUserRepository
+BookingService --> IPaymentService
+BookingService --> INotificationService
+
+HotelService --> IHotelRepository
+HotelService --> IUserRepository
+
+UserService --> IUserRepository
+UserService --> INotificationService
+
+PaymentService --> IPaymentRepository
+PaymentService --> PaymentGatewayService
+
+ReviewService --> IReviewRepository
+ReviewService --> IBookingRepository
+
+NotificationService --> NotificationGatewayService
+NotificationService --> EmailService
+
+' Infrastructure Layer Implementations
+UserRepository ..|> IUserRepository
+HotelRepository ..|> IHotelRepository
+BookingRepository ..|> IBookingRepository
+PaymentRepository ..|> IPaymentRepository
+ReviewRepository ..|> IReviewRepository
+
+' Presentation Layer Dependencies
+HotelController --> HotelService
+HotelController --> BookingService
+
+BookingController --> BookingService
+BookingController --> PaymentService
+
+UserController --> UserService
+
+AdminController --> HotelService
+AdminController --> UserService
+AdminController --> BookingService
+
+HostController --> HotelService
+HostController --> BookingService
+
+@enduml

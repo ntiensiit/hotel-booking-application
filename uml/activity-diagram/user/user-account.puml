@@ -1,0 +1,172 @@
+@startuml user-account
+title User Account Activity Diagram
+
+start
+
+:User accesses account section;
+:Check if user is logged in;
+
+if (User logged in?) then (yes)
+  :Load user profile;
+  :Display account dashboard;
+else (no)
+  :Redirect to login page;
+  :User logs in or registers;
+  :Return to account section;
+endif
+
+:User manages account;
+
+while (User managing account?) is (yes)
+  if (User views profile?) then (yes)
+    :Display profile information;
+    note right
+      - Personal details
+      - Contact information
+      - Preferences
+      - Account settings
+    end note
+    
+    if (User edits profile?) then (yes)
+      :User modifies information;
+      :Validate changes;
+      
+      if (Changes valid?) then (yes)
+        :Update profile;
+        :Save changes;
+        :Display confirmation;
+      else (no)
+        :Show validation errors;
+        :User corrects information;
+        :Return to validation;
+      endif
+    endif
+  endif
+  
+  if (User manages preferences?) then (yes)
+    :Display preference settings;
+    note right
+      - Language preference
+      - Currency preference
+      - Email notifications
+      - SMS notifications
+      - Marketing preferences
+      - Privacy settings
+    end note
+    
+    :User modifies preferences;
+    :Save preference changes;
+    :Update user settings;
+  endif
+  
+  if (User manages security?) then (yes)
+    if (User changes password?) then (yes)
+      :User enters current password;
+      :User enters new password;
+      :User confirms new password;
+      :Validate password strength;
+      
+      if (Password valid?) then (yes)
+        :Update password;
+        :Send confirmation email;
+        :Display success message;
+      else (no)
+        :Show password requirements;
+        :User corrects password;
+        :Return to validation;
+      endif
+    endif
+    
+    if (User enables 2FA?) then (yes)
+      :Generate 2FA setup;
+      :User scans QR code;
+      :User enters verification code;
+      :Verify 2FA setup;
+      :Enable 2FA for account;
+    endif
+    
+    if (User manages devices?) then (yes)
+      :Display active devices;
+      :User can revoke devices;
+      :User can add new devices;
+    endif
+  endif
+  
+  if (User manages payment methods?) then (yes)
+    :Display saved payment methods;
+    
+    if (User adds payment method?) then (yes)
+      :User enters payment details;
+      :Validate payment information;
+      
+      if (Payment valid?) then (yes)
+        :Save payment method;
+        :Encrypt payment data;
+        :Display confirmation;
+      else (no)
+        :Show validation errors;
+        :User corrects payment info;
+        :Return to validation;
+      endif
+    endif
+    
+    if (User removes payment method?) then (yes)
+      :User selects method to remove;
+      :Confirm removal;
+      :Remove payment method;
+      :Update payment list;
+    endif
+  endif
+  
+  if (User manages addresses?) then (yes)
+    :Display saved addresses;
+    
+    if (User adds address?) then (yes)
+      :User enters address details;
+      :Validate address;
+      :Save address;
+    endif
+    
+    if (User edits address?) then (yes)
+      :User modifies address;
+      :Validate changes;
+      :Update address;
+    endif
+    
+    if (User removes address?) then (yes)
+      :User selects address to remove;
+      :Confirm removal;
+      :Remove address;
+    endif
+  endif
+  
+  if (User views account activity?) then (yes)
+    :Display login history;
+    :Show recent activities;
+    :Display account statistics;
+  endif
+  
+  if (User exports data?) then (yes)
+    :User requests data export;
+    :Generate export file;
+    :Send download link;
+  endif
+  
+  if (User deletes account?) then (yes)
+    :Show deletion warning;
+    :User confirms deletion;
+    :Process account deletion;
+    :Send confirmation email;
+    :Logout user;
+    stop
+  endif
+endwhile (no)
+
+if (User wants to return to main page?) then (yes)
+  :Navigate to dashboard;
+else (no)
+  :Stay on account page;
+endif
+
+stop
+@enduml

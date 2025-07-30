@@ -1,0 +1,124 @@
+@startuml order-managing
+title Order Managing Activity Diagram
+
+start
+
+:User logs into account;
+:User navigates to order management;
+
+:Load user's orders;
+:Display order list;
+
+:User views orders;
+
+while (User managing orders?) is (yes)
+  if (User filters orders?) then (yes)
+    :User selects filter criteria;
+    note right
+      - Order status
+      - Date range
+      - Hotel name
+      - Price range
+      - Payment status
+    end note
+    
+    :Apply filters;
+    :Display filtered orders;
+  endif
+  
+  if (User views order details?) then (yes)
+    :User clicks on specific order;
+    :Load order details;
+    
+    :Display order information;
+    note right
+      - Order ID
+      - Hotel details
+      - Room information
+      - Dates and guests
+      - Payment status
+      - Order status
+      - Contact information
+    end note
+    
+    :User can perform order actions;
+    
+    if (Order is pending?) then (yes)
+      if (User wants to pay?) then (yes)
+        :Navigate to payment page;
+        stop
+      endif
+      
+      if (User wants to cancel?) then (yes)
+        :Show cancellation terms;
+        :User confirms cancellation;
+        :Cancel order;
+        :Send cancellation email;
+      endif
+      
+      if (User wants to modify?) then (yes)
+        :Navigate to order modification;
+        stop
+      endif
+      
+    elseif (Order is confirmed?) then (yes)
+      if (User wants to modify dates?) then (yes)
+        :Check modification policy;
+        :Show modification fees;
+        :User confirms changes;
+        :Update order;
+        :Send modification confirmation;
+      endif
+      
+      if (User wants to cancel?) then (yes)
+        :Show cancellation policy;
+        :Calculate refund amount;
+        :User confirms cancellation;
+        :Process cancellation;
+        :Initiate refund;
+      endif
+      
+      if (User wants to download voucher?) then (yes)
+        :Generate booking voucher;
+        :Download voucher PDF;
+      endif
+      
+    elseif (Order is completed?) then (yes)
+      if (User wants to leave review?) then (yes)
+        :Navigate to review form;
+        stop
+      endif
+      
+      if (User wants to rebook?) then (yes)
+        :Navigate to hotel page;
+        stop
+      endif
+      
+      if (User wants to download invoice?) then (yes)
+        :Generate invoice;
+        :Download invoice PDF;
+      endif
+    endif
+  endif
+  
+  if (User searches orders?) then (yes)
+    :User enters search terms;
+    :Search order database;
+    :Display search results;
+  endif
+  
+  if (User exports orders?) then (yes)
+    :User selects export format;
+    :Generate export file;
+    :Download order list;
+  endif
+endwhile (no)
+
+if (User wants to create new order?) then (yes)
+  :Navigate to hotel search;
+else (no)
+  :Return to dashboard;
+endif
+
+stop
+@enduml

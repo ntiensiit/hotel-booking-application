@@ -1,0 +1,244 @@
+@startuml offer-voucher-managing
+title Host Offer Voucher Managing Activity Diagram
+
+start
+
+:Host logs into management portal;
+:Host navigates to offer/voucher management;
+
+:Load offer and voucher data;
+:Display offer/voucher dashboard;
+
+:Host manages offers and vouchers;
+
+while (Host managing offers/vouchers?) is (yes)
+  if (Host views offer list?) then (yes)
+    :Display all active offers;
+    :Show offer performance metrics;
+    :Display voucher statistics;
+    
+    if (Host applies filters?) then (yes)
+      :Host selects filter criteria;
+      note right
+        - Offer type
+        - Status (active/inactive)
+        - Date range
+        - Hotel property
+        - Performance rating
+      end note
+      
+      :Apply filters to offer list;
+      :Display filtered results;
+    endif
+  endif
+  
+  if (Host creates new offer?) then (yes)
+    :Host clicks "Create New Offer";
+    :Display offer creation form;
+    
+    :Host enters offer details;
+    note right
+      - Offer name and description
+      - Discount type and amount
+      - Valid date range
+      - Target audience
+      - Usage conditions
+      - Hotel/room restrictions
+    end note
+    
+    :Host submits offer information;
+    :Validate offer data;
+    
+    if (Data valid?) then (yes)
+      :Save offer to database;
+      :Generate offer code;
+      :Set up offer rules;
+      :Display confirmation message;
+    else (no)
+      :Show validation errors;
+      :Host corrects information;
+      :Return to validation;
+    endif
+  endif
+  
+  if (Host creates voucher?) then (yes)
+    :Host clicks "Create Voucher";
+    :Display voucher creation form;
+    
+    :Host enters voucher details;
+    note right
+      - Voucher code
+      - Discount amount/percentage
+      - Valid date range
+      - Usage limits
+      - Minimum booking value
+      - Applicable services
+    end note
+    
+    :Host submits voucher information;
+    :Validate voucher data;
+    
+    if (Data valid?) then (yes)
+      :Save voucher to database;
+      :Generate voucher code;
+      :Set up voucher rules;
+      :Display confirmation message;
+    else (no)
+      :Show validation errors;
+      :Host corrects information;
+      :Return to validation;
+    endif
+  endif
+  
+  if (Host manages offer status?) then (yes)
+    :Host selects offer;
+    :Display current status;
+    
+    if (Host activates offer?) then (yes)
+      :Update offer status to active;
+      :Publish offer to customers;
+      :Send notification to target audience;
+    endif
+    
+    if (Host deactivates offer?) then (yes)
+      :Update offer status to inactive;
+      :Remove offer from customer view;
+      :Notify customers of expiration;
+    endif
+    
+    if (Host extends offer?) then (yes)
+      :Host modifies end date;
+      :Update offer validity;
+      :Notify customers of extension;
+    endif
+  endif
+  
+  if (Host manages voucher status?) then (yes)
+    :Host selects voucher;
+    :Display current status;
+    
+    if (Host activates voucher?) then (yes)
+      :Update voucher status to active;
+      :Make voucher available for use;
+    endif
+    
+    if (Host deactivates voucher?) then (yes)
+      :Update voucher status to inactive;
+      :Prevent further voucher usage;
+    endif
+  endif
+  
+  if (Host tracks offer performance?) then (yes)
+    :Display offer analytics;
+    :Show usage statistics;
+    :Display conversion rates;
+    :Show revenue impact;
+    
+    if (Host analyzes performance?) then (yes)
+      :Generate performance report;
+      :Identify top performing offers;
+      :Analyze customer response;
+      :Calculate ROI for offers;
+    endif
+  endif
+  
+  if (Host manages voucher usage?) then (yes)
+    :Display voucher usage tracking;
+    :Show redemption statistics;
+    :Display usage patterns;
+    
+    if (Host monitors voucher usage?) then (yes)
+      :Track voucher redemptions;
+      :Monitor usage limits;
+      :Alert on unusual usage;
+    endif
+  endif
+  
+  if (Host creates promotional campaigns?) then (yes)
+    :Host designs campaign;
+    :Set campaign objectives;
+    :Define target audience;
+    :Create campaign offers;
+    
+    if (Host launches campaign?) then (yes)
+      :Activate campaign offers;
+      :Send campaign notifications;
+      :Track campaign performance;
+    endif
+  endif
+  
+  if (Host manages seasonal offers?) then (yes)
+    :Display seasonal offer calendar;
+    :Show seasonal performance;
+    :Display seasonal trends;
+    
+    if (Host creates seasonal offer?) then (yes)
+      :Host designs seasonal offer;
+      :Set seasonal pricing;
+      :Configure seasonal rules;
+      :Launch seasonal campaign;
+    endif
+  endif
+  
+  if (Host manages loyalty offers?) then (yes)
+    :Display loyalty program offers;
+    :Show member benefits;
+    :Display loyalty tiers;
+    
+    if (Host creates loyalty offer?) then (yes)
+      :Host designs loyalty offer;
+      :Set loyalty requirements;
+      :Configure loyalty benefits;
+      :Launch loyalty program;
+    endif
+  endif
+  
+  if (Host generates offer reports?) then (yes)
+    :Host selects report type;
+    note right
+      - Offer performance report
+      - Voucher usage report
+      - Revenue impact analysis
+      - Customer response report
+      - Campaign effectiveness
+    end note
+    
+    :Generate offer report;
+    :Export report in desired format;
+    :Download report file;
+  endif
+  
+  if (Host manages offer targeting?) then (yes)
+    :Display target audience settings;
+    :Show customer segments;
+    :Display targeting criteria;
+    
+    if (Host sets targeting rules?) then (yes)
+      :Define target criteria;
+      :Set audience filters;
+      :Configure targeting rules;
+    endif
+  endif
+  
+  if (Host manages offer scheduling?) then (yes)
+    :Display offer calendar;
+    :Show scheduled offers;
+    :Display offer timeline;
+    
+    if (Host schedules offer?) then (yes)
+      :Set offer start date;
+      :Set offer end date;
+      :Configure auto-activation;
+      :Set up offer reminders;
+    endif
+  endif
+endwhile (no)
+
+if (Host wants to view analytics?) then (yes)
+  :Navigate to offer analytics;
+else (no)
+  :Return to main dashboard;
+endif
+
+stop
+@enduml
