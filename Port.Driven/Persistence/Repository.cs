@@ -1,10 +1,8 @@
-namespace SharedKernel.SeedWork;
+using Port.Driven.Events;
 
-public interface IRepository
-{
-}
+namespace Port.Driven.Persistence;
 
-public interface IRepository<T, TId> : IRepository
+public interface IRepository<T, TId>
 {
 }
 
@@ -23,7 +21,7 @@ public interface IGenericRepository<T, TId> : IRepository<T, TId>
 }
 
 public interface IEventStoreRepository<T, TId> : IRepository<T, TId>
-    where T : IAggregateRoot<TId>, new()
+    where T : IHasDomainEvent, new()
 {
     Task<T> LoadAsync(TId aggregateId);
     Task SaveAsync(T aggregate);

@@ -7,13 +7,13 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\SharedKernel\SharedKernel.csproj"/>
-    </ItemGroup>
-
-    <ItemGroup>
         <Folder Include="Aggregates\"/>
         <Folder Include="DomainEvents\"/>
         <Folder Include="Factories\"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\SharedKernel\SharedKernel.csproj"/>
     </ItemGroup>
 
 </Project>

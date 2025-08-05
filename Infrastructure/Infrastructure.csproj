@@ -11,11 +11,11 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Adapter\Adapter.csproj"/>
-        <ProjectReference Include="..\Contracts\Contracts.csproj"/>
-        <ProjectReference Include="..\Domain.Identity\Domain.Identity.csproj"/>
-        <ProjectReference Include="..\Domain\Domain.csproj"/>
-        <ProjectReference Include="..\Shared\Shared.csproj"/>
+        <PackageReference Include="MediatR" Version="12.5.0"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Port.Driven\Port.Driven.csproj"/>
     </ItemGroup>
 
 </Project>

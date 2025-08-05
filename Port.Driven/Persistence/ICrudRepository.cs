@@ -1,4 +1,4 @@
-namespace Adapter.Persistence;
+namespace Port.Driven.Persistence;
 
 public interface ICrudRepository<T, TId> : IReadOnlyRepository<T, TId>, IWriteOnlyRepository<T, TId>
 {
