@@ -7,18 +7,10 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Folder Include="CommandHandlers\"/>
-        <Folder Include="Commands\"/>
-        <Folder Include="Queries\"/>
-        <Folder Include="QueryHandlers\"/>
-    </ItemGroup>
-
-    <ItemGroup>
-        <ProjectReference Include="..\Adapter\Adapter.csproj"/>
-        <ProjectReference Include="..\Contracts\Contracts.csproj"/>
         <ProjectReference Include="..\Domain.Identity\Domain.Identity.csproj"/>
         <ProjectReference Include="..\Domain\Domain.csproj"/>
-        <ProjectReference Include="..\Shared\Shared.csproj"/>
+        <ProjectReference Include="..\Port.Driven\Port.Driven.csproj"/>
+        <ProjectReference Include="..\Port.Driving\Port.Driving.csproj"/>
     </ItemGroup>
 
 </Project>

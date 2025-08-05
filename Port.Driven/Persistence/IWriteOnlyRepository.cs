@@ -1,6 +1,4 @@
-using SharedKernel.SeedWork;
-
-namespace Adapter.Persistence;
+namespace Port.Driven.Persistence;
 
 public partial interface IWriteOnlyRepository<T, TId> : IRepository<T, TId>
 {
@@ -10,8 +8,8 @@ public partial interface IWriteOnlyRepository<T, TId> : IRepository<T, TId>
     void DeleteAllById(IEnumerable<TId> ids);
     void DeleteById(TId id);
 
-    TDerived Save<TDerived>(TDerived item) where TDerived : T;
-    IEnumerable<TDerived> SaveAll<TDerived>(IEnumerable<TDerived> items) where TDerived : T;
+    void Save<TDerived>(TDerived item) where TDerived : T;
+    void SaveAll<TDerived>(IEnumerable<TDerived> items) where TDerived : T;
 }
 
 public partial interface IWriteOnlyRepository<T, TId>
@@ -22,6 +20,6 @@ public partial interface IWriteOnlyRepository<T, TId>
     Task DeleteAllByIdAsync(IEnumerable<TId> ids);
     Task DeleteByIdAsync(TId id);
 
-    Task<TDerived> SaveAsync<TDerived>(TDerived item) where TDerived : T;
-    Task<TDerived> SaveAllAsync<TDerived>(IEnumerable<TDerived> items) where TDerived : T;
+    Task SaveAsync<TDerived>(TDerived item) where TDerived : T;
+    Task SaveAllAsync<TDerived>(IEnumerable<TDerived> items) where TDerived : T;
 }

@@ -1,6 +1,4 @@
-using SharedKernel.SeedWork;
-
-namespace Adapter.Persistence;
+namespace Port.Driven.Persistence;
 
 public interface IPagingAndSortingRepository<T, TId> : IRepository<T, TId>
 {

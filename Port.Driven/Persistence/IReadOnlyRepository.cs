@@ -1,6 +1,4 @@
-using SharedKernel.SeedWork;
-
-namespace Adapter.Persistence;
+namespace Port.Driven.Persistence;
 
 public partial interface IReadOnlyRepository<T, TId> : IRepository<T, TId>
 {
