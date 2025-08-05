@@ -1,4 +1,4 @@
-namespace Port.Driven.Events;
+namespace SharedKernel.SeedWork;
 
 public interface IDomainEvent
 {

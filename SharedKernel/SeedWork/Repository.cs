@@ -1,6 +1,4 @@
-using Port.Driven.Events;
-
-namespace Port.Driven.Persistence;
+namespace SharedKernel.SeedWork;
 
 public interface IRepository<T, TId>
 {

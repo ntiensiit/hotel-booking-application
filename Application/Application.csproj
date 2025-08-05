@@ -9,7 +9,6 @@
     <ItemGroup>
         <ProjectReference Include="..\Domain.Identity\Domain.Identity.csproj"/>
         <ProjectReference Include="..\Domain\Domain.csproj"/>
-        <ProjectReference Include="..\Port.Driven\Port.Driven.csproj"/>
         <ProjectReference Include="..\Port.Driving\Port.Driving.csproj"/>
     </ItemGroup>
 
