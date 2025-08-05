@@ -1,7 +1,7 @@
 using MediatR;
 using Port.Driven.Events;
 
-namespace Infrastructure.MediatR;
+namespace Adapter.MediatR;
 
 public class
     MediatRQueryRequestHandler<TQuery, TResponse> : IRequestHandler<MediatRQueryRequest<TQuery, TResponse>,

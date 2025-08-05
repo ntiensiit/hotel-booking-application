@@ -1,7 +1,7 @@
 using MediatR;
 using SharedKernel.SeedWork;
 
-namespace Infrastructure.MediatR;
+namespace Adapter.MediatR;
 
 public class MediatRDomainEventAdapter<TDomainEvent> :
     INotificationHandler<MediatRDomainEventNotification<TDomainEvent>>

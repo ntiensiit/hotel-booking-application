@@ -1,4 +1,4 @@
-namespace ResourceServer;
+namespace Adapter.AuthenticationServer;
 
 public class WeatherForecast
 {

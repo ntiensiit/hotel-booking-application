@@ -1,4 +1,4 @@
-using Infrastructure.MediatR;
+using Adapter.MediatR;
 using MediatR;
 using SharedKernel.SeedWork;
 
