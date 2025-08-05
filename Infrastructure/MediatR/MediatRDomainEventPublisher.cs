@@ -1,5 +1,5 @@
 using MediatR;
-using Port.Driven.Events;
+using SharedKernel.SeedWork;
 
 namespace Infrastructure.MediatR;
 

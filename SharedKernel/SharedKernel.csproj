@@ -12,7 +12,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Port.Driven\Port.Driven.csproj"/>
         <ProjectReference Include="..\Shared\Shared.csproj"/>
     </ItemGroup>
 

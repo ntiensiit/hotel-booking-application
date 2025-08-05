@@ -1,6 +1,6 @@
 using Infrastructure.MediatR;
 using MediatR;
-using Port.Driven.Events;
+using SharedKernel.SeedWork;
 
 var builder = WebApplication.CreateBuilder(args);
 
