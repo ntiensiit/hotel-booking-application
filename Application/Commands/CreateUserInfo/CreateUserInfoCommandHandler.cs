@@ -23,6 +23,8 @@ public class CreateUserInfoCommandHandler : ICommandHandler<CreateUserInfoComman
             PhoneNumber = request.PhoneNumber
         };
 
-        return await _userInfoRepository.Save(userInfo, cancellationToken);
+        _userInfoRepository.Save(userInfo);
+
+        return await Task.FromResult(userInfo);
     }
 }

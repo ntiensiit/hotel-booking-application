@@ -20,7 +20,7 @@ public static class NHibernateHelper
     {
         if (string.IsNullOrEmpty(_connectionString))
             throw new InvalidOperationException("No connection string configured");
-            
+
         if (_sessionFactory != null) return _sessionFactory;
 
         var config = Fluently.Configure()
@@ -33,7 +33,19 @@ public static class NHibernateHelper
             .BuildConfiguration();
 
         // new SchemaExport(config).Create(false, true); // (writeToConsole, execute)
-        new SchemaExport(config).Execute(false,  true, false);
+        new SchemaExport(config).Execute(false, true, false);
+
+        // var cfg = new Configuration();
+        // cfg.DataBaseIntegration(db =>
+        // {
+        //     db.ConnectionString = _connectionString;
+        //     db.Dialect<MsSql2012Dialect>();
+        //     db.Driver<SqlClientDriver>();
+        //     db.LogSqlInConsole = true;
+        //     db.Timeout = 30;
+        // });
+        //
+        // cfg.AddAssembly(typeof(UserInfo).Assembly);
 
         _sessionFactory = config.BuildSessionFactory();
 

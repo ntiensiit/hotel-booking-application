@@ -1,29 +1,25 @@
+using Adapter.Driven.NHibernate.Persistence;
 using Domain.Core.Entities;
 using NHibernate;
 using Port.Driven.NHibernate.Repositories;
 
 namespace Adapter.Driven.NHibernate.Repositories;
 
-public class UserInfoRepository : IUserInfoRepository
+public class UserInfoRepository : GenericRepository<UserInfo, int>, IUserInfoRepository
 {
-    private readonly ISession _session;
-
-    public UserInfoRepository(ISession session)
+    public UserInfoRepository(ISession session) : base(session)
     {
-        _session = session;
     }
 
     public async Task<UserInfo?> GetByEmailAsync(string email, CancellationToken cancellationToken)
     {
-        return await _session.QueryOver<UserInfo>()
+        return await Session.QueryOver<UserInfo>()
             .Where(u => u.Email == email)
             .SingleOrDefaultAsync(cancellationToken);
     }
 
-    public async Task<UserInfo> Save(UserInfo userInfo, CancellationToken cancellationToken)
+    public void Save(UserInfo userInfo)
     {
-        await _session.SaveAsync(userInfo, cancellationToken);
-
-        return userInfo;
+        Session.Save(userInfo);
     }
 }
