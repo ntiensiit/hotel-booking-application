@@ -1,8 +1,8 @@
 namespace SharedKernel.SeedWork;
 
-public interface IEntity<TId>
+public interface IEntity<out TId> where TId : IEquatable<TId>
 {
-    TId Id { get; set; }
+    TId Id { get; }
 }
 
 public interface ISoftDelete

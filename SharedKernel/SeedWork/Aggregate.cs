@@ -4,7 +4,7 @@ public interface IAggregateRoot
 {
 }
 
-public interface IAggregateRoot<TId> : IAggregateRoot
+public interface IAggregateRoot<out TId> : IAggregateRoot where TId : IEquatable<TId>
 {
-    TId Id { get; protected set; }
+    TId Id { get; }
 }
