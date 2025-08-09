@@ -1,5 +1,5 @@
 namespace SharedKernel.SeedWork;
 
-public class DomainRegistry
+public interface IFactoryService
 {
 }

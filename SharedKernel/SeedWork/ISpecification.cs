@@ -1,6 +1,6 @@
 namespace SharedKernel.SeedWork;
 
-public interface ISpecification<T>
+public interface ISpecification<in T>
 {
     bool IsSatisfiedBy(T item);
 }

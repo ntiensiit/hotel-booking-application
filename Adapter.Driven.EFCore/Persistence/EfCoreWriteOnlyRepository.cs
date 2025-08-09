@@ -1,17 +1,17 @@
 using Adapter.Driven.EFCore.Contexts;
 using Microsoft.EntityFrameworkCore;
-using Port.Driven.Shared.Persistence;
+using Port.Driven.EFCore.Persistence;
 using SharedKernel.SeedWork;
 
 namespace Adapter.Driven.EFCore.Persistence;
 
-public partial class WriteOnlyRepository<T, TId> : IWriteOnlyRepository<T, TId>
+public partial class EfCoreWriteOnlyRepository<T, TId> : IEfCoreWriteOnlyRepository<T, TId>
     where T : class, IEntity<TId>
     where TId : IEquatable<TId>
 {
     private readonly DbContext _dbContext;
 
-    public WriteOnlyRepository(ApplicationDbContext dbContext)
+    public EfCoreWriteOnlyRepository(ApplicationDbContext dbContext)
     {
         _dbContext = dbContext;
     }
@@ -54,7 +54,7 @@ public partial class WriteOnlyRepository<T, TId> : IWriteOnlyRepository<T, TId>
     }
 }
 
-public partial class WriteOnlyRepository<T, TId>
+public partial class EfCoreWriteOnlyRepository<T, TId>
 {
     public async Task DeleteAsync(T item, CancellationToken cancellationToken = default)
     {

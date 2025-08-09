@@ -5,7 +5,7 @@ using Port.Driven.EFCore.Repositories;
 
 namespace Adapter.Driven.EFCore.Repositories;
 
-public class UserPrincipalRepository : GenericRepository<UserPrincipal, int>, IUserPrincipalRepository
+public class UserPrincipalRepository : EfCoreGenericRepository<UserPrincipal, int>, IUserPrincipalRepository
 {
     public UserPrincipalRepository(DbContext dbContext) : base(dbContext)
     {

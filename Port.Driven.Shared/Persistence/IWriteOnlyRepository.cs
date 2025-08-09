@@ -2,7 +2,7 @@ using SharedKernel.SeedWork;
 
 namespace Port.Driven.Shared.Persistence;
 
-public partial interface IWriteOnlyRepository<T, TId> : IRepository<T, TId> where TId : IEquatable<TId>
+public partial interface IWriteOnlyRepository<in T, in TId> : IRepository where TId : IEquatable<TId>
 {
     void Delete(T item);
     void DeleteAll();
@@ -14,7 +14,7 @@ public partial interface IWriteOnlyRepository<T, TId> : IRepository<T, TId> wher
     void SaveAll<TDerived>(IEnumerable<TDerived> items) where TDerived : class, T;
 }
 
-public partial interface IWriteOnlyRepository<T, TId>
+public partial interface IWriteOnlyRepository<in T, in TId>
 {
     Task DeleteAsync(T item, CancellationToken cancellationToken = default);
     Task DeleteAllAsync(CancellationToken cancellationToken);

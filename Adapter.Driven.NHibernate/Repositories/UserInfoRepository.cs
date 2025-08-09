@@ -5,7 +5,7 @@ using Port.Driven.NHibernate.Repositories;
 
 namespace Adapter.Driven.NHibernate.Repositories;
 
-public class UserInfoRepository : GenericRepository<UserInfo, int>, IUserInfoRepository
+public class UserInfoRepository : NhibernateGenericRepository<UserInfo, int>, IUserInfoRepository
 {
     public UserInfoRepository(ISession session) : base(session)
     {

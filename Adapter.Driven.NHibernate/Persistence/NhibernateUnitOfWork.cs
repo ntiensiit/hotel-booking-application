@@ -1,17 +1,18 @@
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage;
-using Port.Driven.Shared.Persistence;
+using NHibernate;
+using Port.Driven.NHibernate.Persistence;
 
-namespace Adapter.Driven.EFCore.Persistence;
+namespace Adapter.Driven.NHibernate.Persistence;
 
-public partial class UnitOfWork<TContext> : IUnitOfWork<TContext>, IDisposable where TContext : DbContext
+public partial class NhibernateUnitOfWork : INhibernateUnitOfWork, IDisposable
 {
-    private IDbContextTransaction? _currentTransaction;
+    private ITransaction? _currentTransaction;
 
-    public UnitOfWork(TContext context)
+    public NhibernateUnitOfWork(ISession context)
     {
         Context = context;
     }
+
+    private ISession Context { get; }
 
     public void Dispose()
     {
@@ -19,33 +20,28 @@ public partial class UnitOfWork<TContext> : IUnitOfWork<TContext>, IDisposable w
         GC.SuppressFinalize(this);
     }
 
-    public TContext Context { get; }
-
-    protected virtual void Dispose(bool disposing)
+    private void Dispose(bool disposing)
     {
         var disposed = _currentTransaction == null;
 
         if (disposed || !disposing) return;
 
-        // Đảm bảo transaction dispose
         _currentTransaction?.Dispose();
         _currentTransaction = null;
-
-        //Dispose Context Object
-        Context.Dispose();
     }
 }
 
-public partial class UnitOfWork<TContext> where TContext : DbContext
+public partial class NhibernateUnitOfWork
 {
     public void BeginTransaction()
     {
-        _currentTransaction ??= Context.Database.BeginTransaction();
+        _currentTransaction ??= Context.BeginTransaction();
     }
 
     public void CommitTransaction()
     {
-        if (_currentTransaction == null) throw new InvalidOperationException("Transaction has not been started.");
+        if (_currentTransaction is not { IsActive: true })
+            throw new InvalidOperationException("Transaction has not been started.");
 
         try
         {
@@ -65,7 +61,8 @@ public partial class UnitOfWork<TContext> where TContext : DbContext
 
     public void RollbackTransaction()
     {
-        if (_currentTransaction == null) throw new InvalidOperationException("Transaction has not been started.");
+        if (_currentTransaction is not { IsActive: true })
+            throw new InvalidOperationException("Transaction has not been started.");
 
         try
         {
@@ -80,20 +77,23 @@ public partial class UnitOfWork<TContext> where TContext : DbContext
 
     public int SaveChanges()
     {
-        return Context.SaveChanges();
+        Context.Flush();
+        return 0;
     }
 }
 
-public partial class UnitOfWork<TContext> where TContext : DbContext
+public partial class NhibernateUnitOfWork
 {
     public async Task BeginTransactionAsync(CancellationToken cancellationToken = default)
     {
-        _currentTransaction ??= await Context.Database.BeginTransactionAsync(cancellationToken);
+        _currentTransaction ??= Context.BeginTransaction();
+        await Task.CompletedTask;
     }
 
     public async Task CommitTransactionAsync(CancellationToken cancellationToken = default)
     {
-        if (_currentTransaction == null) throw new InvalidOperationException("Transaction has not been started.");
+        if (_currentTransaction is not { IsActive: true })
+            throw new InvalidOperationException("Transaction has not been started.");
 
         try
         {
@@ -113,7 +113,8 @@ public partial class UnitOfWork<TContext> where TContext : DbContext
 
     public async Task RollbackTransactionAsync(CancellationToken cancellationToken = default)
     {
-        if (_currentTransaction == null) throw new InvalidOperationException("Transaction has not been started.");
+        if (_currentTransaction is not { IsActive: true })
+            throw new InvalidOperationException("Transaction has not been started.");
 
         try
         {
@@ -128,6 +129,7 @@ public partial class UnitOfWork<TContext> where TContext : DbContext
 
     public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
-        return await Context.SaveChangesAsync(cancellationToken);
+        await Context.FlushAsync(cancellationToken);
+        return 0;
     }
 }

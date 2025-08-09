@@ -1,17 +1,17 @@
 using Adapter.Driven.EFCore.Contexts;
 using Microsoft.EntityFrameworkCore;
-using Port.Driven.Shared.Persistence;
+using Port.Driven.EFCore.Persistence;
 using SharedKernel.SeedWork;
 
 namespace Adapter.Driven.EFCore.Persistence;
 
-public partial class ReadOnlyRepository<T, TId> : IReadOnlyRepository<T, TId>
+public partial class EfCoreReadOnlyRepository<T, TId> : IEfCoreReadOnlyRepository<T, TId>
     where T : class, IEntity<TId>
     where TId : IEquatable<TId>, IComparable<TId>
 {
     private readonly DbContext _dbContext;
 
-    public ReadOnlyRepository(ApplicationDbContext dbContext)
+    public EfCoreReadOnlyRepository(ApplicationDbContext dbContext)
     {
         _dbContext = dbContext;
     }
@@ -42,7 +42,7 @@ public partial class ReadOnlyRepository<T, TId> : IReadOnlyRepository<T, TId>
     }
 }
 
-public partial class ReadOnlyRepository<T, TId>
+public partial class EfCoreReadOnlyRepository<T, TId>
 {
     public async Task<long> CountAsync(CancellationToken cancellationToken = default)
     {

@@ -1,11 +1,6 @@
 namespace Port.Driven.Shared.Persistence;
 
-public partial interface IUnitOfWork<out TContext>
-{
-    TContext Context { get; }
-}
-
-public partial interface IUnitOfWork<out TContext>
+public partial interface IUnitOfWork
 {
     void BeginTransaction();
     void CommitTransaction();
@@ -13,7 +8,7 @@ public partial interface IUnitOfWork<out TContext>
     int SaveChanges();
 }
 
-public partial interface IUnitOfWork<out TContext>
+public partial interface IUnitOfWork
 {
     Task BeginTransactionAsync(CancellationToken cancellationToken = default);
     Task CommitTransactionAsync(CancellationToken cancellationToken = default);

@@ -4,7 +4,7 @@ using Port.Driving.Shared.Services;
 
 namespace Adapter.Driving.ResourceServer.Controllers;
 
-[Route("api/[controller]/[action]")]
+[Route("api/[controller]")]
 [ApiController]
 public class UserController : ControllerBase
 {

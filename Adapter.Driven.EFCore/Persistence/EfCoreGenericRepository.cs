@@ -4,13 +4,13 @@ using SharedKernel.SeedWork;
 
 namespace Adapter.Driven.EFCore.Persistence;
 
-public class GenericRepository<T, TId> : IGenericRepository<T, TId>
+public class EfCoreGenericRepository<T, TId> : IGenericRepository<T, TId>
     where T : class, IEntity<TId>
     where TId : IEquatable<TId>, IComparable<TId>
 {
     protected readonly DbContext DbContext;
 
-    public GenericRepository(DbContext dbContext)
+    public EfCoreGenericRepository(DbContext dbContext)
     {
         DbContext = dbContext;
     }

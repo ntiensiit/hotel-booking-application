@@ -1,4 +1,5 @@
 using Adapter.Driven.EFCore.Contexts;
+using Adapter.Driven.EFCore.Persistence;
 using Adapter.Driven.EFCore.Repositories;
 using Adapter.Driven.MediatR;
 using Adapter.Driven.NHibernate.Helpers;
@@ -10,12 +11,12 @@ using Application.Services;
 using Domain.Core.Entities;
 using Domain.Identity.Entities;
 using MediatR;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Port.Driven.EFCore.Persistence;
 using Port.Driven.EFCore.Repositories;
+using Port.Driven.NHibernate.Persistence;
 using Port.Driven.NHibernate.Repositories;
 using Port.Driven.Shared.Events;
-using Port.Driven.Shared.Persistence;
 using Port.Driving.Shared.Services;
 using SharedKernel.SeedWork;
 using ISession = NHibernate.ISession;
@@ -69,11 +70,11 @@ public static class ApplicationDependencyInjection
         services.AddScoped<ISession>(_ => NHibernateHelper.OpenSession());
 
         // Register NHibernate repositories
-        services.AddScoped(typeof(IGenericRepository<,>), typeof(GenericRepository<,>));
+        services.AddScoped(typeof(INhibernateGenericRepository<,>), typeof(NhibernateGenericRepository<,>));
         services.AddScoped<IUserInfoRepository, UserInfoRepository>();
 
         // Register NHibernate unit of work
-        services.AddScoped(typeof(IUnitOfWork<>), typeof(UnitOfWork<>));
+        services.AddScoped(typeof(INhibernateUnitOfWork), typeof(NhibernateUnitOfWork));
 
         return services;
     }
@@ -88,12 +89,12 @@ public static class ApplicationDependencyInjection
         services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
 
         // Register EF Core repositories
-        services.AddScoped(typeof(IGenericRepository<,>), typeof(Driven.EFCore.Persistence.GenericRepository<,>));
+        services.AddScoped(typeof(IEfCoreGenericRepository<,>), typeof(EfCoreGenericRepository<,>));
         services.AddScoped<IUserPrincipalRepository, UserPrincipalRepository>();
         services.AddScoped<DbContext>(provider => provider.GetService<ApplicationDbContext>()!);
 
         // Register EF Core unit of work
-        services.AddScoped(typeof(IUnitOfWork<>), typeof(Driven.EFCore.Persistence.UnitOfWork<>));
+        services.AddScoped(typeof(IEfCoreUnitOfWork), typeof(EfCoreUnitOfWork));
 
         return services;
     }
@@ -102,6 +103,10 @@ public static class ApplicationDependencyInjection
     {
         services.AddScoped<IUserService, UserService>();
         services.AddScoped<IAuthService, AuthService>();
+
+        services.AddSingleton<IDomainServiceRegistry, UniversalDomainRegistry>();
+        services.AddSingleton<IDomainObjectRegistry, UniversalDomainRegistry>();
+        services.AddSingleton<IDomainRegistry, UniversalDomainRegistry>();
 
         return services;
     }

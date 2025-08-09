@@ -2,7 +2,7 @@ using SharedKernel.SeedWork;
 
 namespace Port.Driven.Shared.Persistence;
 
-public partial interface IReadOnlyRepository<T, TId> : IRepository<T, TId> where TId : IEquatable<TId>
+public partial interface IReadOnlyRepository<T, in TId> : IRepository where TId : IEquatable<TId>
 {
     long Count();
     bool ExistsById(TId id);
@@ -11,7 +11,7 @@ public partial interface IReadOnlyRepository<T, TId> : IRepository<T, TId> where
     T? FindById(TId id);
 }
 
-public partial interface IReadOnlyRepository<T, TId>
+public partial interface IReadOnlyRepository<T, in TId>
 {
     Task<long> CountAsync(CancellationToken cancellationToken = default);
     Task<bool> ExistsByIdAsync(TId id, CancellationToken cancellationToken = default);

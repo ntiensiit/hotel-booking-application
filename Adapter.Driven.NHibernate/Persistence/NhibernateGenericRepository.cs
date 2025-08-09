@@ -5,13 +5,13 @@ using SharedKernel.SeedWork;
 
 namespace Adapter.Driven.NHibernate.Persistence;
 
-public class GenericRepository<T, TId> : IGenericRepository<T, TId>
+public class NhibernateGenericRepository<T, TId> : IGenericRepository<T, TId>
     where T : class, IEntity<TId>
     where TId : IEquatable<TId>, IComparable<TId>
 {
     protected readonly ISession Session;
 
-    public GenericRepository(ISession session)
+    public NhibernateGenericRepository(ISession session)
     {
         Session = session;
     }

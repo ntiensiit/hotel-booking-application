@@ -2,11 +2,11 @@ using System.Linq.Expressions;
 
 namespace SharedKernel.SeedWork;
 
-public interface IRepository<T, TId>
+public interface IRepository
 {
 }
 
-public interface IGenericRepository<T, TId> : IRepository<T, TId>
+public interface IGenericRepository<T, in TId> : IRepository
     where T : IEntity<TId>
     where TId : IEquatable<TId>, IComparable<TId>
 {
@@ -24,7 +24,7 @@ public interface IGenericRepository<T, TId> : IRepository<T, TId>
     // TId NextId();
 }
 
-public interface IEventStoreRepository<T, TId> : IRepository<T, TId>
+public interface IEventStoreRepository<T, in TId> : IRepository
     where T : IDomainEvent, new()
     where TId : IEquatable<TId>
 {
