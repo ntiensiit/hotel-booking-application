@@ -1,16 +1,20 @@
 using Domain.Identity.Entities;
-using Port.Driven.EFCore.Repositories;
+using Domain.Identity.Repositories;
+using Port.Driven.EFCore.Persistence;
 using Port.Driven.Shared.Events;
 
 namespace Application.Commands.CreateUserPrincipal;
 
 public class CreateUserPrincipalCommandHandler : ICommandHandler<CreateUserPrincipalCommand, UserPrincipal>
 {
+    private readonly IEfCoreUnitOfWork _efCoreUnitOfWork;
     private readonly IUserPrincipalRepository _userPrincipalRepository;
 
-    public CreateUserPrincipalCommandHandler(IUserPrincipalRepository userPrincipalRepository)
+    public CreateUserPrincipalCommandHandler(IUserPrincipalRepository userPrincipalRepository,
+        IEfCoreUnitOfWork efCoreUnitOfWork)
     {
         _userPrincipalRepository = userPrincipalRepository;
+        _efCoreUnitOfWork = efCoreUnitOfWork;
     }
 
     public async Task<UserPrincipal> Handle(CreateUserPrincipalCommand request, CancellationToken cancellationToken)
@@ -26,6 +30,11 @@ public class CreateUserPrincipalCommandHandler : ICommandHandler<CreateUserPrinc
             PhoneNumber = request.PhoneNumber
         };
 
-        return await _userPrincipalRepository.SaveOrUpdate(userPrincipal, cancellationToken);
+        await _efCoreUnitOfWork.BeginTransactionAsync(cancellationToken);
+        _userPrincipalRepository.Add(userPrincipal);
+        await _efCoreUnitOfWork.SaveChangesAsync(cancellationToken);
+        await _efCoreUnitOfWork.CommitTransactionAsync(cancellationToken);
+
+        return await Task.FromResult(userPrincipal);
     }
 }

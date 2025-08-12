@@ -9,13 +9,13 @@ using Application.Commands.CreateUserInfo;
 using Application.Commands.CreateUserPrincipal;
 using Application.Services;
 using Domain.Core.Entities;
+using Domain.Core.Repositories;
 using Domain.Identity.Entities;
+using Domain.Identity.Repositories;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Port.Driven.EFCore.Persistence;
-using Port.Driven.EFCore.Repositories;
 using Port.Driven.NHibernate.Persistence;
-using Port.Driven.NHibernate.Repositories;
 using Port.Driven.Shared.Events;
 using Port.Driving.Shared.Services;
 using SharedKernel.SeedWork;
@@ -72,6 +72,12 @@ public static class ApplicationDependencyInjection
         // Register NHibernate repositories
         services.AddScoped(typeof(INhibernateGenericRepository<,>), typeof(NhibernateGenericRepository<,>));
         services.AddScoped<IUserInfoRepository, UserInfoRepository>();
+        services.AddScoped<IBookingRepository, BookingRepository>();
+        services.AddScoped<IHotelRepository, HotelRepository>();
+        services.AddScoped<IPhotoRepository, PhotoRepository>();
+        services.AddScoped<IReviewRepository, ReviewRepository>();
+        services.AddScoped<IRoomRepository, RoomRepository>();
+        services.AddScoped<IServiceRepository, ServiceRepository>();
 
         // Register NHibernate unit of work
         services.AddScoped(typeof(INhibernateUnitOfWork), typeof(NhibernateUnitOfWork));

@@ -9,11 +9,24 @@ public class UserMap : ClassMap<UserInfo>
     {
         Table("UserInfo");
 
+        // Id
         Id(x => x.Id).GeneratedBy.Identity();
 
-        Map(x => x.FullName).Not.Nullable().Length(255);
-        Map(x => x.Age);
-        Map(x => x.Email).Unique().Length(255);
-        Map(x => x.PhoneNumber).Length(50);
+        // Primitive types
+        Map(x => x.FullName);
+        Map(x => x.DateOfBirth);
+
+        // Enum types
+
+        // Value Objects - Has One
+        Component(x => x.Email, m => { m.Map(x => x.Value).Column("Email"); });
+
+        Component(x => x.PhoneNumber, m =>
+        {
+            m.Map(x => x.CountryCode);
+            m.Map(x => x.Number);
+        });
+
+        // Value Objects - Has Many
     }
 }

@@ -5,6 +5,11 @@ public interface IDomainEvent
     DateTime OccurredOn { get; init; }
 }
 
+public interface IDomainEvent<TId> : IDomainEvent
+{
+    TId Id { get; init; }
+}
+
 public interface IHasDomainEvent
 {
     IList<IDomainEvent> DomainEvents { init; }

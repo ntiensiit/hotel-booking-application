@@ -18,12 +18,12 @@ public class UserService : IUserService
         _applicationMediator = applicationMediator;
     }
 
-    public async Task<RegisterResponseDto> RegisterNewUser(RegisterRequestDto dto)
+    public async Task RegisterNewUser(RegisterRequestDto dto)
     {
         var createUserInfoCommand = new CreateUserInfoCommand
         (
             dto.FullName,
-            dto.Age,
+            dto.DateOfBirth,
             dto.Email,
             dto.PhoneNumber
         );
@@ -32,17 +32,17 @@ public class UserService : IUserService
             await _applicationMediator.SendCommandAsync<CreateUserInfoCommand, UserInfo>(createUserInfoCommand);
 
         var createUserPrincipalCommand = new CreateUserPrincipalCommand
-            (newUserInfo.Id, true, DateTime.UtcNow, "test", newUserInfo.Email, dto.Password, newUserInfo.PhoneNumber);
+        (newUserInfo.Id, true, DateTime.UtcNow, "test", newUserInfo.Email, dto.Password,
+            newUserInfo.PhoneNumber.Number);
 
         var newUserPrincipal =
             await _applicationMediator.SendCommandAsync<CreateUserPrincipalCommand, UserPrincipal>(
                 createUserPrincipalCommand);
 
         var tokenResponseDto = new TokenResponseDto("test", "");
-        var userInfoResponseDto = new UserInfoResponseDto(newUserInfo.FullName, newUserInfo.Age, newUserInfo.Email,
-            newUserInfo.PhoneNumber);
-
-        return new RegisterResponseDto(tokenResponseDto, userInfoResponseDto);
+        var userInfoResponseDto = new UserInfoResponseDto(newUserInfo.FullName, newUserInfo.DateOfBirth,
+            newUserInfo.Email,
+            newUserInfo.PhoneNumber.Number);
     }
 
     public async Task<UserInfoResponseDto> GetCurrentUserInfo()

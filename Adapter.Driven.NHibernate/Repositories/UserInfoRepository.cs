@@ -1,7 +1,7 @@
 using Adapter.Driven.NHibernate.Persistence;
 using Domain.Core.Entities;
+using Domain.Core.Repositories;
 using NHibernate;
-using Port.Driven.NHibernate.Repositories;
 
 namespace Adapter.Driven.NHibernate.Repositories;
 
@@ -16,10 +16,5 @@ public class UserInfoRepository : NhibernateGenericRepository<UserInfo, int>, IU
         return await Session.QueryOver<UserInfo>()
             .Where(u => u.Email == email)
             .SingleOrDefaultAsync(cancellationToken);
-    }
-
-    public void Save(UserInfo userInfo)
-    {
-        Session.Save(userInfo);
     }
 }

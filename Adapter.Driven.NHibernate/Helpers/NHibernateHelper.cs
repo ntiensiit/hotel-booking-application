@@ -29,7 +29,16 @@ public static class NHibernateHelper
                     .ConnectionString(_connectionString)
                     .ShowSql()
             )
-            .Mappings(m => m.FluentMappings.AddFromAssemblyOf<UserMap>())
+            .Mappings(m =>
+            {
+                m.FluentMappings.AddFromAssemblyOf<UserMap>();
+                m.FluentMappings.AddFromAssemblyOf<BookingMap>();
+                m.FluentMappings.AddFromAssemblyOf<HotelMap>();
+                m.FluentMappings.AddFromAssemblyOf<PhotoMap>();
+                m.FluentMappings.AddFromAssemblyOf<ReviewMap>();
+                m.FluentMappings.AddFromAssemblyOf<RoomMap>();
+                m.FluentMappings.AddFromAssemblyOf<ServiceMap>();
+            })
             .BuildConfiguration();
 
         // new SchemaExport(config).Create(false, true); // (writeToConsole, execute)

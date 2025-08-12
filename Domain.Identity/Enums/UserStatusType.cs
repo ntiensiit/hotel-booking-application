@@ -1,4 +1,4 @@
-namespace Domain.Identity.ValueObjects;
+namespace Domain.Identity.Enums;
 
 public enum UserStatusType
 {

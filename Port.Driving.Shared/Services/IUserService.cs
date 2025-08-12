@@ -5,6 +5,6 @@ namespace Port.Driving.Shared.Services;
 
 public interface IUserService
 {
-    Task<RegisterResponseDto> RegisterNewUser(RegisterRequestDto dto);
+    Task RegisterNewUser(RegisterRequestDto dto);
     Task<UserInfoResponseDto> GetCurrentUserInfo();
 }
