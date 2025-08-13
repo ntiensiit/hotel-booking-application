@@ -5,19 +5,15 @@ using Adapter.Driven.MediatR;
 using Adapter.Driven.NHibernate.Helpers;
 using Adapter.Driven.NHibernate.Persistence;
 using Adapter.Driven.NHibernate.Repositories;
-using Application.Commands.CreateUserInfo;
-using Application.Commands.CreateUserPrincipal;
-using Application.Services;
-using Domain.Core.Entities;
+using Application.Commands.V1.CreateUserCommand;
 using Domain.Core.Repositories;
-using Domain.Identity.Entities;
 using Domain.Identity.Repositories;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Port.Driven.EFCore.Persistence;
 using Port.Driven.NHibernate.Persistence;
 using Port.Driven.Shared.Events;
-using Port.Driving.Shared.Services;
+using Port.Driving.Shared.DTOs.V1.Responses;
 using SharedKernel.SeedWork;
 using ISession = NHibernate.ISession;
 
@@ -28,15 +24,11 @@ public static class ApplicationDependencyInjection
     public static IServiceCollection AddApplicationMediatR(this IServiceCollection services)
     {
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(
-            typeof(CreateUserInfoCommandHandler).Assembly,
-            typeof(CreateUserPrincipalCommandHandler).Assembly
+            typeof(CreateUserCommandHandlerV1).Assembly
         ));
 
         services.Scan(scan => scan
-            .FromAssemblies(
-                typeof(CreateUserInfoCommandHandler).Assembly,
-                typeof(CreateUserPrincipalCommandHandler).Assembly
-            )
+            .FromAssemblies(typeof(CreateUserCommandHandlerV1).Assembly)
             .AddClasses(classes => classes.AssignableTo(typeof(ICommandHandler<>)))
             .AsImplementedInterfaces()
             .WithTransientLifetime()
@@ -49,11 +41,10 @@ public static class ApplicationDependencyInjection
         services.AddScoped(typeof(IApplicationMediator), typeof(MediatRApplicationMediator));
 
         // Register command request handlers
-        services.AddTransient(typeof(IRequestHandler<MediatRCommandRequest<CreateUserInfoCommand, UserInfo>, UserInfo>),
-            typeof(MediatRCommandRequestHandler<CreateUserInfoCommand, UserInfo>));
         services.AddTransient(
-            typeof(IRequestHandler<MediatRCommandRequest<CreateUserPrincipalCommand, UserPrincipal>, UserPrincipal>),
-            typeof(MediatRCommandRequestHandler<CreateUserPrincipalCommand, UserPrincipal>));
+            typeof(IRequestHandler<MediatRCommandRequest<CreateUserCommandV1, UserInfoResponseDtoV1>,
+                UserInfoResponseDtoV1>),
+            typeof(MediatRCommandRequestHandler<CreateUserCommandV1, UserInfoResponseDtoV1>));
 
         return services;
     }
@@ -107,9 +98,6 @@ public static class ApplicationDependencyInjection
 
     public static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {
-        services.AddScoped<IUserService, UserService>();
-        services.AddScoped<IAuthService, AuthService>();
-
         services.AddSingleton<IDomainServiceRegistry, UniversalDomainRegistry>();
         services.AddSingleton<IDomainObjectRegistry, UniversalDomainRegistry>();
         services.AddSingleton<IDomainRegistry, UniversalDomainRegistry>();

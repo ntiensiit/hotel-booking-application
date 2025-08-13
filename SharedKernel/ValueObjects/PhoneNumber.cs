@@ -28,4 +28,14 @@ public readonly partial record struct PhoneNumber
     {
         return IsValid(phoneNumber.CountryCode, phoneNumber.Number);
     }
+
+    public static implicit operator string(PhoneNumber phoneNumber)
+    {
+        return phoneNumber.Number;
+    }
+
+    public static implicit operator PhoneNumber(string phoneNumber)
+    {
+        return new PhoneNumber(phoneNumber);
+    }
 }

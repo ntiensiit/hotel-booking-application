@@ -9,6 +9,7 @@
     <ItemGroup>
         <ProjectReference Include="..\Domain.Identity\Domain.Identity.csproj"/>
         <ProjectReference Include="..\Domain.Core\Domain.Core.csproj"/>
+        <ProjectReference Include="..\Port.Driven.ADO\Port.Driven.ADO.csproj" />
         <ProjectReference Include="..\Port.Driven.EFCore\Port.Driven.EFCore.csproj"/>
         <ProjectReference Include="..\Port.Driven.NHibernate\Port.Driven.NHibernate.csproj"/>
         <ProjectReference Include="..\Port.Driven.Shared\Port.Driven.Shared.csproj"/>
@@ -16,7 +17,10 @@
     </ItemGroup>
 
     <ItemGroup>
+        <Folder Include="Commands\V1\" />
         <Folder Include="DPOs\"/>
+        <Folder Include="Queries\V1\" />
+        <Folder Include="Services\"/>
     </ItemGroup>
 
 </Project>

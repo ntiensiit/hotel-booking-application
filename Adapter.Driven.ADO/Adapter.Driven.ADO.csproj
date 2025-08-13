@@ -7,8 +7,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Folder Include="DTOs\V1\"/>
-        <Folder Include="Services\"/>
+      <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.3" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Port.Driven.ADO\Port.Driven.ADO.csproj" />
     </ItemGroup>
 
 </Project>
