@@ -3,7 +3,7 @@ using FluentNHibernate.Mapping;
 
 namespace Adapter.Driven.NHibernate.Mappings;
 
-public class RoomMap : ClassMap<Room>
+public class RoomMap<TId> : ClassMap<Room<TId>> where TId : IEquatable<TId>
 {
     public RoomMap()
     {

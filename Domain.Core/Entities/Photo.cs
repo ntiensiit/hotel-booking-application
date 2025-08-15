@@ -8,10 +8,6 @@ public partial class Photo<TId> : IEntity<TId> where TId : IEquatable<TId>
     public virtual TId Id { get; set; } = default!;
 }
 
-public class Photo : Photo<int>
-{
-}
-
 public partial class Photo<TId>
 {
 }

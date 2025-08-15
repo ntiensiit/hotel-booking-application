@@ -3,7 +3,7 @@ using SharedKernel.SeedWork;
 
 namespace Domain.Core.Repositories;
 
-public interface IUserInfoRepository : IGenericRepository<UserInfo, int>
+public interface IUserInfoRepository : IGenericRepository<UserInfo<int>, int>
 {
-    Task<UserInfo?> GetByEmailAsync(string email, CancellationToken cancellationToken);
+    Task<UserInfo<int>?> GetByEmailAsync(string email, CancellationToken cancellationToken);
 }

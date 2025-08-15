@@ -4,7 +4,7 @@ using FluentNHibernate.Mapping;
 
 namespace Adapter.Driven.NHibernate.Mappings;
 
-public class BookingMap : ClassMap<Booking>
+public class BookingMap<TId> : ClassMap<Booking<TId>> where TId : IEquatable<TId>
 {
     public BookingMap()
     {

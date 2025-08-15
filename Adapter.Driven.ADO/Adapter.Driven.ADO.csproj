@@ -7,11 +7,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.3" />
+        <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.3"/>
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Port.Driven.ADO\Port.Driven.ADO.csproj" />
+        <ProjectReference Include="..\Port.Driven.ADO\Port.Driven.ADO.csproj"/>
     </ItemGroup>
 
 </Project>

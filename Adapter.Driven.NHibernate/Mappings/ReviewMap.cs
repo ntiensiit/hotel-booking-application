@@ -3,7 +3,7 @@ using FluentNHibernate.Mapping;
 
 namespace Adapter.Driven.NHibernate.Mappings;
 
-public class ReviewMap : ClassMap<Review>
+public class ReviewMap<TId> : ClassMap<Review<TId>> where TId : IEquatable<TId>
 {
     public ReviewMap()
     {

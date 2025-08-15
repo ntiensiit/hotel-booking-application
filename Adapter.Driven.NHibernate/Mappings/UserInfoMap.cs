@@ -3,9 +3,9 @@ using FluentNHibernate.Mapping;
 
 namespace Adapter.Driven.NHibernate.Mappings;
 
-public class UserMap : ClassMap<UserInfo>
+public class UserInfoMap<TId> : ClassMap<UserInfo<TId>> where TId : IEquatable<TId>
 {
-    public UserMap()
+    public UserInfoMap()
     {
         Table("UserInfo");
 

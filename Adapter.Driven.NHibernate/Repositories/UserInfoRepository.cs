@@ -5,15 +5,15 @@ using NHibernate;
 
 namespace Adapter.Driven.NHibernate.Repositories;
 
-public class UserInfoRepository : NhibernateGenericRepository<UserInfo, int>, IUserInfoRepository
+public class UserInfoRepository : NhibernateGenericRepository<UserInfo<int>, int>, IUserInfoRepository
 {
     public UserInfoRepository(ISession session) : base(session)
     {
     }
 
-    public async Task<UserInfo?> GetByEmailAsync(string email, CancellationToken cancellationToken)
+    public async Task<UserInfo<int>?> GetByEmailAsync(string email, CancellationToken cancellationToken)
     {
-        return await Session.QueryOver<UserInfo>()
+        return await Session.QueryOver<UserInfo<int>>()
             .Where(u => u.Email == email)
             .SingleOrDefaultAsync(cancellationToken);
     }

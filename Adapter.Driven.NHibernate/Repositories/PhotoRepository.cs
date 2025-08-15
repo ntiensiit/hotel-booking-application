@@ -5,7 +5,7 @@ using NHibernate;
 
 namespace Adapter.Driven.NHibernate.Repositories;
 
-public class PhotoRepository : NhibernateGenericRepository<Photo, int>, IPhotoRepository
+public class PhotoRepository : NhibernateGenericRepository<Photo<int>, int>, IPhotoRepository
 {
     public PhotoRepository(ISession session) : base(session)
     {

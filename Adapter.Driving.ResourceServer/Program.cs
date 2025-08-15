@@ -1,4 +1,7 @@
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using Adapter.Driven.NHibernate.Helpers;
+using Adapter.Driving.ResourceServer.Converter;
 using Adapter.Driving.ResourceServer.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,7 +15,13 @@ builder.Services
 
 NHibernateHelper.OpenSession();
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.Converters.Add(new DateOnlyJsonConverter());
+    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+    options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+});
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

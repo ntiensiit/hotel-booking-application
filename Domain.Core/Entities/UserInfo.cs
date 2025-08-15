@@ -16,10 +16,6 @@ public partial class UserInfo<TId> : IEntity<TId> where TId : IEquatable<TId>
     public virtual TId Id { get; set; } = default!;
 }
 
-public class UserInfo : UserInfo<int>
-{
-}
-
 public partial class UserInfo<TId>
 {
     public virtual void UpdateEmail(string email)
@@ -37,14 +33,15 @@ public partial class UserInfo<TId>
 
 public partial class UserInfo<TId>
 {
-    public static UserInfo Create(string fullName, DateTime dateOfBirth, string email, PhoneNumber phoneNumber)
+    public UserInfo()
     {
-        return new UserInfo
-        {
-            FullName = fullName,
-            DateOfBirth = dateOfBirth,
-            Email = email,
-            PhoneNumber = phoneNumber
-        };
+    }
+
+    public UserInfo(string fullName, DateTime dateOfBirth, string email, PhoneNumber phoneNumber)
+    {
+        FullName = fullName;
+        DateOfBirth = dateOfBirth;
+        Email = email;
+        PhoneNumber = phoneNumber;
     }
 }

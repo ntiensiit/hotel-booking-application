@@ -3,7 +3,7 @@ using FluentNHibernate.Mapping;
 
 namespace Adapter.Driven.NHibernate.Mappings;
 
-public class HotelMap : ClassMap<Hotel>
+public class HotelMap<TId> : ClassMap<Hotel<TId>> where TId : IEquatable<TId>
 {
     public HotelMap()
     {

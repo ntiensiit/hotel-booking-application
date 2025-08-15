@@ -31,13 +31,13 @@ public static class NHibernateHelper
             )
             .Mappings(m =>
             {
-                m.FluentMappings.AddFromAssemblyOf<UserMap>();
-                m.FluentMappings.AddFromAssemblyOf<BookingMap>();
-                m.FluentMappings.AddFromAssemblyOf<HotelMap>();
-                m.FluentMappings.AddFromAssemblyOf<PhotoMap>();
-                m.FluentMappings.AddFromAssemblyOf<ReviewMap>();
-                m.FluentMappings.AddFromAssemblyOf<RoomMap>();
-                m.FluentMappings.AddFromAssemblyOf<ServiceMap>();
+                m.FluentMappings.Add<UserInfoMap<int>>();
+                m.FluentMappings.Add<BookingMap<int>>();
+                m.FluentMappings.Add<HotelMap<int>>();
+                m.FluentMappings.Add<PhotoMap<int>>();
+                m.FluentMappings.Add<ReviewMap<int>>();
+                m.FluentMappings.Add<RoomMap<int>>();
+                m.FluentMappings.Add<ServiceMap<int>>();
             })
             .BuildConfiguration();
 

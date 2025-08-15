@@ -5,7 +5,7 @@ using NHibernate;
 
 namespace Adapter.Driven.NHibernate.Repositories;
 
-public class BookingRepository : NhibernateGenericRepository<Booking, int>, IBookingRepository
+public class BookingRepository : NhibernateGenericRepository<Booking<int>, int>, IBookingRepository
 {
     public BookingRepository(ISession session) : base(session)
     {

@@ -24,10 +24,6 @@ public partial class Service<TId> : IEntity<TId> where TId : IEquatable<TId>
     public virtual TId Id { get; set; } = default!;
 }
 
-public class Service : Service<int>
-{
-}
-
 public partial class Service<TId>
 {
 }

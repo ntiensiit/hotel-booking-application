@@ -3,6 +3,6 @@ using SharedKernel.SeedWork;
 
 namespace Domain.Core.Repositories;
 
-public interface IHotelRepository : IGenericRepository<Hotel, int>
+public interface IHotelRepository : IGenericRepository<Hotel<int>, int>
 {
 }

@@ -28,10 +28,6 @@ public partial class Room<TId> : IEntity<TId> where TId : IEquatable<TId>
     public virtual TId Id { get; set; } = default!;
 }
 
-public class Room : Room<int>
-{
-}
-
 public partial class Room<TId>
 {
     public virtual void SetPricing(Pricing pricing)

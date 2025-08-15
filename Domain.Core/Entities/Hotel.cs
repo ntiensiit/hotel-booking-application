@@ -11,7 +11,7 @@ public partial class Hotel<TId> : IEntity<TId> where TId : IEquatable<TId>
     public virtual string Description { get; set; } = string.Empty;
     public virtual DateTime RegistrationDate { get; set; }
 
-    public virtual DateTime ApprovedDate { get; set; }
+    public virtual DateTime? ApprovedDate { get; set; }
 
     // Enum properties
     public virtual HotelType HotelType { get; set; }
@@ -32,18 +32,31 @@ public partial class Hotel<TId> : IEntity<TId> where TId : IEquatable<TId>
     public virtual TId Id { get; set; } = default!;
 }
 
-public class Hotel : Hotel<int>
-{
-}
-
 public partial class Hotel<TId>
 {
 }
 
 public partial class Hotel<TId>
 {
-    public static Hotel<TId> Create(Hotel<TId> hotel)
+    public Hotel()
     {
-        return new Hotel<TId>();
+    }
+
+    public Hotel(string name, string description, DateTime registrationDate, DateTime? approvedDate,
+        HotelType hotelType,
+        HotelStatus status, Address address, StarRating starRating, ContactInfo contactInfo,
+        HotelPolicies hotelPolicies, TId hostId)
+    {
+        Name = name;
+        Description = description;
+        RegistrationDate = registrationDate;
+        ApprovedDate = approvedDate;
+        HotelType = hotelType;
+        Status = status;
+        Address = address;
+        StarRating = starRating;
+        ContactInfo = contactInfo;
+        HotelPolicies = hotelPolicies;
+        HostId = hostId;
     }
 }

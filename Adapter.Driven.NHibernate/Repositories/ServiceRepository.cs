@@ -5,7 +5,7 @@ using NHibernate;
 
 namespace Adapter.Driven.NHibernate.Repositories;
 
-public class ServiceRepository : NhibernateGenericRepository<Service, int>, IServiceRepository
+public class ServiceRepository : NhibernateGenericRepository<Service<int>, int>, IServiceRepository
 {
     public ServiceRepository(ISession session) : base(session)
     {

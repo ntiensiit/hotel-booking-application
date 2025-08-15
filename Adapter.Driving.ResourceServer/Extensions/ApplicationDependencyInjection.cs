@@ -5,7 +5,12 @@ using Adapter.Driven.MediatR;
 using Adapter.Driven.NHibernate.Helpers;
 using Adapter.Driven.NHibernate.Persistence;
 using Adapter.Driven.NHibernate.Repositories;
-using Application.Commands.V1.CreateUserCommand;
+using Application.Commands.V1.CreateCommands.CreateBooking;
+using Application.Commands.V1.CreateCommands.CreateHotel;
+using Application.Commands.V1.CreateCommands.CreateReview;
+using Application.Commands.V1.CreateCommands.CreateRoom;
+using Application.Commands.V1.CreateCommands.CreateService;
+using Application.Commands.V1.CreateCommands.CreateUser;
 using Domain.Core.Repositories;
 using Domain.Identity.Repositories;
 using MediatR;
@@ -13,7 +18,6 @@ using Microsoft.EntityFrameworkCore;
 using Port.Driven.EFCore.Persistence;
 using Port.Driven.NHibernate.Persistence;
 using Port.Driven.Shared.Events;
-using Port.Driving.Shared.DTOs.V1.Responses;
 using SharedKernel.SeedWork;
 using ISession = NHibernate.ISession;
 
@@ -24,11 +28,18 @@ public static class ApplicationDependencyInjection
     public static IServiceCollection AddApplicationMediatR(this IServiceCollection services)
     {
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(
-            typeof(CreateUserCommandHandlerV1).Assembly
+            typeof(CreateUserCommandHandlerV1).Assembly,
+            typeof(CreateBookingCommandHandlerV1).Assembly,
+            typeof(CreateHotelCommandHandlerV1).Assembly,
+            typeof(CreateRoomCommandHandlerV1).Assembly,
+            typeof(CreateServiceCommandHandlerV1).Assembly,
+            typeof(CreateReviewCommandHandlerV1).Assembly
         ));
 
         services.Scan(scan => scan
-            .FromAssemblies(typeof(CreateUserCommandHandlerV1).Assembly)
+            .FromAssemblies(typeof(CreateUserCommandHandlerV1).Assembly, typeof(CreateBookingCommandHandlerV1).Assembly,
+                typeof(CreateHotelCommandHandlerV1).Assembly, typeof(CreateRoomCommandHandlerV1).Assembly,
+                typeof(CreateServiceCommandHandlerV1).Assembly, typeof(CreateReviewCommandHandlerV1).Assembly)
             .AddClasses(classes => classes.AssignableTo(typeof(ICommandHandler<>)))
             .AsImplementedInterfaces()
             .WithTransientLifetime()
@@ -41,10 +52,18 @@ public static class ApplicationDependencyInjection
         services.AddScoped(typeof(IApplicationMediator), typeof(MediatRApplicationMediator));
 
         // Register command request handlers
-        services.AddTransient(
-            typeof(IRequestHandler<MediatRCommandRequest<CreateUserCommandV1, UserInfoResponseDtoV1>,
-                UserInfoResponseDtoV1>),
-            typeof(MediatRCommandRequestHandler<CreateUserCommandV1, UserInfoResponseDtoV1>));
+        services.AddTransient(typeof(IRequestHandler<MediatRCommandRequest<CreateUserCommandV1, object>, object>),
+            typeof(MediatRCommandRequestHandler<CreateUserCommandV1, object>));
+        services.AddTransient(typeof(IRequestHandler<MediatRCommandRequest<CreateBookingCommandV1, object>, object>),
+            typeof(MediatRCommandRequestHandler<CreateBookingCommandV1, object>));
+        services.AddTransient(typeof(IRequestHandler<MediatRCommandRequest<CreateHotelCommandV1, object>, object>),
+            typeof(MediatRCommandRequestHandler<CreateHotelCommandV1, object>));
+        services.AddTransient(typeof(IRequestHandler<MediatRCommandRequest<CreateReviewCommandV1, object>, object>),
+            typeof(MediatRCommandRequestHandler<CreateReviewCommandV1, object>));
+        services.AddTransient(typeof(IRequestHandler<MediatRCommandRequest<CreateRoomCommandV1, object>, object>),
+            typeof(MediatRCommandRequestHandler<CreateRoomCommandV1, object>));
+        services.AddTransient(typeof(IRequestHandler<MediatRCommandRequest<CreateServiceCommandV1, object>, object>),
+            typeof(MediatRCommandRequestHandler<CreateServiceCommandV1, object>));
 
         return services;
     }

@@ -5,7 +5,7 @@ using NHibernate;
 
 namespace Adapter.Driven.NHibernate.Repositories;
 
-public class ReviewRepository : NhibernateGenericRepository<Review, int>, IReviewRepository
+public class ReviewRepository : NhibernateGenericRepository<Review<int>, int>, IReviewRepository
 {
     public ReviewRepository(ISession session) : base(session)
     {

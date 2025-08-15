@@ -3,6 +3,6 @@ using SharedKernel.SeedWork;
 
 namespace Domain.Core.Repositories;
 
-public interface IPhotoRepository : IGenericRepository<Photo, int>
+public interface IPhotoRepository : IGenericRepository<Photo<int>, int>
 {
 }

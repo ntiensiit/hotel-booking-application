@@ -3,7 +3,7 @@ using FluentNHibernate.Mapping;
 
 namespace Adapter.Driven.NHibernate.Mappings;
 
-public class ServiceMap : ClassMap<Service>
+public class ServiceMap<TId> : ClassMap<Service<TId>> where TId : IEquatable<TId>
 {
     public ServiceMap()
     {

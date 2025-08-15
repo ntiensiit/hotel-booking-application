@@ -21,17 +21,13 @@ public partial class Booking<TId> : IEntity<TId> where TId : IEquatable<TId>
     public virtual IEnumerable<SpecialRequest> SpecialRequests { get; set; } = new List<SpecialRequest>();
 
     // Reference Ids
-    public virtual TId UserId { get; set; } = default!;
-    public virtual TId HotelId { get; set; } = default!;
+    public virtual TId UserId { get; set; }
+    public virtual TId HotelId { get; set; }
 
-    public virtual TId RoomId { get; set; } = default!;
+    public virtual TId RoomId { get; set; }
 
     // Id
     public virtual TId Id { get; set; } = default!;
-}
-
-public class Booking : Booking<int>
-{
 }
 
 public partial class Booking<TId>
@@ -39,5 +35,25 @@ public partial class Booking<TId>
     public virtual Money CalculateTotal()
     {
         return new Money(250.00m, Currency.Usd);
+    }
+}
+
+public partial class Booking<TId>
+{
+    public Booking()
+    {
+    }
+
+    public Booking(DateOnly checkInDate, DateOnly checkOutDate, int numberOfGuests, BookingStatus status, Money
+        totalAmount, TId userId, TId hotelId, TId roomId)
+    {
+        CheckInDate = checkInDate;
+        CheckOutDate = checkOutDate;
+        NumberOfGuests = numberOfGuests;
+        Status = status;
+        TotalAmount = totalAmount;
+        UserId = userId;
+        HotelId = hotelId;
+        RoomId = roomId;
     }
 }

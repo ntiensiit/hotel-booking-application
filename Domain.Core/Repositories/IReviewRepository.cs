@@ -3,6 +3,6 @@ using SharedKernel.SeedWork;
 
 namespace Domain.Core.Repositories;
 
-public interface IReviewRepository : IGenericRepository<Review, int>
+public interface IReviewRepository : IGenericRepository<Review<int>, int>
 {
 }
