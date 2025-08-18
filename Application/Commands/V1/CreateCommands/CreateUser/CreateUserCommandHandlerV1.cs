@@ -1,9 +1,9 @@
 using Domain.Core.Entities;
-using Domain.Core.Repositories;
 using Domain.Identity.Entities;
 using Domain.Identity.Repositories;
 using Port.Driven.EFCore.Persistence;
 using Port.Driven.NHibernate.Persistence;
+using Port.Driven.NHibernate.Repositories;
 using Port.Driven.Shared.Events;
 using SharedKernel.ValueObjects;
 

@@ -22,7 +22,7 @@ public class RoomsController : ControllerBase
         var command = new CreateRoomCommandV1(requestBody);
 
         var result = await _applicationMediator.SendCommandAsync<CreateRoomCommandV1, object>(command);
-        
+
         return Ok(result);
     }
 }

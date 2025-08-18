@@ -20,9 +20,9 @@ public class ServicesController : ControllerBase
     public async Task<IActionResult> Create([FromBody] ServiceCreateRequestBodyV1 requestBody)
     {
         var command = new CreateServiceCommandV1(requestBody);
-        
-        var result =  await _applicationMediator.SendCommandAsync<CreateServiceCommandV1, object>(command);
-        
+
+        var result = await _applicationMediator.SendCommandAsync<CreateServiceCommandV1, object>(command);
+
         return Ok(result);
     }
 }
