@@ -1,7 +1,4 @@
-using Adapter.Driven.EFCore.Contexts;
-using Domain.Identity.Entities;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+using Adapter.Driving.AuthenticationServer.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,22 +9,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("AuthenticationServerDBConnection")));
+builder.Services
+    .AddApplicationServices(builder.Configuration)
+    .AddApplicationIdentity(builder.Configuration);
 
-builder.Services.AddIdentity<UserPrincipal, IdentityRole<int>>(
-        // options =>
-        // {
-        //     options.SignIn.RequireConfirmedAccount = false;
-        //     options.Password.RequireDigit = false;
-        //     options.Password.RequiredLength = 6;
-        //     options.Password.RequireNonAlphanumeric = false;
-        //     options.Password.RequireUppercase = false;
-        //     options.Password.RequireLowercase = false;
-        // }
-    )
-    .AddEntityFrameworkStores<ApplicationDbContext>()
-    .AddDefaultTokenProviders();
+builder.Services.AddMemoryCache();
 
 var app = builder.Build();
 
@@ -39,6 +25,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

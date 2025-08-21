@@ -1,6 +1,3 @@
-using Adapter.Driven.EFCore.Contexts;
-using Adapter.Driven.EFCore.Persistence;
-using Adapter.Driven.EFCore.Repositories;
 using Adapter.Driven.MediatR;
 using Adapter.Driven.NHibernate.Helpers;
 using Adapter.Driven.NHibernate.Persistence;
@@ -11,13 +8,13 @@ using Application.Commands.V1.CreateCommands.CreateReview;
 using Application.Commands.V1.CreateCommands.CreateRoom;
 using Application.Commands.V1.CreateCommands.CreateService;
 using Application.Commands.V1.CreateCommands.CreateUser;
-using Domain.Identity.Repositories;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
-using Port.Driven.EFCore.Persistence;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using Port.Driven.NHibernate.Persistence;
 using Port.Driven.NHibernate.Repositories;
 using Port.Driven.Shared.Events;
+using Shared.Settings;
 using SharedKernel.SeedWork;
 using ISession = NHibernate.ISession;
 
@@ -71,10 +68,11 @@ public static class ApplicationDependencyInjection
     public static IServiceCollection AddNHibernate(this IServiceCollection services, IConfiguration configuration)
     {
         // Get connection string or throw
-        var connectionString = configuration.GetConnectionString("ResourceServerDBConnection")
-                               ?? throw new InvalidOperationException("No connection string found");
+        var connectionStrings = configuration.GetSection(DatabaseSettings.SectionName).Get<DatabaseSettings>();
+        if (string.IsNullOrEmpty(connectionStrings?.ResourceServerDBConnection))
+            throw new InvalidOperationException($"{nameof(connectionStrings.ResourceServerDBConnection)} is required.");
 
-        NHibernateHelper.SetConnectionString(connectionString);
+        NHibernateHelper.SetConnectionString(connectionStrings.ResourceServerDBConnection);
 
         // Register NHibernate session (singleton pattern)
         services.AddScoped<ISession>(_ => NHibernateHelper.OpenSession());
@@ -95,31 +93,75 @@ public static class ApplicationDependencyInjection
         return services;
     }
 
-    public static IServiceCollection AddEfCore(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddApplicationServices(this IServiceCollection services,
+        IConfiguration configuration)
     {
-        // Get connection string or throw
-        var connectionString = configuration.GetConnectionString("AuthenticationServerDBConnection")
-                               ?? throw new InvalidOperationException("No connection string found");
+        services.Configure<DatabaseSettings>(configuration.GetSection(DatabaseSettings.SectionName));
+        services.Configure<JwtSettings>(configuration.GetSection(JwtSettings.SectionName));
 
-        // Register EF Core DbContext for Identity
-        services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
-
-        // Register EF Core repositories
-        services.AddScoped(typeof(IEfCoreGenericRepository<,>), typeof(EfCoreGenericRepository<,>));
-        services.AddScoped<IUserPrincipalRepository, UserPrincipalRepository>();
-        services.AddScoped<DbContext>(provider => provider.GetService<ApplicationDbContext>()!);
-
-        // Register EF Core unit of work
-        services.AddScoped(typeof(IEfCoreUnitOfWork), typeof(EfCoreUnitOfWork));
+        services.AddSingleton<IDomainServiceRegistry, UniversalDomainRegistry>();
+        services.AddSingleton<IDomainObjectRegistry, UniversalDomainRegistry>();
+        services.AddSingleton<IDomainRegistry, UniversalDomainRegistry>();
 
         return services;
     }
 
-    public static IServiceCollection AddApplicationServices(this IServiceCollection services)
+    public static IServiceCollection AddApplicationAuthentication(this IServiceCollection services,
+        IConfiguration configuration)
     {
-        services.AddSingleton<IDomainServiceRegistry, UniversalDomainRegistry>();
-        services.AddSingleton<IDomainObjectRegistry, UniversalDomainRegistry>();
-        services.AddSingleton<IDomainRegistry, UniversalDomainRegistry>();
+        services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(options =>
+            {
+                var jwtSettings = configuration.GetSection(JwtSettings.SectionName).Get<JwtSettings>();
+
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidIssuer = jwtSettings.Issuer,
+                    ValidateAudience = true,
+                    ValidAudience = jwtSettings.Audience,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKeyResolver = (token, securityToken, kid, validationParameters) =>
+                    {
+                        var handler = new HttpClientHandler
+                        {
+                            ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true
+                        };
+
+                        using var httpClient = new HttpClient(handler);
+                        try
+                        {
+                            var response = httpClient.GetStringAsync(jwtSettings.JWKS).GetAwaiter().GetResult();
+                            return new JsonWebKeySet(response).Keys;
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine($"Failed to fetch JWKS: {ex.Message}");
+                            return null;
+                        }
+                    }
+                };
+
+                options.Events = new JwtBearerEvents
+                {
+                    OnAuthenticationFailed = ctx =>
+                    {
+                        Console.WriteLine($"Token invalid: {ctx.Exception}");
+                        return Task.CompletedTask;
+                    },
+                    OnChallenge = ctx =>
+                    {
+                        Console.WriteLine($"OnChallenge error: {ctx.Error}, desc: {ctx.ErrorDescription}");
+                        return Task.CompletedTask;
+                    },
+                    OnTokenValidated = ctx =>
+                    {
+                        Console.WriteLine("Token validated successfully!");
+                        return Task.CompletedTask;
+                    }
+                };
+            });
 
         return services;
     }

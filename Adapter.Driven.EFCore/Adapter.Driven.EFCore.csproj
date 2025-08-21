@@ -15,10 +15,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="EntityConfigs\"/>
-    </ItemGroup>
-
-    <ItemGroup>
         <ProjectReference Include="..\Port.Driven.EFCore\Port.Driven.EFCore.csproj"/>
     </ItemGroup>
 

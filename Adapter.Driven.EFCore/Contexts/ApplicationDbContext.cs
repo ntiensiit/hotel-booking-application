@@ -1,25 +1,30 @@
 using Domain.Identity.Entities;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Adapter.Driven.EFCore.Contexts;
 
-public class ApplicationDbContext : IdentityDbContext<UserPrincipal, IdentityRole<int>, int>
+public class ApplicationDbContext : IdentityDbContext<
+    ApplicationUser,
+    ApplicationRole,
+    int,
+    ApplicationUserClaims,
+    ApplicationUserRole,
+    ApplicationUserLogin,
+    ApplicationRoleClaims,
+    ApplicationUserToken>
 {
-    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-        : base(options)
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
     {
     }
 
     public DbSet<RefreshToken> RefreshTokens { get; set; }
+    public DbSet<Client> Clients { get; set; }
+    public DbSet<SigningKey> SigningKeys { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
-
-        builder.Entity<UserPrincipal>()
-            .Property(up => up.Id)
-            .ValueGeneratedNever();
+        builder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
     }
 }

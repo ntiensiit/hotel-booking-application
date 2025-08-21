@@ -3,19 +3,20 @@ using System.Text.Json.Serialization;
 using Adapter.Driven.NHibernate.Helpers;
 using Adapter.Driving.ResourceServer.Converter;
 using Adapter.Driving.ResourceServer.Extensions;
+using Microsoft.AspNetCore.Mvc.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services
-    .AddApplicationServices()
     .AddApplicationMediatR()
     .AddNHibernate(builder.Configuration)
-    .AddEfCore(builder.Configuration);
+    .AddApplicationServices(builder.Configuration)
+    .AddApplicationAuthentication(builder.Configuration);
 
 NHibernateHelper.OpenSession();
 
-builder.Services.AddControllers().AddJsonOptions(options =>
+builder.Services.AddControllers(options => { options.Filters.Add(new AuthorizeFilter()); }).AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.Converters.Add(new DateOnlyJsonConverter());
     options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
@@ -36,6 +37,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

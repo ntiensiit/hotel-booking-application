@@ -21,8 +21,8 @@ public sealed class Page<T> : IPage<T>
     public int PageNumber { get; }
     public int PageSize { get; }
 
-    public bool HasNext => PageNumber < TotalPages;
-    public bool HasPrevious => PageNumber > 1;
+    public bool HasNextPage => PageNumber < TotalPages;
+    public bool HasPreviousPage => PageNumber > 1;
     public bool IsFirst => PageNumber == 1;
     public bool IsLast => PageNumber == TotalPages;
 
@@ -50,8 +50,8 @@ public interface IPage<out T> : IEnumerable<T>
     int TotalPages { get; }
     int PageNumber { get; }
     int PageSize { get; }
-    bool HasNext { get; }
-    bool HasPrevious { get; }
+    bool HasNextPage { get; }
+    bool HasPreviousPage { get; }
     bool IsFirst { get; }
     bool IsLast { get; }
 

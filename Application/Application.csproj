@@ -18,7 +18,6 @@
     <ItemGroup>
         <Folder Include="Commands\V1\CreateCommands\"/>
         <Folder Include="DPOs\"/>
-        <Folder Include="Services\"/>
     </ItemGroup>
 
 </Project>
