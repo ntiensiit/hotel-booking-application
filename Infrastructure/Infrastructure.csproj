@@ -6,10 +6,4 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
-    <ItemGroup>
-        <ProjectReference Include="..\Adapter.Driven.EFCore\Adapter.Driven.EFCore.csproj"/>
-        <ProjectReference Include="..\Adapter.Driven.MediatR\Adapter.Driven.MediatR.csproj"/>
-        <ProjectReference Include="..\Adapter.Driven.NHibernate\Adapter.Driven.NHibernate.csproj"/>
-    </ItemGroup>
-
 </Project>

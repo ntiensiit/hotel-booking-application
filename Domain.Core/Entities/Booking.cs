@@ -37,23 +37,3 @@ public partial class Booking<TId>
         return new Money(250.00m, Currency.Usd);
     }
 }
-
-public partial class Booking<TId>
-{
-    public Booking()
-    {
-    }
-
-    public Booking(DateOnly checkInDate, DateOnly checkOutDate, int numberOfGuests, BookingStatus status, Money
-        totalAmount, TId userId, TId hotelId, TId roomId)
-    {
-        CheckInDate = checkInDate;
-        CheckOutDate = checkOutDate;
-        NumberOfGuests = numberOfGuests;
-        Status = status;
-        TotalAmount = totalAmount;
-        UserId = userId;
-        HotelId = hotelId;
-        RoomId = roomId;
-    }
-}

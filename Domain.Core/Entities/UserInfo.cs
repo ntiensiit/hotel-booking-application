@@ -30,18 +30,3 @@ public partial class UserInfo<TId>
         if (PhoneNumber.IsValid(phoneNumber)) PhoneNumber = phoneNumber;
     }
 }
-
-public partial class UserInfo<TId>
-{
-    public UserInfo()
-    {
-    }
-
-    public UserInfo(string fullName, DateTime dateOfBirth, string email, PhoneNumber phoneNumber)
-    {
-        FullName = fullName;
-        DateOfBirth = dateOfBirth;
-        Email = email;
-        PhoneNumber = phoneNumber;
-    }
-}

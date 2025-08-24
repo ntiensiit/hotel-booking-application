@@ -1,7 +1,10 @@
-using Application.Commands.V1.CreateCommands.CreateReview;
+using Adapter.Driving.ResourceServer.Commands.V1.CreateCommands.CreateReview;
+using Adapter.Driving.ResourceServer.DTOs.V1.Requests.Review;
+using Adapter.Driving.ResourceServer.Queries.V1.GetReviewsByHotelId;
+using Domain.Core.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Port.Driven.Shared.Events;
-using Port.Driving.Shared.DTOs.V1.Requests.Review;
 
 namespace Adapter.Driving.ResourceServer.Controllers.V1;
 
@@ -14,6 +17,18 @@ public class ReviewsController : ControllerBase
     public ReviewsController(IApplicationMediator applicationMediator)
     {
         _applicationMediator = applicationMediator;
+    }
+
+    [HttpGet("/hotels/{hotelId:int}/reviews")]
+    [AllowAnonymous]
+    public async Task<IActionResult> GetByHotelIdAsync(int hotelId)
+    {
+        var query = new GetReviewsByHotelIdQueryV1(hotelId);
+
+        var result =
+            await _applicationMediator.SendQueryAsync<GetReviewsByHotelIdQueryV1, IEnumerable<Review<int>>>(query);
+
+        return Ok(result);
     }
 
     [HttpPost]

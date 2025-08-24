@@ -1,7 +1,7 @@
-using Application.Commands.V1.CreateCommands.CreateService;
+using Adapter.Driving.ResourceServer.Commands.V1.CreateCommands.CreateService;
+using Adapter.Driving.ResourceServer.DTOs.V1.Requests.Service;
 using Microsoft.AspNetCore.Mvc;
 using Port.Driven.Shared.Events;
-using Port.Driving.Shared.DTOs.V1.Requests.Service;
 
 namespace Adapter.Driving.ResourceServer.Controllers.V1;
 

@@ -1,7 +1,8 @@
-using Application.Commands.V1.CreateCommands.CreateBooking;
+using Adapter.Driving.ResourceServer.Commands.V1.CreateCommands.CreateBooking;
+using Adapter.Driving.ResourceServer.DTOs.V1.Requests.Booking;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Port.Driven.Shared.Events;
-using Port.Driving.Shared.DTOs.V1.Requests.Booking;
 
 namespace Adapter.Driving.ResourceServer.Controllers.V1;
 
@@ -17,6 +18,7 @@ public class BookingController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize]
     public async Task<IActionResult> Create([FromBody] BookingCreateRequestBodyV1 requestBody)
     {
         var command = new CreateBookingCommandV1(requestBody);

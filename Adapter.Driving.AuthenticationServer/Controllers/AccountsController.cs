@@ -52,7 +52,17 @@ public class AccountsController : ControllerBase
 
         await _userManager.AddToRoleAsync(user, "Customer");
 
-        return Ok(new { Message = "User registered successfully" });
+        return Ok(new
+        {
+            Message = "User registered successfully",
+            User = new
+            {
+                user.Id,
+                user.UserName,
+                user.Email,
+                user.PhoneNumber
+            }
+        });
     }
 
     [HttpPost]

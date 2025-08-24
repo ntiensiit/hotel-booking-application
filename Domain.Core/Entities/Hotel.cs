@@ -35,28 +35,3 @@ public partial class Hotel<TId> : IEntity<TId> where TId : IEquatable<TId>
 public partial class Hotel<TId>
 {
 }
-
-public partial class Hotel<TId>
-{
-    public Hotel()
-    {
-    }
-
-    public Hotel(string name, string description, DateTime registrationDate, DateTime? approvedDate,
-        HotelType hotelType,
-        HotelStatus status, Address address, StarRating starRating, ContactInfo contactInfo,
-        HotelPolicies hotelPolicies, TId hostId)
-    {
-        Name = name;
-        Description = description;
-        RegistrationDate = registrationDate;
-        ApprovedDate = approvedDate;
-        HotelType = hotelType;
-        Status = status;
-        Address = address;
-        StarRating = starRating;
-        ContactInfo = contactInfo;
-        HotelPolicies = hotelPolicies;
-        HostId = hostId;
-    }
-}

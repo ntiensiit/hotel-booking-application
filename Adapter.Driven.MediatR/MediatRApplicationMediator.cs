@@ -24,7 +24,7 @@ public class MediatRApplicationMediator : IApplicationMediator
         return await _mediator.Send(new MediatRCommandRequest<TCommand, TResponse>(command), cancellationToken);
     }
 
-    public async Task<TResponse> QueryAsync<TQuery, TResponse>(TQuery query,
+    public async Task<TResponse> SendQueryAsync<TQuery, TResponse>(TQuery query,
         CancellationToken cancellationToken = default)
         where TQuery : IQuery<TResponse>
     {

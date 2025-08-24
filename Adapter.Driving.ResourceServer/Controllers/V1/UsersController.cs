@@ -1,7 +1,8 @@
-using Application.Commands.V1.CreateCommands.CreateUser;
+using Adapter.Driving.ResourceServer.Commands.V1.CreateCommands.CreateUser;
+using Adapter.Driving.ResourceServer.DTOs.V1.Requests.User;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Port.Driven.Shared.Events;
-using Port.Driving.Shared.DTOs.V1.Requests.User;
 
 namespace Adapter.Driving.ResourceServer.Controllers.V1;
 
@@ -17,6 +18,7 @@ public class UsersController : ControllerBase
     }
 
     [HttpPost]
+    [AllowAnonymous]
     public async Task<IActionResult> Create([FromBody] UserCreateRequestBodyV1 requestBody)
     {
         var command = new CreateUserCommandV1(requestBody);
