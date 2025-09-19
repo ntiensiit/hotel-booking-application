@@ -1,0 +1,10 @@
+-- Add migration from root solution folder
+dotnet ef migrations add migration --project Adapter.Driven.EFCore --startup-project Adapter.Driving.AuthenticationServer
+-- or from startup project Adapter.Driving.AuthenticationServer
+dotnet ef migrations add migration --project ..\Adapter.Driven.EFCore --startup-project .
+-- Update database
+dotnet ef database update --project Adapter.Driven.EFCore --startup-project Adapter.Driving.AuthenticationServer
+-- Remove migrations
+dotnet ef migrations remove --project Adapter.Driven.EFCore --startup-project Adapter.Driving.AuthenticationServer
+-- Remove database
+dotnet ef database drop --project Adapter.Driven.EFCore --startup-project Adapter.Driving.AuthenticationServer

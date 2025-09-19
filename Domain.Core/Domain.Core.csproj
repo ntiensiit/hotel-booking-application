@@ -1,23 +1,19 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
-    <PropertyGroup>
-        <TargetFramework>net6.0</TargetFramework>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-    </PropertyGroup>
-
-    <ItemGroup>
-        <Folder Include="Aggregates\"/>
-        <Folder Include="Criteria\"/>
-        <Folder Include="DomainEvents\"/>
-        <Folder Include="DomainServices\"/>
-        <Folder Include="Factories\"/>
-        <Folder Include="Policies\"/>
-        <Folder Include="Rules\"/>
-    </ItemGroup>
-
-    <ItemGroup>
-        <ProjectReference Include="..\SharedKernel\SharedKernel.csproj"/>
-    </ItemGroup>
-
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="Aggregates\" />
+    <Folder Include="Criteria\" />
+    <Folder Include="DomainEvents\" />
+    <Folder Include="DomainServices\" />
+    <Folder Include="Factories\" />
+    <Folder Include="Policies\" />
+    <Folder Include="Rules\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SharedKernel\SharedKernel.csproj" />
+  </ItemGroup>
 </Project>

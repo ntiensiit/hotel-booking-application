@@ -1,20 +1,16 @@
-using System.Linq.Expressions;
 using NHibernate;
+using NHibernate.Criterion;
 using NHibernate.Linq;
 using SharedKernel.SeedWork;
+using System.Linq.Expressions;
 
 namespace Adapter.Driven.NHibernate.Persistence;
 
-public class NhibernateGenericRepository<T, TId> : IGenericRepository<T, TId>
+public class NHibernateGenericRepository<T, TId>(ISession session) : IGenericRepository<T, TId>
     where T : class, IEntity<TId>
     where TId : IEquatable<TId>, IComparable<TId>
 {
-    protected readonly ISession Session;
-
-    public NhibernateGenericRepository(ISession session)
-    {
-        Session = session;
-    }
+    protected readonly ISession Session = session;
 
     public void Add(T item)
     {
@@ -23,7 +19,7 @@ public class NhibernateGenericRepository<T, TId> : IGenericRepository<T, TId>
 
     public void AddRange(IEnumerable<T> items)
     {
-        // foreach (var item in items) _session.Persist(item);
+        Session.Persist(items);
     }
 
     public void Remove(T item)
@@ -33,8 +29,7 @@ public class NhibernateGenericRepository<T, TId> : IGenericRepository<T, TId>
 
     public void RemoveRange(Expression<Func<T, bool>> match)
     {
-        // var itemsToDelete = _session.Query<T>().Where(match).ToList();
-        // foreach (var item in itemsToDelete) _session.Delete(item);
+        Session.Query<T>().Where(match).Delete();
     }
 
     public void Clear()
@@ -44,23 +39,40 @@ public class NhibernateGenericRepository<T, TId> : IGenericRepository<T, TId>
 
     public async Task<bool> ContainsAsync(T item, CancellationToken cancellationToken = default)
     {
-        return await Session.Query<T>().AnyAsync(e => e.Id.Equals(item.Id), cancellationToken);
+        var count = await Session
+            .QueryOver<T>()
+            .Where(x => x.Id.Equals(item.Id))
+            .Select(Projections.RowCount())
+            .SingleOrDefaultAsync<int>(cancellationToken);
+        return count > 0;
     }
 
-    public async Task<T?> FindAsync(Expression<Func<T, bool>> match, CancellationToken cancellationToken = default)
+    public async Task<T?> FindAsync(
+        Expression<Func<T, bool>> match,
+        CancellationToken cancellationToken = default
+    )
     {
-        return await Session.Query<T>().FirstOrDefaultAsync(match, cancellationToken);
+        return await Session
+            .QueryOver<T>()
+            .Where(match)
+            .Take(1)
+            .SingleOrDefaultAsync(cancellationToken);
     }
 
-    public async Task<IEnumerable<T>> FindAllAsync(Expression<Func<T, bool>> match,
-        CancellationToken cancellationToken = default)
+    public async Task<IEnumerable<T>> FindAllAsync(
+        Expression<Func<T, bool>> match,
+        CancellationToken cancellationToken = default
+    )
     {
-        return await Session.Query<T>().Where(match).ToListAsync(cancellationToken);
+        return await Session.QueryOver<T>().Where(match).ListAsync(cancellationToken);
     }
 
     public async Task<long> CountAsync(CancellationToken cancellationToken = default)
     {
-        return await Session.Query<T>().LongCountAsync(cancellationToken);
+        return await Session
+            .QueryOver<T>()
+            .Select(Projections.RowCountInt64())
+            .SingleOrDefaultAsync<long>(cancellationToken);
     }
 
     public async Task<T?> GetByIdAsync(TId id, CancellationToken cancellationToken = default)

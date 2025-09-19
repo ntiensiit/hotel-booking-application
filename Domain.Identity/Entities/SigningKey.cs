@@ -2,12 +2,12 @@ namespace Domain.Identity.Entities;
 
 public partial class SigningKey
 {
-    public string KeyId { get; set; }
-    public string PrivateKeyBase64 { get; set; }
-    public string PublicKeyBase64 { get; set; }
-    public string Algorithm { get; set; }
+    public required string KeyId { get; set; }
+    public required string PrivateKeyBase64 { get; set; }
+    public required string PublicKeyBase64 { get; set; }
+    public required string Algorithm { get; set; }
     public int KeySize { get; set; }
-    public string KeyType { get; set; }
+    public required string KeyType { get; set; }
     public bool IsActive { get; set; }
     public DateTime CreatedAt { get; set; }
     public DateTime ExpiresAt { get; set; }

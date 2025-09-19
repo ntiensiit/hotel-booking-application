@@ -1,19 +1,14 @@
-using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using SharedKernel.SeedWork;
+using System.Linq.Expressions;
 
 namespace Adapter.Driven.EFCore.Persistence;
 
-public class EfCoreGenericRepository<T, TId> : IGenericRepository<T, TId>
+public class EfCoreGenericRepository<T, TId>(DbContext dbContext) : IGenericRepository<T, TId>
     where T : class, IEntity<TId>
     where TId : IEquatable<TId>, IComparable<TId>
 {
-    protected readonly DbContext DbContext;
-
-    public EfCoreGenericRepository(DbContext dbContext)
-    {
-        DbContext = dbContext;
-    }
+    protected readonly DbContext DbContext = dbContext;
 
     public void Add(T item)
     {
@@ -47,13 +42,18 @@ public class EfCoreGenericRepository<T, TId> : IGenericRepository<T, TId>
         return await DbContext.Set<T>().AnyAsync(x => x.Id.Equals(item.Id), cancellationToken);
     }
 
-    public async Task<T?> FindAsync(Expression<Func<T, bool>> match, CancellationToken cancellationToken = default)
+    public async Task<T?> FindAsync(
+        Expression<Func<T, bool>> match,
+        CancellationToken cancellationToken = default
+    )
     {
         return await DbContext.Set<T>().FirstOrDefaultAsync(match, cancellationToken);
     }
 
-    public async Task<IEnumerable<T>> FindAllAsync(Expression<Func<T, bool>> match,
-        CancellationToken cancellationToken = default)
+    public async Task<IEnumerable<T>> FindAllAsync(
+        Expression<Func<T, bool>> match,
+        CancellationToken cancellationToken = default
+    )
     {
         return await DbContext.Set<T>().Where(match).ToListAsync(cancellationToken);
     }

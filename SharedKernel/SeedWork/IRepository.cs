@@ -2,9 +2,7 @@ using System.Linq.Expressions;
 
 namespace SharedKernel.SeedWork;
 
-public interface IRepository
-{
-}
+public interface IRepository;
 
 public interface IGenericRepository<T, in TId> : IRepository
     where T : IEntity<TId>
@@ -16,8 +14,14 @@ public interface IGenericRepository<T, in TId> : IRepository
     void RemoveRange(Expression<Func<T, bool>> match);
     void Clear();
     Task<bool> ContainsAsync(T item, CancellationToken cancellationToken = default);
-    Task<T?> FindAsync(Expression<Func<T, bool>> match, CancellationToken cancellationToken = default);
-    Task<IEnumerable<T>> FindAllAsync(Expression<Func<T, bool>> match, CancellationToken cancellationToken = default);
+    Task<T?> FindAsync(
+        Expression<Func<T, bool>> match,
+        CancellationToken cancellationToken = default
+    );
+    Task<IEnumerable<T>> FindAllAsync(
+        Expression<Func<T, bool>> match,
+        CancellationToken cancellationToken = default
+    );
     Task<long> CountAsync(CancellationToken cancellationToken = default);
 
     Task<T?> GetByIdAsync(TId id, CancellationToken cancellationToken = default);
@@ -26,7 +30,7 @@ public interface IGenericRepository<T, in TId> : IRepository
 
 public interface IEventStoreRepository<T, in TId> : IRepository
     where T : IDomainEvent, new()
-    where TId : IEquatable<TId>
+    where TId : IEquatable<TId>, IComparable<TId>
 {
     Task<T> LoadAsync(TId aggregateId, CancellationToken cancellationToken = default);
     Task SaveAsync(T domainEvent, CancellationToken cancellationToken = default);

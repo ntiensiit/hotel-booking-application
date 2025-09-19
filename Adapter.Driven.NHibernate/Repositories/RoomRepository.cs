@@ -1,19 +1,14 @@
 using Adapter.Driven.NHibernate.Persistence;
 using Domain.Core.Entities;
 using NHibernate;
-using NHibernate.Linq;
-using Port.Driven.NHibernate.Repositories;
+using Port.Driven.NHibernate;
 
 namespace Adapter.Driven.NHibernate.Repositories;
 
-public class RoomRepository : NHibernatePagingAndSortingRepository<Room<int>, int>, IRoomRepository
+public class RoomRepository(ISession session) : NHibernatePagingAndSortingRepository<Room, int>(session), IRoomRepository
 {
-    public RoomRepository(ISession session) : base(session)
+    public async Task<IEnumerable<Room>> FindRoomsByHotelIdAsync(int hotelId)
     {
-    }
-
-    public async Task<IEnumerable<Room<int>>> FindRoomsByHotelIdAsync(int hotelId)
-    {
-        return await Session.Query<Room<int>>().Where(r => r.HotelId.Equals(hotelId)).ToListAsync();
+        return await Session.QueryOver<Room>().Where(r => r.HotelId == hotelId).ListAsync();
     }
 }

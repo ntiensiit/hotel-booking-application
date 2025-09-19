@@ -16,9 +16,11 @@ public readonly partial record struct Rating(
     int LocationRating,
     int OverallRating,
     int ServiceRating,
-    int ValueRating);
+    int ValueRating
+);
 
 public readonly partial record struct Rating
 {
-    public int AverageRating => (OverallRating + CleanlinessRating + ServiceRating + LocationRating + ValueRating) / 5;
+    public int AverageRating =>
+        (OverallRating + CleanlinessRating + ServiceRating + LocationRating + ValueRating) / 5;
 }

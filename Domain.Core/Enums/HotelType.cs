@@ -6,5 +6,5 @@ public enum HotelType
     Standard,
     Luxury,
     Boutique,
-    Resort
+    Resort,
 }

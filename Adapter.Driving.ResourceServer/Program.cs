@@ -1,27 +1,32 @@
-using System.Text.Json;
-using System.Text.Json.Serialization;
 using Adapter.Driven.NHibernate.Helpers;
 using Adapter.Driving.ResourceServer.Converter;
 using Adapter.Driving.ResourceServer.Extensions;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services
-    .AddApplicationMediatR()
+builder
+    .Services.AddApplicationMediatR()
     .AddNHibernate(builder.Configuration)
     .AddApplicationServices(builder.Configuration)
     .AddApplicationAuthentication(builder.Configuration);
 
 NHibernateHelper.OpenSession();
 
-builder.Services.AddControllers(options => { options.Filters.Add(new AuthorizeFilter()); }).AddJsonOptions(options =>
-{
-    options.JsonSerializerOptions.Converters.Add(new DateOnlyJsonConverter());
-    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
-    options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
-});
+builder
+    .Services.AddControllers(options =>
+    {
+        options.Filters.Add(new AuthorizeFilter());
+    })
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.Converters.Add(new DateOnlyJsonConverter());
+        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+        options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+    });
 
 builder.Services.AddMemoryCache();
 builder.Services.AddHttpContextAccessor();

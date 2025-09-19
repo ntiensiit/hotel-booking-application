@@ -2,12 +2,10 @@ using SharedKernel.SeedWork;
 
 namespace Domain.Core.Entities;
 
-public partial class Photo<TId> : IEntity<TId> where TId : IEquatable<TId>
+public partial class Photo : IEntity<int>
 {
     // Id
-    public virtual TId Id { get; set; } = default!;
+    public virtual int Id { get; set; }
 }
 
-public partial class Photo<TId>
-{
-}
+public partial class Photo { }

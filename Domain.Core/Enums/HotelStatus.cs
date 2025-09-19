@@ -5,5 +5,5 @@ public enum HotelStatus
     Pending,
     Active,
     Suspended,
-    Closed
+    Closed,
 }

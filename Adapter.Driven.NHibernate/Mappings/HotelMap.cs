@@ -3,7 +3,7 @@ using FluentNHibernate.Mapping;
 
 namespace Adapter.Driven.NHibernate.Mappings;
 
-public class HotelMap<TId> : ClassMap<Hotel<TId>> where TId : IEquatable<TId>
+public class HotelMap : ClassMap<Hotel>
 {
     public HotelMap()
     {
@@ -23,32 +23,50 @@ public class HotelMap<TId> : ClassMap<Hotel<TId>> where TId : IEquatable<TId>
         Map(x => x.Status);
 
         // Value Objects - Has One
-        Component(x => x.Address, m =>
-        {
-            m.Map(x => x.City);
-            m.Component(x => x.Coordinates, c =>
+        Component(
+            x => x.Address,
+            m =>
             {
-                c.Map(y => y.Latitude);
-                c.Map(y => y.Longitude);
-            });
-            m.Map(x => x.Country);
-            m.Map(x => x.PostalCode);
-            m.Map(x => x.State);
-            m.Map(x => x.Street);
-        });
+                m.Map(x => x.City);
+                m.Component(
+                    x => x.Coordinates,
+                    c =>
+                    {
+                        c.Map(y => y.Latitude);
+                        c.Map(y => y.Longitude);
+                    }
+                );
+                m.Map(x => x.Country);
+                m.Map(x => x.PostalCode);
+                m.Map(x => x.State);
+                m.Map(x => x.Street);
+            }
+        );
 
-        Component(x => x.StarRating, m => { m.Map(x => x.Value).Column("StarRating"); });
+        Component(
+            x => x.StarRating,
+            m => m.Map(x => x.Value).Column("StarRating")
+        );
 
-        Component(x => x.ContactInfo, m =>
-        {
-            m.Component(x => x.Email, c => { c.Map(y => y.Value).Column("Email"); });
-            m.Component(x => x.Phone, c =>
+        Component(
+            x => x.ContactInfo,
+            m =>
             {
-                c.Map(y => y.CountryCode);
-                c.Map(y => y.Number);
-            });
-            m.Map(x => x.Website);
-        });
+                m.Component(
+                    x => x.Email,
+                    c => c.Map(y => y.Value).Column("Email")
+                );
+                m.Component(
+                    x => x.Phone,
+                    c =>
+                    {
+                        c.Map(y => y.CountryCode);
+                        c.Map(y => y.Number);
+                    }
+                );
+                m.Map(x => x.Website);
+            }
+        );
 
         // Value Objects - Has Many
 

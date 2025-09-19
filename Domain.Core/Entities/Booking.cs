@@ -4,7 +4,7 @@ using SharedKernel.SeedWork;
 
 namespace Domain.Core.Entities;
 
-public partial class Booking<TId> : IEntity<TId> where TId : IEquatable<TId>
+public partial class Booking : IEntity<int>
 {
     // Primitive properties
     public virtual DateOnly CheckInDate { get; set; }
@@ -18,19 +18,19 @@ public partial class Booking<TId> : IEntity<TId> where TId : IEquatable<TId>
     // Value Objects
     public virtual Money TotalAmount { get; set; }
 
-    public virtual IEnumerable<SpecialRequest> SpecialRequests { get; set; } = new List<SpecialRequest>();
+    public virtual IEnumerable<SpecialRequest> SpecialRequests { get; set; } = [];
 
     // Reference Ids
-    public virtual TId UserId { get; set; }
-    public virtual TId HotelId { get; set; }
+    public virtual int UserId { get; set; }
+    public virtual int HotelId { get; set; }
 
-    public virtual TId RoomId { get; set; }
+    public virtual int RoomId { get; set; }
 
     // Id
-    public virtual TId Id { get; set; } = default!;
+    public virtual int Id { get; set; }
 }
 
-public partial class Booking<TId>
+public partial class Booking
 {
     public virtual Money CalculateTotal()
     {

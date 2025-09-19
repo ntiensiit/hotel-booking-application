@@ -2,7 +2,7 @@ namespace Port.Driving.Shared.DTOs.Shared;
 
 public record PageResult<T>
 {
-    public IReadOnlyList<T> Items { get; init; } = Array.Empty<T>();
+    public IReadOnlyList<T> Items { get; init; } = [];
     public int TotalCount { get; init; }
     public int PageNumber { get; init; }
     public int PageSize { get; init; }

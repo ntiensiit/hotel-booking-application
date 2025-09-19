@@ -4,7 +4,7 @@ using FluentNHibernate.Mapping;
 
 namespace Adapter.Driven.NHibernate.Mappings;
 
-public class BookingMap<TId> : ClassMap<Booking<TId>> where TId : IEquatable<TId>
+public class BookingMap : ClassMap<Booking>
 {
     public BookingMap()
     {
@@ -22,11 +22,14 @@ public class BookingMap<TId> : ClassMap<Booking<TId>> where TId : IEquatable<TId
         Map(x => x.Status);
 
         // Value Objects - Has One
-        Component(x => x.TotalAmount, m =>
-        {
-            m.Map(x => x.Amount);
-            m.Map(x => x.Currency);
-        });
+        Component(
+            x => x.TotalAmount,
+            m =>
+            {
+                m.Map(x => x.Amount);
+                m.Map(x => x.Currency);
+            }
+        );
 
         // Value Objects - Has Many
         HasMany(x => x.SpecialRequests)

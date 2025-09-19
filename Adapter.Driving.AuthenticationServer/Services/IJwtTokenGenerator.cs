@@ -1,11 +1,11 @@
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Security.Cryptography;
-using Adapter.Driven.EFCore.Contexts;
+﻿using Adapter.Driven.EFCore.Contexts;
 using Domain.Identity.Entities;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Shared.Settings;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Security.Cryptography;
 
 namespace Adapter.Driving.AuthenticationServer.Services;
 
@@ -17,19 +17,19 @@ public interface IJwtTokenGenerator
     DateTime GetRefreshTokenExpirationDate();
 }
 
-public class JwtTokenGenerator : IJwtTokenGenerator
+public class JwtTokenGenerator(IOptions<JwtSettings> jwtSettings, ApplicationDbContext dbContext)
+    : IJwtTokenGenerator
 {
-    protected readonly ApplicationDbContext DbContext;
+    protected readonly ApplicationDbContext DbContext = dbContext;
 
-    protected readonly JwtSettings JwtSettings;
+    protected readonly JwtSettings JwtSettings = jwtSettings.Value;
 
-    public JwtTokenGenerator(IOptions<JwtSettings> jwtSettings, ApplicationDbContext dbContext)
-    {
-        JwtSettings = jwtSettings.Value;
-        DbContext = dbContext;
-    }
-
-    public string GenerateAccessToken(string subject, string email, List<string> roles, out string jwtId)
+    public string GenerateAccessToken(
+        string subject,
+        string email,
+        List<string> roles,
+        out string jwtId
+    )
     {
         var tokenHandler = new JwtSecurityTokenHandler();
         const int keySize = 2048;
@@ -37,9 +37,9 @@ public class JwtTokenGenerator : IJwtTokenGenerator
 
         try
         {
-            var signingKey = DbContext.SigningKeys.FirstOrDefault(k => k.IsActive &&
-                                                                       !k.IsRevoked &&
-                                                                       k.ExpiresAt > DateTime.UtcNow);
+            var signingKey = DbContext.SigningKeys.FirstOrDefault(k =>
+                k.IsActive && !k.IsRevoked && k.ExpiresAt > DateTime.UtcNow
+            );
             if (signingKey == null)
             {
                 signingKey = new SigningKey
@@ -55,7 +55,7 @@ public class JwtTokenGenerator : IJwtTokenGenerator
                     ExpiresAt = DateTime.UtcNow.Add(TimeSpan.FromDays(365)),
                     IsRevoked = false,
                     RevokedReason = null,
-                    RevokedAt = null
+                    RevokedAt = null,
                 };
                 DbContext.SigningKeys.Add(signingKey);
                 DbContext.SaveChanges();
@@ -64,27 +64,33 @@ public class JwtTokenGenerator : IJwtTokenGenerator
             {
                 try
                 {
-                    rsa.ImportRSAPrivateKey(Convert.FromBase64String(signingKey.PrivateKeyBase64), out _);
+                    rsa.ImportRSAPrivateKey(
+                        Convert.FromBase64String(signingKey.PrivateKeyBase64),
+                        out _
+                    );
                 }
                 catch (CryptographicException ex)
                 {
-                    throw new Exception("Invalid private key format. Cannot convert from string.", ex);
+                    throw new CryptographicException(
+                        "Invalid private key format. Cannot convert from string.",
+                        ex
+                    );
                 }
             }
 
             jwtId = signingKey.KeyId;
 
-            var signingSecurityKey = new RsaSecurityKey(rsa)
-            {
-                KeyId = signingKey.KeyId
-            };
+            var signingSecurityKey = new RsaSecurityKey(rsa) { KeyId = signingKey.KeyId };
 
             var claims = new List<Claim>
             {
                 new(JwtRegisteredClaimNames.Sub, subject),
                 new(JwtRegisteredClaimNames.Jti, jwtId),
                 new(JwtRegisteredClaimNames.Email, email),
-                new(JwtRegisteredClaimNames.Iss, JwtSettings.Issuer)
+                new(
+                    JwtRegisteredClaimNames.Iss,
+                    JwtSettings.Issuer ?? throw new InvalidOperationException("Issuer is not configured")
+                ),
             };
 
             claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
@@ -93,9 +99,12 @@ public class JwtTokenGenerator : IJwtTokenGenerator
             {
                 Subject = new ClaimsIdentity(claims),
                 Expires = DateTime.UtcNow.AddMinutes(JwtSettings.AccessTokenExpirationMinutes),
-                SigningCredentials = new SigningCredentials(signingSecurityKey, SecurityAlgorithms.RsaSha256),
+                SigningCredentials = new SigningCredentials(
+                    signingSecurityKey,
+                    SecurityAlgorithms.RsaSha256
+                ),
                 Issuer = JwtSettings.Issuer,
-                Audience = JwtSettings.Audience
+                Audience = JwtSettings.Audience,
             };
 
             var token = tokenHandler.CreateToken(tokenDescriptor);

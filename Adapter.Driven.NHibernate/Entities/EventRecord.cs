@@ -1,16 +1,18 @@
-using System.Text.Json;
 using SharedKernel.SeedWork;
+using System.Text.Json;
 
 namespace Adapter.Driven.NHibernate.Entities;
 
 public class EventRecord<TId> where TId : IEquatable<TId>
 {
-    protected EventRecord()
-    {
-    }
+    protected EventRecord() { }
 
-    public EventRecord(TId aggregateId, IDomainEvent domainEvent, int? aggregateVersion = null,
-        string? eventMetaData = null)
+    public EventRecord(
+        TId aggregateId,
+        IDomainEvent domainEvent,
+        int? aggregateVersion = null,
+        string? eventMetaData = null
+    )
     {
         Id = Guid.NewGuid();
         AggregateId = aggregateId;
@@ -18,7 +20,8 @@ public class EventRecord<TId> where TId : IEquatable<TId>
         EventType = domainEvent.GetType().AssemblyQualifiedName ?? domainEvent.GetType().FullName;
         EventData = JsonSerializer.Serialize(domainEvent, domainEvent.GetType());
 
-        if (aggregateVersion.HasValue) AggregateVersion = aggregateVersion.Value;
+        if (aggregateVersion.HasValue)
+            AggregateVersion = aggregateVersion.Value;
         EventMetaData = eventMetaData;
     }
 
@@ -39,12 +42,13 @@ public class EventRecord<TId> where TId : IEquatable<TId>
     public IDomainEvent DeserializeEvent()
     {
         if (string.IsNullOrEmpty(EventType) || string.IsNullOrEmpty(EventData))
-            throw new InvalidOperationException("Cannot deserialize event: EventType or EventData is missing.");
+            throw new InvalidOperationException(
+                "Cannot deserialize event: EventType or EventData is missing."
+            );
 
-        var type = Type.GetType(EventType);
-
-        if (type == null) throw new TypeLoadException($"Could not load type for event: {EventType}.");
-
+        var type =
+            Type.GetType(EventType)
+            ?? throw new TypeLoadException($"Could not load type for event: {EventType}.");
         return (IDomainEvent)JsonSerializer.Deserialize(EventData, type);
     }
 }

@@ -12,5 +12,6 @@ public record ReviewCreateRequestBodyV1
         int LocationRating,
         int OverallRating,
         int ServiceRating,
-        int ValueRating);
+        int ValueRating
+    );
 }

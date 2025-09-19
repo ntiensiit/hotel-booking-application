@@ -12,7 +12,8 @@ public readonly partial record struct Pricing : IValueObject
 public readonly partial record struct Pricing(
     Money BasePrice,
     IEnumerable<Discount> Discounts,
-    IEnumerable<SeasonalRate> SeasonalRates);
+    IEnumerable<SeasonalRate> SeasonalRates
+);
 
 public readonly partial record struct Pricing
 {

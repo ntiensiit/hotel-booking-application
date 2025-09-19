@@ -3,31 +3,48 @@ using Port.Driven.Shared.Events;
 
 namespace Adapter.Driven.MediatR;
 
-public class MediatRApplicationMediator : IApplicationMediator
+public class MediatRApplicationMediator(IMediator mediator) : IApplicationMediator
 {
-    private readonly IMediator _mediator;
-
-    public MediatRApplicationMediator(IMediator mediator)
+    // Send Command
+    public Task SendCommandAsync(ICommand command, CancellationToken cancellationToken = default)
     {
-        _mediator = mediator;
+        var commandType = command.GetType();
+        var requestType = typeof(MediatRCommandRequest<>).MakeGenericType(commandType);
+        var request = Activator.CreateInstance(requestType, command)!;
+
+        return mediator.Send(request, cancellationToken);
     }
 
-    public async Task SendCommandAsync<TCommand>(TCommand command, CancellationToken cancellationToken = default)
-        where TCommand : ICommand
+    public async Task<TResult> SendCommandAsync<TResult>(
+        ICommand<TResult> command,
+        CancellationToken cancellationToken = default
+    )
     {
-        await _mediator.Send(new MediatRCommandRequest<TCommand>(command), cancellationToken);
+        var commandType = command.GetType();
+        var requestType = typeof(MediatRCommandRequest<,>).MakeGenericType(
+            commandType,
+            typeof(TResult)
+        );
+        var request = Activator.CreateInstance(requestType, command)!;
+
+        var result = await mediator.Send(request, cancellationToken);
+        return (TResult)result!;
     }
 
-    public async Task<TResponse> SendCommandAsync<TCommand, TResponse>(TCommand command,
-        CancellationToken cancellationToken = default) where TCommand : ICommand<TResponse>
+    // Send Query
+    public async Task<TResult> SendQueryAsync<TResult>(
+        IQuery<TResult> query,
+        CancellationToken cancellationToken = default
+    )
     {
-        return await _mediator.Send(new MediatRCommandRequest<TCommand, TResponse>(command), cancellationToken);
-    }
+        var queryType = query.GetType();
+        var requestType = typeof(MediatRQueryRequest<,>).MakeGenericType(
+            queryType,
+            typeof(TResult)
+        );
+        var request = Activator.CreateInstance(requestType, query)!;
 
-    public async Task<TResponse> SendQueryAsync<TQuery, TResponse>(TQuery query,
-        CancellationToken cancellationToken = default)
-        where TQuery : IQuery<TResponse>
-    {
-        return await _mediator.Send(new MediatRQueryRequest<TQuery, TResponse>(query), cancellationToken);
+        var result = await mediator.Send(request, cancellationToken);
+        return (TResult)result!;
     }
 }

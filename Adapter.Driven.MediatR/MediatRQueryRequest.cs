@@ -3,12 +3,22 @@ using Port.Driven.Shared.Events;
 
 namespace Adapter.Driven.MediatR;
 
-public class MediatRQueryRequest<TQuery, TResult> : IRequest<TResult> where TQuery : IQuery<TResult>
+public class MediatRQueryRequest<TQuery, TResult>(TQuery query) : IRequest<TResult>
+    where TQuery : IQuery<TResult>
 {
-    public MediatRQueryRequest(TQuery query)
-    {
-        Query = query;
-    }
+    public TQuery Query { get; } = query;
+}
 
-    public TQuery Query { get; }
+public class MediatRQueryRequestHandler<TQuery, TResult>(
+    IQueryHandler<TQuery, TResult> queryHandler
+) : IRequestHandler<MediatRQueryRequest<TQuery, TResult>, TResult>
+    where TQuery : IQuery<TResult>
+{
+    public async Task<TResult> Handle(
+        MediatRQueryRequest<TQuery, TResult> request,
+        CancellationToken cancellationToken
+    )
+    {
+        return await queryHandler.HandleAsync(request.Query, cancellationToken);
+    }
 }

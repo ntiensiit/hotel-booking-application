@@ -24,35 +24,36 @@ public interface IHasDomainEvent
 
 public interface IDomainEventDispatcher
 {
-    Task DispatchEventsAsync<T>(T aggregate) where T : IHasDomainEvent;
+    Task DispatchEventsAsync<T>(T aggregate)
+        where T : IHasDomainEvent;
 }
 
 public interface IDomainEventPublisher
 {
-    Task PublishEventsAsync(IDomainEvent domainEvent, CancellationToken cancellationToken = default);
+    Task PublishEventsAsync(
+        IDomainEvent domainEvent,
+        CancellationToken cancellationToken = default
+    );
 }
 
-public interface IDomainEventHandler<in TDomainEvent> where TDomainEvent : IDomainEvent
+public interface IDomainEventHandler<in TDomainEvent>
+    where TDomainEvent : IDomainEvent
 {
     Task HandleAsync(TDomainEvent domainEvent, CancellationToken cancellationToken = default);
 }
 
-public class DomainEventDispatcher : IDomainEventDispatcher
+public class DomainEventDispatcher(IDomainEventPublisher eventPublisher) : IDomainEventDispatcher
 {
-    private readonly IDomainEventPublisher _eventPublisher;
+    private readonly IDomainEventPublisher _eventPublisher = eventPublisher;
 
-    public DomainEventDispatcher(IDomainEventPublisher eventPublisher)
+    public async Task DispatchEventsAsync<T>(T aggregate)
+        where T : IHasDomainEvent
     {
-        _eventPublisher = eventPublisher;
-    }
-
-    public async Task DispatchEventsAsync<T>(T aggregate) where T : IHasDomainEvent
-    {
-        var domainEvents = aggregate.GetDomainEvents().ToList();
-
-        foreach (var domainEvent in domainEvents)
-            // Custom publisher
-            await _eventPublisher.PublishEventsAsync(domainEvent);
+        await Task.WhenAll(
+            aggregate
+                .GetDomainEvents()
+                .Select(domainEvent => _eventPublisher.PublishEventsAsync(domainEvent))
+        );
 
         aggregate.ClearDomainEvents();
     }

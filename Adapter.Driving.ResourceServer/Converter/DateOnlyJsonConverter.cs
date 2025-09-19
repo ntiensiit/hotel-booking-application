@@ -3,20 +3,18 @@ using System.Text.Json.Serialization;
 
 namespace Adapter.Driving.ResourceServer.Converter;
 
-public class DateOnlyJsonConverter : JsonConverter<DateOnly>
+public class DateOnlyJsonConverter(string serializationFormat) : JsonConverter<DateOnly>
 {
-    private readonly string _serializationFormat;
+    private readonly string _serializationFormat = serializationFormat;
 
-    public DateOnlyJsonConverter() : this("yyyy-MM-dd")
-    {
-    }
+    public DateOnlyJsonConverter()
+        : this("yyyy-MM-dd") { }
 
-    public DateOnlyJsonConverter(string serializationFormat)
-    {
-        _serializationFormat = serializationFormat;
-    }
-
-    public override DateOnly Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    public override DateOnly Read(
+        ref Utf8JsonReader reader,
+        Type typeToConvert,
+        JsonSerializerOptions options
+    )
     {
         return DateOnly.Parse(reader.GetString()!);
     }

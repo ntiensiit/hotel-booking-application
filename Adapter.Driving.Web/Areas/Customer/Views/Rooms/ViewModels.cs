@@ -1,0 +1,1 @@
+﻿namespace Adapter.Driving.Web.Areas.Customer.Views.Rooms;

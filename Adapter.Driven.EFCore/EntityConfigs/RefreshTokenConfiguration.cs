@@ -15,12 +15,14 @@ public class RefreshTokenConfiguration : IEntityTypeConfiguration<RefreshToken>
         builder.Ignore(rt => rt.IsExpired);
         builder.Ignore(rt => rt.IsValid);
 
-        builder.HasOne(rt => rt.User)
+        builder
+            .HasOne(rt => rt.User)
             .WithMany()
             .HasForeignKey(rt => rt.UserId)
             .OnDelete(DeleteBehavior.Cascade);
 
-        builder.HasOne(rt => rt.Client)
+        builder
+            .HasOne(rt => rt.Client)
             .WithMany()
             .HasForeignKey(rt => rt.ClientId)
             .OnDelete(DeleteBehavior.SetNull);

@@ -9,8 +9,24 @@ public class ApplicationRoleConfiguration : IEntityTypeConfiguration<Application
     public void Configure(EntityTypeBuilder<ApplicationRole> builder)
     {
         builder.HasData(
-            new ApplicationRole { Id = 1, Name = "Admin", NormalizedName = "ADMIN" },
-            new ApplicationRole { Id = 2, Name = "Customer", NormalizedName = "CUSTOMER" }
+            new
+            {
+                Id = 1,
+                Name = "Admin",
+                NormalizedName = "ADMIN",
+            },
+            new
+            {
+                Id = 2,
+                Name = "Customer",
+                NormalizedName = "CUSTOMER",
+            },
+            new
+            {
+                Id = 3,
+                Name = "Host",
+                NormalizedName = "HOST",
+            }
         );
     }
 }

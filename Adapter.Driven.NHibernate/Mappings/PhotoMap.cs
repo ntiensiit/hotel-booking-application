@@ -3,7 +3,7 @@ using FluentNHibernate.Mapping;
 
 namespace Adapter.Driven.NHibernate.Mappings;
 
-public class PhotoMap<TId> : ClassMap<Photo<TId>> where TId : IEquatable<TId>
+public class PhotoMap : ClassMap<Photo>
 {
     public PhotoMap()
     {

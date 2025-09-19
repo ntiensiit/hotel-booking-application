@@ -6,7 +6,5 @@ namespace Adapter.Driven.EFCore.EntityConfigs;
 
 public class ApplicationUserTokenConfiguration : IEntityTypeConfiguration<ApplicationUserToken>
 {
-    public void Configure(EntityTypeBuilder<ApplicationUserToken> builder)
-    {
-    }
+    public void Configure(EntityTypeBuilder<ApplicationUserToken> builder) { }
 }

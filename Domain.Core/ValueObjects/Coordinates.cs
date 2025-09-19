@@ -10,6 +10,4 @@ public readonly partial record struct Coordinates : IValueObject
 
 public readonly partial record struct Coordinates(decimal Latitude, decimal Longitude);
 
-public readonly partial record struct Coordinates
-{
-}
+public readonly partial record struct Coordinates { }

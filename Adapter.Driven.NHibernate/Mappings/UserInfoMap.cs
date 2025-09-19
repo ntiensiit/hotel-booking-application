@@ -3,7 +3,7 @@ using FluentNHibernate.Mapping;
 
 namespace Adapter.Driven.NHibernate.Mappings;
 
-public class UserInfoMap<TId> : ClassMap<UserInfo<TId>> where TId : IEquatable<TId>
+public class UserInfoMap : ClassMap<UserInfo>
 {
     public UserInfoMap()
     {
@@ -19,13 +19,19 @@ public class UserInfoMap<TId> : ClassMap<UserInfo<TId>> where TId : IEquatable<T
         // Enum types
 
         // Value Objects - Has One
-        Component(x => x.Email, m => { m.Map(x => x.Value).Column("Email"); });
+        Component(
+            x => x.Email,
+            m => m.Map(x => x.Value).Column("Email")
+        );
 
-        Component(x => x.PhoneNumber, m =>
-        {
-            m.Map(x => x.CountryCode);
-            m.Map(x => x.Number);
-        });
+        Component(
+            x => x.PhoneNumber,
+            m =>
+            {
+                m.Map(x => x.CountryCode);
+                m.Map(x => x.Number);
+            }
+        );
 
         // Value Objects - Has Many
     }

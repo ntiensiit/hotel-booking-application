@@ -16,13 +16,7 @@ public readonly partial record struct Email
         return !string.IsNullOrWhiteSpace(value);
     }
 
-    public static implicit operator string(Email email)
-    {
-        return email.Value;
-    }
+    public static implicit operator string(Email email) => email.Value;
 
-    public static implicit operator Email(string email)
-    {
-        return new Email(email);
-    }
+    public static implicit operator Email(string email) => new(email);
 }

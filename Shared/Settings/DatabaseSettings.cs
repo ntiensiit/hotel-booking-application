@@ -4,6 +4,6 @@ public record DatabaseSettings
 {
     public const string SectionName = "ConnectionStrings";
 
-    public string ResourceServerDBConnection { get; set; }
-    public string AuthenticationServerDBConnection { get; set; }
+    public string? ResourceServerDBConnection { get; set; }
+    public string? AuthenticationServerDBConnection { get; set; }
 }

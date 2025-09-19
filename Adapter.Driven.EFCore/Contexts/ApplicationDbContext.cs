@@ -4,20 +4,18 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Adapter.Driven.EFCore.Contexts;
 
-public class ApplicationDbContext : IdentityDbContext<
-    ApplicationUser,
-    ApplicationRole,
-    int,
-    ApplicationUserClaims,
-    ApplicationUserRole,
-    ApplicationUserLogin,
-    ApplicationRoleClaims,
-    ApplicationUserToken>
+public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+    : IdentityDbContext<
+        ApplicationUser,
+        ApplicationRole,
+        int,
+        ApplicationUserClaims,
+        ApplicationUserRole,
+        ApplicationUserLogin,
+        ApplicationRoleClaims,
+        ApplicationUserToken
+    >(options)
 {
-    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
-    {
-    }
-
     public DbSet<RefreshToken> RefreshTokens { get; set; }
     public DbSet<Client> Clients { get; set; }
     public DbSet<SigningKey> SigningKeys { get; set; }

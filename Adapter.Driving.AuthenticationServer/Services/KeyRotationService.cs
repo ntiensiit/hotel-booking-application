@@ -1,22 +1,16 @@
-using System.Security.Cryptography;
 using Adapter.Driven.EFCore.Contexts;
 using Domain.Identity.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using System.Security.Cryptography;
 
 namespace Adapter.Driving.AuthenticationServer.Services;
 
-public class KeyRotationService : BackgroundService
+public class KeyRotationService(IServiceProvider serviceProvider) : BackgroundService
 {
-    private readonly TimeSpan _rotationInterval;
+    private readonly TimeSpan _rotationInterval = TimeSpan.FromDays(7);
 
-    private readonly IServiceProvider _serviceProvider;
-
-    public KeyRotationService(IServiceProvider serviceProvider)
-    {
-        _serviceProvider = serviceProvider;
-        _rotationInterval = TimeSpan.FromDays(7);
-    }
+    private readonly IServiceProvider _serviceProvider = serviceProvider;
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
@@ -34,9 +28,9 @@ public class KeyRotationService : BackgroundService
 
         var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
-        var activeKey =
-            await dbContext.SigningKeys.FirstOrDefaultAsync(k =>
-                k.IsActive && !k.IsRevoked && k.ExpiresAt > DateTime.UtcNow);
+        var activeKey = await dbContext.SigningKeys.FirstOrDefaultAsync(k =>
+            k.IsActive && !k.IsRevoked && k.ExpiresAt > DateTime.UtcNow
+        );
 
         if (activeKey == null || activeKey.ExpiresAt <= DateTime.UtcNow.AddDays(10))
         {
@@ -64,7 +58,7 @@ public class KeyRotationService : BackgroundService
                     ExpiresAt = DateTime.UtcNow.AddYears(1),
                     IsRevoked = false,
                     RevokedReason = null,
-                    RevokedAt = null
+                    RevokedAt = null,
                 };
 
                 await dbContext.SigningKeys.AddAsync(newKey);
@@ -72,7 +66,9 @@ public class KeyRotationService : BackgroundService
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"An error occurred while trying to rotate the key: {ex.Message}");
+                Console.WriteLine(
+                    $"An error occurred while trying to rotate the key: {ex.Message}"
+                );
             }
         }
     }

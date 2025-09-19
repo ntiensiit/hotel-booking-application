@@ -1,19 +1,14 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
-using Port.Driven.EFCore.Persistence;
+using Port.Driven.EFCore;
 
 namespace Adapter.Driven.EFCore.Persistence;
 
-public partial class EfCoreUnitOfWork : IEfCoreUnitOfWork, IDisposable
+public partial class EfCoreUnitOfWork(DbContext context) : IEfCoreUnitOfWork, IDisposable
 {
     private IDbContextTransaction? _currentTransaction;
 
-    public EfCoreUnitOfWork(DbContext context)
-    {
-        Context = context;
-    }
-
-    private DbContext Context { get; }
+    private DbContext Context { get; } = context;
 
     public void Dispose()
     {
@@ -25,7 +20,8 @@ public partial class EfCoreUnitOfWork : IEfCoreUnitOfWork, IDisposable
     {
         var disposed = _currentTransaction == null;
 
-        if (disposed || !disposing) return;
+        if (disposed || !disposing)
+            return;
 
         // Đảm bảo transaction dispose
         _currentTransaction?.Dispose();
@@ -45,7 +41,8 @@ public partial class EfCoreUnitOfWork
 
     public void CommitTransaction()
     {
-        if (_currentTransaction == null) throw new InvalidOperationException("Transaction has not been started.");
+        if (_currentTransaction == null)
+            throw new InvalidOperationException("Transaction has not been started.");
 
         try
         {
@@ -65,7 +62,8 @@ public partial class EfCoreUnitOfWork
 
     public void RollbackTransaction()
     {
-        if (_currentTransaction == null) throw new InvalidOperationException("Transaction has not been started.");
+        if (_currentTransaction == null)
+            throw new InvalidOperationException("Transaction has not been started.");
 
         try
         {
@@ -93,7 +91,8 @@ public partial class EfCoreUnitOfWork
 
     public async Task CommitTransactionAsync(CancellationToken cancellationToken = default)
     {
-        if (_currentTransaction == null) throw new InvalidOperationException("Transaction has not been started.");
+        if (_currentTransaction == null)
+            throw new InvalidOperationException("Transaction has not been started.");
 
         try
         {
@@ -113,7 +112,8 @@ public partial class EfCoreUnitOfWork
 
     public async Task RollbackTransactionAsync(CancellationToken cancellationToken = default)
     {
-        if (_currentTransaction == null) throw new InvalidOperationException("Transaction has not been started.");
+        if (_currentTransaction == null)
+            throw new InvalidOperationException("Transaction has not been started.");
 
         try
         {

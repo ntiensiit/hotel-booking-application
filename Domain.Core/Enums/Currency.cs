@@ -5,5 +5,5 @@ public enum Currency
     Usd,
     Eur,
     Gbp,
-    Jpy
+    Jpy,
 }

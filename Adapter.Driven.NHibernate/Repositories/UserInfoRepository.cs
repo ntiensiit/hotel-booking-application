@@ -1,19 +1,16 @@
 using Adapter.Driven.NHibernate.Persistence;
 using Domain.Core.Entities;
 using NHibernate;
-using Port.Driven.NHibernate.Repositories;
+using Port.Driven.NHibernate;
 
 namespace Adapter.Driven.NHibernate.Repositories;
 
-public class UserInfoRepository : NHibernatePagingAndSortingRepository<UserInfo<int>, int>, IUserInfoRepository
+public class UserInfoRepository(ISession session) : NHibernatePagingAndSortingRepository<UserInfo, int>(session), IUserInfoRepository
 {
-    public UserInfoRepository(ISession session) : base(session)
+    public async Task<UserInfo?> GetByEmailAsync(string email, CancellationToken cancellationToken)
     {
-    }
-
-    public async Task<UserInfo<int>?> GetByEmailAsync(string email, CancellationToken cancellationToken)
-    {
-        return await Session.QueryOver<UserInfo<int>>()
+        return await Session
+            .QueryOver<UserInfo>()
             .Where(u => u.Email == email)
             .SingleOrDefaultAsync(cancellationToken);
     }

@@ -2,13 +2,11 @@ namespace Port.Driven.Shared.Events;
 
 public interface IApplicationMediator
 {
-    Task SendCommandAsync<TCommand>(TCommand command, CancellationToken cancellationToken = default)
-        where TCommand : ICommand;
+    // Send command
+    Task<TResult> SendCommandAsync<TResult>(ICommand<TResult> command, CancellationToken cancellationToken = default);
 
-    Task<TResponse> SendCommandAsync<TCommand, TResponse>(TCommand command,
-        CancellationToken cancellationToken = default)
-        where TCommand : ICommand<TResponse>;
+    Task SendCommandAsync(ICommand command, CancellationToken cancellationToken = default);
 
-    Task<TResponse> SendQueryAsync<TQuery, TResponse>(TQuery query, CancellationToken cancellationToken = default)
-        where TQuery : IQuery<TResponse>;
+    // Send query
+    Task<TResult> SendQueryAsync<TResult>(IQuery<TResult> query, CancellationToken cancellationToken = default);
 }

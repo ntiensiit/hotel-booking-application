@@ -1,41 +1,40 @@
-using NHibernate;
-using NHibernate.Linq;
+﻿using NHibernate;
 using Port.Driven.Shared.Persistence;
 using SharedKernel.SeedWork;
 
 namespace Adapter.Driven.NHibernate.Persistence;
 
-public class NHibernatePagingAndSortingRepository<T, TId> : NhibernateGenericRepository<T, TId>,
-    IPagingAndSortingRepository<T, TId>
+public class NHibernatePagingAndSortingRepository<T, TId> : NHibernateGenericRepository<T, TId>, IPagingAndSortingRepository<T, TId>
     where T : class, IEntity<TId>
     where TId : IEquatable<TId>, IComparable<TId>
 {
-    protected NHibernatePagingAndSortingRepository(ISession session) : base(session)
-    {
-    }
+    protected NHibernatePagingAndSortingRepository(ISession session) : base(session) { }
 
     public async Task<IPage<T>> FindAllAsync(IPageable pageable)
     {
-        if (pageable == null) throw new ArgumentNullException(nameof(pageable));
+        ArgumentNullException.ThrowIfNull(pageable);
 
-        var query = Session.Query<T>();
+        var totalCount = await Session.QueryOver<T>().RowCountAsync();
 
-        var totalCount = await query.CountAsync();
-
-        var results = await query
+        var results = await Session
+            .QueryOver<T>()
             .Skip(pageable.Offset)
             .Take(pageable.PageSize)
-            .ToListAsync();
+            .ListAsync();
 
         return new Page<T>(results, totalCount, pageable);
     }
 
     public async Task<IEnumerable<T>> FindAllAsync(Func<IQueryable<T>, IQueryable<T>>? sort = null)
     {
-        var query = Session.Query<T>();
+        var results = await Session.QueryOver<T>().ListAsync();
 
-        if (sort != null) query = sort(query);
+        if (sort != null)
+        {
+            var sorted = sort(results.AsQueryable());
+            return [.. sorted];
+        }
 
-        return await query.ToListAsync();
+        return results;
     }
 }

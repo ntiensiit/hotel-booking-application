@@ -7,9 +7,11 @@ public sealed class Page<T> : IPage<T>
     public Page(IEnumerable<T> content, long totalElements, IPageable pageable)
     {
         Content = content ?? throw new ArgumentNullException(nameof(content));
-        TotalElements = totalElements >= 0
-            ? totalElements
-            : throw new ArgumentOutOfRangeException(nameof(totalElements));
+        TotalElements = totalElements switch
+        {
+            < 0 => throw new ArgumentOutOfRangeException(nameof(totalElements)),
+            _ => totalElements,
+        };
         PageNumber = pageable?.PageNumber ?? throw new ArgumentNullException(nameof(pageable));
         PageSize = pageable.PageSize;
         TotalPages = (int)Math.Ceiling((double)totalElements / PageSize);
@@ -28,19 +30,17 @@ public sealed class Page<T> : IPage<T>
 
     public IPage<U> Map<U>(Func<T, U> converter)
     {
-        if (converter == null) throw new ArgumentNullException(nameof(converter));
-        return new Page<U>(Content.Select(converter), TotalElements, PageRequest.Of(PageNumber, PageSize));
+        ArgumentNullException.ThrowIfNull(converter);
+        return new Page<U>(
+            Content.Select(converter),
+            TotalElements,
+            PageRequest.Of(PageNumber, PageSize)
+        );
     }
 
-    public IEnumerator<T> GetEnumerator()
-    {
-        return Content.GetEnumerator();
-    }
+    public IEnumerator<T> GetEnumerator() => Content.GetEnumerator();
 
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-        return GetEnumerator();
-    }
+    IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 }
 
 public interface IPage<out T> : IEnumerable<T>
@@ -79,10 +79,8 @@ public sealed class PageRequest : IPageable
 
     public static PageRequest Of(int pageNumber, int pageSize)
     {
-        if (pageNumber < 1)
-            throw new ArgumentOutOfRangeException(nameof(pageNumber), "Page number must be equal or larger than 1.");
-        if (pageSize < 1)
-            throw new ArgumentOutOfRangeException(nameof(pageSize), "Page size must be equal or larger than 1.");
+        ArgumentOutOfRangeException.ThrowIfNegativeOrZero(pageNumber);
+        ArgumentOutOfRangeException.ThrowIfNegativeOrZero(pageSize);
         return new PageRequest(pageNumber, pageSize);
     }
 }

@@ -20,10 +20,7 @@ public readonly partial record struct Money
 
     public static implicit operator Money(decimal amount)
     {
-        return new Money
-        {
-            Amount = amount
-        };
+        return new Money { Amount = amount };
     }
 
     public static Money operator +(Money left, Money right)

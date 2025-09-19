@@ -7,7 +7,7 @@ public record RoomCreateRequestBodyV1
         Usd,
         Eur,
         Gbp,
-        Jpy
+        Jpy,
     }
 
     public enum RoomStatusDto
@@ -15,7 +15,7 @@ public record RoomCreateRequestBodyV1
         Available,
         Occupied,
         Maintenance,
-        Reserved
+        Reserved,
     }
 
     public enum RoomTypeDto
@@ -24,7 +24,7 @@ public record RoomCreateRequestBodyV1
         Double,
         Triple,
         Suite,
-        Deluxe
+        Deluxe,
     }
 
     public string RoomNumber { get; init; }

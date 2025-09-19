@@ -6,7 +6,5 @@ namespace Adapter.Driven.EFCore.EntityConfigs;
 
 public class ApplicationUserClaimsConfiguration : IEntityTypeConfiguration<ApplicationUserClaims>
 {
-    public void Configure(EntityTypeBuilder<ApplicationUserClaims> builder)
-    {
-    }
+    public void Configure(EntityTypeBuilder<ApplicationUserClaims> builder) { }
 }

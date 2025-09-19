@@ -9,7 +9,7 @@
     }
   },
   "profiles": {
-    "ResourceServer": {
+    "Adapter.Driving.ResourceServer": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,

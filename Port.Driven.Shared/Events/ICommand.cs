@@ -1,19 +1,15 @@
 namespace Port.Driven.Shared.Events;
 
-public interface ICommand
-{
-}
+public interface ICommand;
 
-public interface ICommand<out TResponse> : ICommand
-{
-}
+public interface ICommand<out TResult> : ICommand;
 
 public interface ICommandHandler<in TRequest> where TRequest : ICommand
 {
-    Task Handle(TRequest request, CancellationToken cancellationToken);
+    Task HandleAsync(TRequest request, CancellationToken cancellationToken);
 }
 
-public interface ICommandHandler<in TRequest, TResponse> where TRequest : ICommand<TResponse>
+public interface ICommandHandler<in TRequest, TResult> where TRequest : ICommand<TResult>
 {
-    Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken);
+    Task<TResult> HandleAsync(TRequest request, CancellationToken cancellationToken);
 }

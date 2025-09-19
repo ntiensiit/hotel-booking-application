@@ -1,18 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
-    <PropertyGroup>
-        <TargetFramework>net6.0</TargetFramework>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-    </PropertyGroup>
-
-    <ItemGroup>
-        <ProjectReference Include="..\Domain.Core\Domain.Core.csproj"/>
-        <ProjectReference Include="..\Port.Driven.Shared\Port.Driven.Shared.csproj"/>
-    </ItemGroup>
-
-    <ItemGroup>
-        <PackageReference Include="NHibernate" Version="5.5.2"/>
-    </ItemGroup>
-
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Domain.Core\Domain.Core.csproj" />
+    <ProjectReference Include="..\Port.Driven.Shared\Port.Driven.Shared.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="NHibernate" Version="5.5.2" />
+  </ItemGroup>
 </Project>

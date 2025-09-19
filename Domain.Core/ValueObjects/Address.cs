@@ -18,8 +18,7 @@ public readonly partial record struct Address(
     string Country,
     string PostalCode,
     string State,
-    string Street);
+    string Street
+);
 
-public readonly partial record struct Address
-{
-}
+public readonly partial record struct Address { }

@@ -4,10 +4,10 @@ using SharedKernel.SeedWork;
 
 namespace Domain.Core.Entities;
 
-public partial class Room<TId> : IEntity<TId> where TId : IEquatable<TId>
+public partial class Room : IEntity<int>
 {
     // Primitive properties
-    public virtual string RoomNumber { get; set; } = string.Empty;
+    public virtual string RoomNumber { get; set; }
 
     public virtual int Capacity { get; set; }
 
@@ -19,23 +19,18 @@ public partial class Room<TId> : IEntity<TId> where TId : IEquatable<TId>
     // Value Objects
     public virtual Pricing Pricing { get; set; }
 
-    public virtual IEnumerable<Amenity> Amenities { get; protected set; } = new List<Amenity>();
+    public virtual IEnumerable<Amenity> Amenities { get; protected set; } = [];
 
     // Reference Ids
-    public virtual TId HotelId { get; set; } = default!;
+    public virtual int HotelId { get; set; }
 
     // Id
-    public virtual TId Id { get; set; } = default!;
+    public virtual int Id { get; set; }
 }
 
-public partial class Room<TId>
+public partial class Room
 {
-    public virtual void SetPricing(Pricing pricing)
-    {
-        Pricing = pricing;
-    }
+    public virtual void SetPricing(Pricing pricing) => Pricing = pricing;
 
-    public virtual void SetAvailability()
-    {
-    }
+    public virtual void SetAvailability() { }
 }

@@ -2,6 +2,4 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Domain.Identity.Entities;
 
-public class ApplicationUserLogin : IdentityUserLogin<int>
-{
-}
+public class ApplicationUserLogin : IdentityUserLogin<int>;

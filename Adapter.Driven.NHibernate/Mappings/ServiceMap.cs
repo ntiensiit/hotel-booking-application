@@ -3,7 +3,7 @@ using FluentNHibernate.Mapping;
 
 namespace Adapter.Driven.NHibernate.Mappings;
 
-public class ServiceMap<TId> : ClassMap<Service<TId>> where TId : IEquatable<TId>
+public class ServiceMap : ClassMap<Service>
 {
     public ServiceMap()
     {
@@ -21,11 +21,14 @@ public class ServiceMap<TId> : ClassMap<Service<TId>> where TId : IEquatable<TId
         Map(x => x.Category);
 
         // Value Objects - Has One
-        Component(x => x.Price, m =>
-        {
-            m.Map(x => x.Amount);
-            m.Map(x => x.Currency);
-        });
+        Component(
+            x => x.Price,
+            m =>
+            {
+                m.Map(x => x.Amount);
+                m.Map(x => x.Currency);
+            }
+        );
 
         // Value Objects - Has Many
 

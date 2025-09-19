@@ -3,7 +3,7 @@ using FluentNHibernate.Mapping;
 
 namespace Adapter.Driven.NHibernate.Mappings;
 
-public class ReviewMap<TId> : ClassMap<Review<TId>> where TId : IEquatable<TId>
+public class ReviewMap : ClassMap<Review>
 {
     public ReviewMap()
     {
@@ -19,14 +19,17 @@ public class ReviewMap<TId> : ClassMap<Review<TId>> where TId : IEquatable<TId>
         // Enum properties
 
         // Value Objects - Has One
-        Component(x => x.Rating, m =>
-        {
-            m.Map(x => x.CleanlinessRating);
-            m.Map(x => x.LocationRating);
-            m.Map(x => x.OverallRating);
-            m.Map(x => x.ServiceRating);
-            m.Map(x => x.ValueRating);
-        });
+        Component(
+            x => x.Rating,
+            m =>
+            {
+                m.Map(x => x.CleanlinessRating);
+                m.Map(x => x.LocationRating);
+                m.Map(x => x.OverallRating);
+                m.Map(x => x.ServiceRating);
+                m.Map(x => x.ValueRating);
+            }
+        );
 
         // Value Objects - Has Many
 

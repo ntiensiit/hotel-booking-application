@@ -1,0 +1,15 @@
+{
+  "version": "3.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "vue@2.7.16",
+      "destination": "wwwroot/lib/vue/"
+    },
+    {
+      "provider": "cdnjs",
+      "library": "tailwindcss@2.2.19",
+      "destination": "wwwroot/lib/tailwindcss/"
+    }
+  ]
+}

@@ -8,7 +8,7 @@ public record HotelCreateRequestBodyV1
         Standard,
         Luxury,
         Boutique,
-        Resort
+        Resort,
     }
 
     public string Name { get; init; }
@@ -26,7 +26,8 @@ public record HotelCreateRequestBodyV1
         string Country,
         string PostalCode,
         string State,
-        string Street);
+        string Street
+    );
 
     public record ContactInfoDto(string Email, string Phone, string Website);
 }

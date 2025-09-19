@@ -6,5 +6,5 @@ public enum PaymentMethod
     DebitCard,
     Paypal,
     BankTransfer,
-    DigitalWallet
+    DigitalWallet,
 }

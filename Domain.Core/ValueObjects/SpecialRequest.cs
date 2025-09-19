@@ -10,8 +10,10 @@ public readonly partial record struct SpecialRequest : IValueObject
     public readonly RequestType Type = Type;
 }
 
-public readonly partial record struct SpecialRequest(string Description, bool IsFulFilled, RequestType Type);
+public readonly partial record struct SpecialRequest(
+    string Description,
+    bool IsFulFilled,
+    RequestType Type
+);
 
-public readonly partial record struct SpecialRequest
-{
-}
+public readonly partial record struct SpecialRequest { }

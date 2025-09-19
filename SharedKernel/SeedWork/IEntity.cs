@@ -1,6 +1,9 @@
 namespace SharedKernel.SeedWork;
 
-public interface IEntity<out TId> where TId : IEquatable<TId>
+public interface IEntity;
+
+public interface IEntity<out TId> : IEntity
+    where TId : IEquatable<TId>, IComparable<TId>
 {
     TId Id { get; }
 }

@@ -3,28 +3,26 @@ using SharedKernel.SeedWork;
 
 namespace Domain.Core.Entities;
 
-public partial class Review<TId> : IEntity<TId> where TId : IEquatable<TId>
+public partial class Review : IEntity<int>
 {
     // Primitive properties
     public virtual bool IsVerified { get; set; }
 
-    public virtual string Comment { get; set; } = string.Empty;
+    public virtual string Comment { get; set; }
 
     // Value Objects
     public virtual Rating Rating { get; set; }
 
-    public virtual IEnumerable<Photo<TId>> Photos { get; set; } = Array.Empty<Photo<TId>>();
+    public virtual IEnumerable<Photo> Photos { get; set; } = [];
 
     // Reference Ids
-    public virtual TId UserId { get; set; } = default!;
-    public virtual TId HotelId { get; set; } = default!;
+    public virtual int UserId { get; set; }
+    public virtual int HotelId { get; set; }
 
-    public virtual TId BookingId { get; set; } = default!;
+    public virtual int BookingId { get; set; }
 
     // Id
-    public virtual TId Id { get; set; } = default!;
+    public virtual int Id { get; set; }
 }
 
-public partial class Review<TId>
-{
-}
+public partial class Review { }

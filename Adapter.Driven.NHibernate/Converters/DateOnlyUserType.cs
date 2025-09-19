@@ -1,9 +1,9 @@
-using System.Data;
-using System.Data.Common;
 using NHibernate;
 using NHibernate.Engine;
 using NHibernate.SqlTypes;
 using NHibernate.UserTypes;
+using System.Data;
+using System.Data.Common;
 
 namespace Adapter.Driven.NHibernate.Converters;
 
@@ -19,7 +19,12 @@ public class DateOnlyUserType : IUserType
         return x.GetHashCode();
     }
 
-    public object NullSafeGet(DbDataReader rs, string[] names, ISessionImplementor session, object owner)
+    public object NullSafeGet(
+        DbDataReader rs,
+        string[] names,
+        ISessionImplementor session,
+        object owner
+    )
     {
         var obj = NHibernateUtil.Date.NullSafeGet(rs, names[0], session, owner);
         return obj == null ? default : DateOnly.FromDateTime((DateTime)obj);
@@ -62,7 +67,7 @@ public class DateOnlyUserType : IUserType
         return value;
     }
 
-    public SqlType[] SqlTypes => new[] { new SqlType(DbType.Date) };
+    public SqlType[] SqlTypes => [new SqlType(DbType.Date)];
     public Type ReturnedType => typeof(DateOnly);
     public bool IsMutable => false;
 }

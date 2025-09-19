@@ -6,5 +6,5 @@ public enum ServiceCategory
     Restaurant,
     Transportation,
     Entertainment,
-    Business
+    Business,
 }

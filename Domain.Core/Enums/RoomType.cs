@@ -6,5 +6,5 @@ public enum RoomType
     Double,
     Triple,
     Suite,
-    Deluxe
+    Deluxe,
 }

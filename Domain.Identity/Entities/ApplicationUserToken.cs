@@ -2,6 +2,4 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Domain.Identity.Entities;
 
-public class ApplicationUserToken : IdentityUserToken<int>
-{
-}
+public class ApplicationUserToken : IdentityUserToken<int>;

@@ -1,19 +1,14 @@
 using Adapter.Driven.NHibernate.Persistence;
 using Domain.Core.Entities;
 using NHibernate;
-using NHibernate.Linq;
-using Port.Driven.NHibernate.Repositories;
+using Port.Driven.NHibernate;
 
 namespace Adapter.Driven.NHibernate.Repositories;
 
-public class ReviewRepository : NHibernatePagingAndSortingRepository<Review<int>, int>, IReviewRepository
+public class ReviewRepository(ISession session) : NHibernatePagingAndSortingRepository<Review, int>(session), IReviewRepository
 {
-    public ReviewRepository(ISession session) : base(session)
+    public async Task<IEnumerable<Review>> GetReviewsByHotelIdAsync(int hotelId)
     {
-    }
-
-    public async Task<IEnumerable<Review<int>>> GetReviewsByHotelIdAsync(int hotelId)
-    {
-        return await Session.Query<Review<int>>().Where(r => r.HotelId == hotelId).ToListAsync();
+        return await Session.QueryOver<Review>().Where(r => r.HotelId == hotelId).ListAsync();
     }
 }

@@ -1,5 +1,3 @@
 namespace SharedKernel.SeedWork;
 
-public interface IFactoryService
-{
-}
+public interface IFactoryService;

@@ -1,18 +1,13 @@
 using NHibernate;
-using Port.Driven.NHibernate.Persistence;
+using Port.Driven.NHibernate;
 
 namespace Adapter.Driven.NHibernate.Persistence;
 
-public partial class NhibernateUnitOfWork : INhibernateUnitOfWork, IDisposable
+public partial class NHibernateUnitOfWork(ISession context) : INHibernateUnitOfWork, IDisposable
 {
     private ITransaction? _currentTransaction;
 
-    public NhibernateUnitOfWork(ISession context)
-    {
-        Context = context;
-    }
-
-    private ISession Context { get; }
+    private ISession Context { get; } = context;
 
     public void Dispose()
     {
@@ -24,14 +19,15 @@ public partial class NhibernateUnitOfWork : INhibernateUnitOfWork, IDisposable
     {
         var disposed = _currentTransaction == null;
 
-        if (disposed || !disposing) return;
+        if (disposed || !disposing)
+            return;
 
         _currentTransaction?.Dispose();
         _currentTransaction = null;
     }
 }
 
-public partial class NhibernateUnitOfWork
+public partial class NHibernateUnitOfWork
 {
     public void BeginTransaction()
     {
@@ -82,7 +78,7 @@ public partial class NhibernateUnitOfWork
     }
 }
 
-public partial class NhibernateUnitOfWork
+public partial class NHibernateUnitOfWork
 {
     public async Task BeginTransactionAsync(CancellationToken cancellationToken = default)
     {

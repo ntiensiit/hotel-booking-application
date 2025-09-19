@@ -2,14 +2,9 @@ using SharedKernel.SeedWork;
 
 namespace Adapter.Driving.ResourceServer.Extensions;
 
-public class UniversalDomainRegistry : IDomainServiceRegistry, IDomainObjectRegistry
+public class UniversalDomainRegistry(IServiceProvider serviceProvider) : IDomainServiceRegistry, IDomainObjectRegistry
 {
-    private readonly IServiceProvider _serviceProvider;
-
-    public UniversalDomainRegistry(IServiceProvider serviceProvider)
-    {
-        _serviceProvider = serviceProvider;
-    }
+    private readonly IServiceProvider _serviceProvider = serviceProvider;
 
     public T GetInstance<T>(params object[] parameters) where T : class
     {

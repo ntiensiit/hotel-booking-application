@@ -7,14 +7,9 @@ namespace Adapter.Driving.AuthenticationServer.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class RolesController : ControllerBase
+public class RolesController(RoleManager<ApplicationRole> roleManager) : ControllerBase
 {
-    private readonly RoleManager<ApplicationRole> _roleManager;
-
-    public RolesController(RoleManager<ApplicationRole> roleManager)
-    {
-        _roleManager = roleManager;
-    }
+    private readonly RoleManager<ApplicationRole> _roleManager = roleManager;
 
     [HttpGet]
     public async Task<IActionResult> GetAll()
@@ -26,7 +21,8 @@ public class RolesController : ControllerBase
     public async Task<IActionResult> Get(int id)
     {
         var role = await _roleManager.FindByIdAsync(id.ToString());
-        if (role == null) return NotFound();
+        if (role == null)
+            return NotFound();
         return Ok(role);
     }
 
@@ -42,6 +38,8 @@ public class RolesController : ControllerBase
     public async Task<IActionResult> Update(int id, [FromBody] RoleUpdateRequestBody requestBody)
     {
         var role = await _roleManager.FindByIdAsync(id.ToString());
+        if (role == null)
+            return NotFound();
         role.Name = requestBody.Name;
         await _roleManager.UpdateAsync(role);
         return Ok(role);
@@ -51,6 +49,8 @@ public class RolesController : ControllerBase
     public async Task<IActionResult> Delete(int id)
     {
         var role = await _roleManager.FindByIdAsync(id.ToString());
+        if (role == null)
+            return NotFound();
         await _roleManager.DeleteAsync(role);
         return Ok();
     }

@@ -5,5 +5,5 @@ public enum RoomStatus
     Available,
     Occupied,
     Maintenance,
-    Reserved
+    Reserved,
 }

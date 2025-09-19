@@ -4,5 +4,5 @@ public enum DiscountType
 {
     Percentage,
     FixedAmount,
-    FreeNight
+    FreeNight,
 }

@@ -3,7 +3,7 @@ using FluentNHibernate.Mapping;
 
 namespace Adapter.Driven.NHibernate.Mappings;
 
-public class RoomMap<TId> : ClassMap<Room<TId>> where TId : IEquatable<TId>
+public class RoomMap : ClassMap<Room>
 {
     public RoomMap()
     {
@@ -21,14 +21,20 @@ public class RoomMap<TId> : ClassMap<Room<TId>> where TId : IEquatable<TId>
         Map(x => x.Status);
 
         // Value Objects - Has One
-        Component(x => x.Pricing, m =>
-        {
-            m.Component(x => x.BasePrice, c =>
+        Component(
+            x => x.Pricing,
+            m =>
             {
-                c.Map(y => y.Amount);
-                c.Map(y => y.Currency);
-            });
-        });
+                m.Component(
+                    x => x.BasePrice,
+                    c =>
+                    {
+                        c.Map(y => y.Amount);
+                        c.Map(y => y.Currency);
+                    }
+                );
+            }
+        );
 
         // Value Objects - Has Many
 

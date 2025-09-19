@@ -4,11 +4,11 @@ using SharedKernel.SeedWork;
 
 namespace Domain.Core.Entities;
 
-public partial class Hotel<TId> : IEntity<TId> where TId : IEquatable<TId>
+public partial class Hotel : IEntity<int>
 {
     // Primitive properties
-    public virtual string Name { get; set; } = string.Empty;
-    public virtual string Description { get; set; } = string.Empty;
+    public virtual string Name { get; set; }
+    public virtual string Description { get; set; }
     public virtual DateTime RegistrationDate { get; set; }
 
     public virtual DateTime? ApprovedDate { get; set; }
@@ -26,12 +26,10 @@ public partial class Hotel<TId> : IEntity<TId> where TId : IEquatable<TId>
     public virtual HotelPolicies HotelPolicies { get; set; }
 
     // Reference Ids
-    public virtual TId HostId { get; set; } = default!;
+    public virtual int HostId { get; set; }
 
     // Id
-    public virtual TId Id { get; set; } = default!;
+    public virtual int Id { get; set; }
 }
 
-public partial class Hotel<TId>
-{
-}
+public partial class Hotel { }

@@ -18,26 +18,23 @@ public static class NHibernateHelper
 
     private static ISessionFactory GetSessionFactory()
     {
-        if (string.IsNullOrEmpty(_connectionString))
-            throw new InvalidOperationException("No connection string configured");
+        ArgumentException.ThrowIfNullOrEmpty(_connectionString);
 
-        if (_sessionFactory != null) return _sessionFactory;
+        if (_sessionFactory != null)
+            return _sessionFactory;
 
-        var config = Fluently.Configure()
-            .Database(
-                MsSqlConfiguration.MsSql2012
-                    .ConnectionString(_connectionString)
-                    .ShowSql()
-            )
+        var config = Fluently
+            .Configure()
+            .Database(MsSqlConfiguration.MsSql2012.ConnectionString(_connectionString).ShowSql())
             .Mappings(m =>
             {
-                m.FluentMappings.Add<UserInfoMap<int>>();
-                m.FluentMappings.Add<BookingMap<int>>();
-                m.FluentMappings.Add<HotelMap<int>>();
-                m.FluentMappings.Add<PhotoMap<int>>();
-                m.FluentMappings.Add<ReviewMap<int>>();
-                m.FluentMappings.Add<RoomMap<int>>();
-                m.FluentMappings.Add<ServiceMap<int>>();
+                m.FluentMappings.Add<UserInfoMap>();
+                m.FluentMappings.Add<BookingMap>();
+                m.FluentMappings.Add<HotelMap>();
+                m.FluentMappings.Add<PhotoMap>();
+                m.FluentMappings.Add<ReviewMap>();
+                m.FluentMappings.Add<RoomMap>();
+                m.FluentMappings.Add<ServiceMap>();
             })
             .BuildConfiguration();
 
@@ -57,6 +54,8 @@ public static class NHibernateHelper
         // cfg.AddAssembly(typeof(UserInfo).Assembly);
 
         _sessionFactory = config.BuildSessionFactory();
+
+        new DataSeeder(_sessionFactory).SeedUserInfoData();
 
         return _sessionFactory;
     }

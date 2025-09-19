@@ -6,5 +6,5 @@ public enum RequestType
     LateCheckout,
     ExtraBed,
     AirportTransfer,
-    SpecialDiet
+    SpecialDiet,
 }

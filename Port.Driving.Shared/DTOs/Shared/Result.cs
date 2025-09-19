@@ -10,23 +10,24 @@ public record Result
         Errors = errors;
     }
 
-    public Result(IEnumerable<Error> errors) : this(null, errors)
-    {
-    }
+    public Result(IEnumerable<Error> errors)
+        : this(null, errors) { }
 
-    public Result(Success success) : this(success, Array.Empty<Error>())
-    {
-    }
+    public Result(Success success)
+        : this(success, []) { }
 
-    public string Success => string.IsNullOrEmpty(_success?.ToString()) ? string.Empty : _success;
+    public string SuccessMessage => _success?.ToString() ?? string.Empty;
     public IEnumerable<Error>? Errors { get; }
+
+    public bool IsSuccess => Errors == null || !Errors.Any();
 }
 
 public record Result<T> : Result
 {
     private readonly T? _value;
 
-    public Result(T value, Success success) : base(success)
+    public Result(T value, Success success)
+        : base(success)
     {
         _value = value;
     }

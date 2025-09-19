@@ -6,7 +6,5 @@ namespace Adapter.Driven.EFCore.EntityConfigs;
 
 public class ApplicationUserLoginConfiguration : IEntityTypeConfiguration<ApplicationUserLogin>
 {
-    public void Configure(EntityTypeBuilder<ApplicationUserLogin> builder)
-    {
-    }
+    public void Configure(EntityTypeBuilder<ApplicationUserLogin> builder) { }
 }
