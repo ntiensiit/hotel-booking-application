@@ -1,15 +1,11 @@
-﻿using Adapter.Driven.EFCore.Contexts;
+﻿using Adapter.Driving.Web.Controllers;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Adapter.Driving.Web.Areas.Host.Controllers;
 
 [Area("Host")]
-public class RoomsController(ISession session, ApplicationDbContext dbContext) : Controller
+public class RoomsController : BaseController
 {
-    private readonly ApplicationDbContext _dbContext = dbContext;
-
-    private readonly ISession _session = session;
-
     public IActionResult Index()
     {
         return View();

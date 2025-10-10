@@ -1,26 +1,22 @@
 using Adapter.Driving.AuthenticationServer.DTOs.Requests.Role;
 using Domain.Identity.Entities;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Adapter.Driving.AuthenticationServer.Controllers;
 
 [Route("api/[controller]")]
-[ApiController]
-public class RolesController(RoleManager<ApplicationRole> roleManager) : ControllerBase
+public class RolesController : BaseController
 {
-    private readonly RoleManager<ApplicationRole> _roleManager = roleManager;
-
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
-        return await Task.FromResult(Ok(_roleManager.Roles));
+        return await Task.FromResult(Ok(_parameter.RoleManager.Roles));
     }
 
     [HttpGet("{id:int}")]
     public async Task<IActionResult> Get(int id)
     {
-        var role = await _roleManager.FindByIdAsync(id.ToString());
+        var role = await _parameter.RoleManager.FindByIdAsync(id.ToString());
         if (role == null)
             return NotFound();
         return Ok(role);
@@ -30,28 +26,28 @@ public class RolesController(RoleManager<ApplicationRole> roleManager) : Control
     public async Task<IActionResult> Create([FromBody] RoleCreateRequestBody requestBody)
     {
         var role = new ApplicationRole { Name = requestBody.Name };
-        await _roleManager.CreateAsync(role);
+        await _parameter.RoleManager.CreateAsync(role);
         return Ok(role);
     }
 
     [HttpPut("{id:int}")]
     public async Task<IActionResult> Update(int id, [FromBody] RoleUpdateRequestBody requestBody)
     {
-        var role = await _roleManager.FindByIdAsync(id.ToString());
+        var role = await _parameter.RoleManager.FindByIdAsync(id.ToString());
         if (role == null)
             return NotFound();
         role.Name = requestBody.Name;
-        await _roleManager.UpdateAsync(role);
+        await _parameter.RoleManager.UpdateAsync(role);
         return Ok(role);
     }
 
     [HttpDelete("{id:int}")]
     public async Task<IActionResult> Delete(int id)
     {
-        var role = await _roleManager.FindByIdAsync(id.ToString());
+        var role = await _parameter.RoleManager.FindByIdAsync(id.ToString());
         if (role == null)
             return NotFound();
-        await _roleManager.DeleteAsync(role);
+        await _parameter.RoleManager.DeleteAsync(role);
         return Ok();
     }
 }

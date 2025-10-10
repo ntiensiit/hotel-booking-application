@@ -1,7 +1,4 @@
-using Adapter.Driven.EFCore.Contexts;
 using Adapter.Driving.AuthenticationServer.DTOs.Requests.Claim;
-using Domain.Identity.Entities;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
@@ -9,27 +6,19 @@ using System.Security.Claims;
 namespace Adapter.Driving.AuthenticationServer.Controllers;
 
 [Route("api/[controller]")]
-[ApiController]
-public class UserClaimsController(
-    UserManager<ApplicationUser> userManager,
-    ApplicationDbContext dbContext
-) : ControllerBase
+public class UserClaimsController : BaseController
 {
-    private readonly ApplicationDbContext _dbContext = dbContext;
-
-    private readonly UserManager<ApplicationUser> _userManager = userManager;
-
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
-        var claims = await _dbContext.UserClaims.ToListAsync();
+        var claims = await _parameter.ApplicationDbContext.UserClaims.ToListAsync();
         return Ok(claims);
     }
 
     [HttpGet("{id:int}")]
     public async Task<IActionResult> Get(int id)
     {
-        var claims = await _dbContext.UserClaims.FindAsync(id);
+        var claims = await _parameter.ApplicationDbContext.UserClaims.FindAsync(id);
         return Ok(claims);
     }
 
@@ -38,14 +27,11 @@ public class UserClaimsController(
         [FromBody] AddClaimToUserRequestBody requestBody
     )
     {
-        var user = await _userManager.FindByIdAsync(requestBody.UserId.ToString());
+        var user = await _parameter.UserManager.FindByIdAsync(requestBody.UserId.ToString());
         if (user == null)
             return NotFound();
 
-        var result = await _userManager.AddClaimAsync(
-            user,
-            new Claim(requestBody.ClaimType, requestBody.ClaimValue)
-        );
+        var result = await _parameter.UserManager.AddClaimAsync(user, new Claim(requestBody.ClaimType, requestBody.ClaimValue));
 
         if (result.Succeeded)
             return Ok();
@@ -59,15 +45,15 @@ public class UserClaimsController(
         [FromBody] UserClaimUpdateRequestBody requestBody
     )
     {
-        var claim = await _dbContext.UserClaims.FindAsync(id);
+        var claim = await _parameter.ApplicationDbContext.UserClaims.FindAsync(id);
         if (claim == null)
             return NotFound();
 
         claim.ClaimType = requestBody.ClaimType;
         claim.ClaimValue = requestBody.ClaimValue;
 
-        _dbContext.UserClaims.Update(claim);
-        await _dbContext.SaveChangesAsync();
+        _parameter.ApplicationDbContext.UserClaims.Update(claim);
+        await _parameter.ApplicationDbContext.SaveChangesAsync();
 
         return Ok(claim);
     }
@@ -75,12 +61,12 @@ public class UserClaimsController(
     [HttpDelete("{id:int}")]
     public async Task<IActionResult> Delete(int id)
     {
-        var claim = await _dbContext.UserClaims.FindAsync(id);
+        var claim = await _parameter.ApplicationDbContext.UserClaims.FindAsync(id);
         if (claim == null)
             return NotFound();
 
-        _dbContext.UserClaims.Remove(claim);
-        await _dbContext.SaveChangesAsync();
+        _parameter.ApplicationDbContext.UserClaims.Remove(claim);
+        await _parameter.ApplicationDbContext.SaveChangesAsync();
 
         return Ok();
     }

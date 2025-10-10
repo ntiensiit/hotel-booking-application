@@ -11,6 +11,6 @@ public class GetHotelsByPagingQueryHandlerV1(IHotelRepository hotelRepository) :
 {
     public async Task<IPage<Hotel>> HandleAsync(GetHotelsByPagingQueryV1 request, CancellationToken cancellationToken)
     {
-        return await hotelRepository.FindAllAsync(PageRequest.Of(request.PageNumber, request.PageSize));
+        return await hotelRepository.FindAllAsync(PageRequest.Of(request.PageNumber, request.PageSize), cancellationToken: cancellationToken);
     }
 }

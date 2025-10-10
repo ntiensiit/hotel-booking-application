@@ -4,13 +4,11 @@ using Adapter.Driving.ResourceServer.DTOs.V1.Requests.Hotel;
 using Adapter.Driving.ResourceServer.Queries.V1;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Port.Driven.Shared.Events;
 
 namespace Adapter.Driving.ResourceServer.Controllers.V1;
 
 [Route("api/[controller]")]
-[ApiController]
-public class HotelsController(IApplicationMediator applicationMediator) : ControllerBase
+public class HotelsController : BaseController
 {
     [HttpGet("paging")]
     [AllowAnonymous]
@@ -21,7 +19,7 @@ public class HotelsController(IApplicationMediator applicationMediator) : Contro
     {
         var query = new GetHotelsByPagingQueryV1(pageNumber, pageSize);
 
-        var result = await applicationMediator.SendQueryAsync(query);
+        var result = await _parameter.ApplicationMediator.SendQueryAsync(query);
 
         return Ok(
             new
@@ -43,7 +41,7 @@ public class HotelsController(IApplicationMediator applicationMediator) : Contro
     {
         var query = new GetHotelByIdQueryV1(id);
 
-        var result = await applicationMediator.SendQueryAsync(query);
+        var result = await _parameter.ApplicationMediator.SendQueryAsync(query);
 
         if (result is null)
             return NoContent();
@@ -56,7 +54,7 @@ public class HotelsController(IApplicationMediator applicationMediator) : Contro
     {
         var command = new CreateHotelCommandV1(requestBody);
 
-        var result = await applicationMediator.SendCommandAsync(command);
+        var result = await _parameter.ApplicationMediator.SendCommandAsync(command);
 
         return Ok(result);
     }
@@ -66,7 +64,7 @@ public class HotelsController(IApplicationMediator applicationMediator) : Contro
     public async Task<IActionResult> Delete(int id)
     {
         var command = new DeleteHotelByIdCommandV1(id);
-        await applicationMediator.SendCommandAsync(command);
+        await _parameter.ApplicationMediator.SendCommandAsync(command);
         return NoContent();
     }
 }

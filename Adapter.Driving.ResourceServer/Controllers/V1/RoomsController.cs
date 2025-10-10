@@ -3,13 +3,11 @@ using Adapter.Driving.ResourceServer.DTOs.V1.Requests.Room;
 using Adapter.Driving.ResourceServer.Queries.V1;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Port.Driven.Shared.Events;
 
 namespace Adapter.Driving.ResourceServer.Controllers.V1;
 
 [Route("api/[controller]")]
-[ApiController]
-public class RoomsController(IApplicationMediator applicationMediator) : ControllerBase
+public class RoomsController : BaseController
 {
     [HttpGet("{id:int}")]
     [AllowAnonymous]
@@ -17,7 +15,7 @@ public class RoomsController(IApplicationMediator applicationMediator) : Control
     {
         var query = new GetRoomByIdQueryV1(id);
 
-        var result = await applicationMediator.SendQueryAsync(query);
+        var result = await _parameter.ApplicationMediator.SendQueryAsync(query);
 
         if (result is null)
             return NoContent();
@@ -31,7 +29,7 @@ public class RoomsController(IApplicationMediator applicationMediator) : Control
     {
         var query = new GetRoomsByHotelIdQueryV1(hotelId);
 
-        var result = await applicationMediator.SendQueryAsync(query);
+        var result = await _parameter.ApplicationMediator.SendQueryAsync(query);
 
         return Ok(result);
     }
@@ -41,7 +39,7 @@ public class RoomsController(IApplicationMediator applicationMediator) : Control
     {
         var command = new CreateRoomCommandV1(requestBody);
 
-        var result = await applicationMediator.SendCommandAsync(command);
+        var result = await _parameter.ApplicationMediator.SendCommandAsync(command);
 
         return Ok(result);
     }

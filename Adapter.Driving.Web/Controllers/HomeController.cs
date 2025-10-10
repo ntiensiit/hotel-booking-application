@@ -4,10 +4,8 @@ using System.Diagnostics;
 
 namespace Adapter.Driving.Web.Controllers;
 
-public class HomeController(ILogger<HomeController> logger) : Controller
+public class HomeController : BaseController
 {
-    private readonly ILogger<HomeController> _logger = logger;
-
     public IActionResult Index()
     {
         return View();

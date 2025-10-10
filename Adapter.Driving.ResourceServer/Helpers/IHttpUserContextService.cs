@@ -43,7 +43,7 @@ public class UserContextService(
         if (_httpContextAccessor.HttpContext?.Items.TryGetValue("User", out var userObj) == true && userObj is UserInfo cachedUser)
             return cachedUser;
 
-        return await _userInfoRepository.GetByIdAsync(int.Parse(UserId));
+        return await _userInfoRepository.FindByIdAsync(int.Parse(UserId));
     }
 
     public async Task AddAuthenticatedUserToContext(TokenValidatedContext context)
@@ -72,7 +72,7 @@ public class UserContextService(
                 return;
             }
 
-            var user = await _userInfoRepository.GetByIdAsync(userId);
+            var user = await _userInfoRepository.FindByIdAsync(userId);
             if (user == null)
             {
                 context.Fail("User not found in database");

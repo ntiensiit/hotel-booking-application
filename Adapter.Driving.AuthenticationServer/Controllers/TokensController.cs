@@ -1,15 +1,11 @@
 using Adapter.Driving.AuthenticationServer.DTOs.Requests.Token;
-using Adapter.Driving.AuthenticationServer.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Adapter.Driving.AuthenticationServer.Controllers;
 
 [Route("api/[controller]/[action]")]
-[ApiController]
-public class TokensController(IJwtTokenService jwtTokenService) : ControllerBase
+public class TokensController : BaseController
 {
-    private readonly IJwtTokenService _jwtTokenService = jwtTokenService;
-
     [HttpPost]
     public async Task<IActionResult> RefreshToken([FromBody] TokenRefreshRequestBody requestBody)
     {
@@ -18,11 +14,7 @@ public class TokensController(IJwtTokenService jwtTokenService) : ControllerBase
 
         var ipAddress = HttpContext.Connection.RemoteIpAddress?.ToString() ?? string.Empty;
 
-        var (accessToken, refreshToken) = await _jwtTokenService.RefreshTokenAsync(
-            requestBody.RefreshToken,
-            null,
-            ipAddress
-        );
+        var (accessToken, refreshToken) = await _parameter.JwtTokenService.RefreshTokenAsync(requestBody.RefreshToken, null, ipAddress);
 
         return Ok(
             new

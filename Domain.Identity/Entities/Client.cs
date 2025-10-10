@@ -2,7 +2,7 @@ using SharedKernel.SeedWork;
 
 namespace Domain.Identity.Entities;
 
-public class Client : IEntity<int>
+public class Client : Entity<int>
 {
     public string ClientId { get; set; }
     public string Name { get; set; }
