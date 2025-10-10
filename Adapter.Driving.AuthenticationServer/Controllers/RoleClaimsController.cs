@@ -1,7 +1,4 @@
-using Adapter.Driven.EFCore.Contexts;
 using Adapter.Driving.AuthenticationServer.DTOs.Requests.Claim;
-using Domain.Identity.Entities;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
@@ -9,27 +6,19 @@ using System.Security.Claims;
 namespace Adapter.Driving.AuthenticationServer.Controllers;
 
 [Route("api/[controller]")]
-[ApiController]
-public class RoleClaimsController(
-    RoleManager<ApplicationRole> roleManager,
-    ApplicationDbContext dbContext
-) : ControllerBase
+public class RoleClaimsController : BaseController
 {
-    private readonly ApplicationDbContext _dbContext = dbContext;
-
-    private readonly RoleManager<ApplicationRole> _roleManager = roleManager;
-
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
-        var roleClaims = await _dbContext.RoleClaims.ToListAsync();
+        var roleClaims = await _parameter.ApplicationDbContext.RoleClaims.ToListAsync();
         return Ok(roleClaims);
     }
 
     [HttpGet("{id:int}")]
     public async Task<IActionResult> Get(int id)
     {
-        var claim = await _dbContext.RoleClaims.FindAsync(id);
+        var claim = await _parameter.ApplicationDbContext.RoleClaims.FindAsync(id);
         if (claim == null)
             return NotFound();
         return Ok(claim);
@@ -38,11 +27,11 @@ public class RoleClaimsController(
     [HttpGet("roles/{roleId:int}")]
     public async Task<IActionResult> GetByRoleId(int roleId)
     {
-        var role = await _roleManager.FindByIdAsync(roleId.ToString());
+        var role = await _parameter.RoleManager.FindByIdAsync(roleId.ToString());
         if (role == null)
             return NotFound();
 
-        var claims = await _dbContext.RoleClaims.Where(rc => rc.RoleId == roleId).ToListAsync();
+        var claims = await _parameter.ApplicationDbContext.RoleClaims.Where(rc => rc.RoleId == roleId).ToListAsync();
 
         return Ok(claims);
     }
@@ -52,14 +41,11 @@ public class RoleClaimsController(
         [FromBody] AddClaimToRoleRequestBody requestBody
     )
     {
-        var role = await _roleManager.FindByIdAsync(requestBody.RoleId.ToString());
+        var role = await _parameter.RoleManager.FindByIdAsync(requestBody.RoleId.ToString());
         if (role == null)
             return NotFound();
 
-        var result = await _roleManager.AddClaimAsync(
-            role,
-            new Claim(requestBody.ClaimType, requestBody.ClaimValue)
-        );
+        var result = await _parameter.RoleManager.AddClaimAsync(role, new Claim(requestBody.ClaimType, requestBody.ClaimValue));
 
         if (result.Succeeded)
             return Ok();
@@ -73,15 +59,15 @@ public class RoleClaimsController(
         [FromBody] RoleClaimUpdateRequestBody requestBody
     )
     {
-        var claim = await _dbContext.RoleClaims.FindAsync(id);
+        var claim = await _parameter.ApplicationDbContext.RoleClaims.FindAsync(id);
         if (claim == null)
             return NotFound();
 
         claim.ClaimType = requestBody.ClaimType;
         claim.ClaimValue = requestBody.ClaimValue;
 
-        _dbContext.RoleClaims.Update(claim);
-        await _dbContext.SaveChangesAsync();
+        _parameter.ApplicationDbContext.RoleClaims.Update(claim);
+        await _parameter.ApplicationDbContext.SaveChangesAsync();
 
         return Ok(claim);
     }
@@ -89,12 +75,12 @@ public class RoleClaimsController(
     [HttpDelete("{id:int}")]
     public async Task<IActionResult> Delete(int id)
     {
-        var claim = await _dbContext.RoleClaims.FindAsync(id);
+        var claim = await _parameter.ApplicationDbContext.RoleClaims.FindAsync(id);
         if (claim == null)
             return NotFound();
 
-        _dbContext.RoleClaims.Remove(claim);
-        await _dbContext.SaveChangesAsync();
+        _parameter.ApplicationDbContext.RoleClaims.Remove(claim);
+        await _parameter.ApplicationDbContext.SaveChangesAsync();
 
         return NoContent();
     }

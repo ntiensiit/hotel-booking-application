@@ -9,6 +9,6 @@ public class GetHotelByIdQueryHandlerV1(IHotelRepository hotelRepository) : IQue
 {
     public async Task<object?> HandleAsync(GetHotelByIdQueryV1 request, CancellationToken cancellationToken)
     {
-        return await hotelRepository.GetByIdAsync(request.Id, cancellationToken);
+        return await hotelRepository.FindByIdAsync(request.Id, cancellationToken);
     }
 }

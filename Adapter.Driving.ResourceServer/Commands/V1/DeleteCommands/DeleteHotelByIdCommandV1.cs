@@ -15,7 +15,7 @@ public class DeleteHotelByIdCommandHandlerV1(
     {
         await unitOfWork.BeginTransactionAsync(cancellationToken);
 
-        var hotel = await hotelRepository.GetByIdAsync(request.Id, cancellationToken);
+        var hotel = await hotelRepository.FindByIdAsync(request.Id, cancellationToken);
         if (hotel == null)
         {
             await unitOfWork.RollbackTransactionAsync(cancellationToken);

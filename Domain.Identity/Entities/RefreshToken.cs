@@ -2,7 +2,7 @@ using SharedKernel.SeedWork;
 
 namespace Domain.Identity.Entities;
 
-public partial class RefreshToken : IEntity<int>
+public partial class RefreshToken : Entity<int>
 {
     public required string Token { get; set; }
     public required string JwtId { get; set; }

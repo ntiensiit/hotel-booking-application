@@ -3,13 +3,11 @@ using Adapter.Driving.ResourceServer.DTOs.V1.Requests.Review;
 using Adapter.Driving.ResourceServer.Queries.V1;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Port.Driven.Shared.Events;
 
 namespace Adapter.Driving.ResourceServer.Controllers.V1;
 
 [Route("api/[controller]")]
-[ApiController]
-public class ReviewsController(IApplicationMediator applicationMediator) : ControllerBase
+public class ReviewsController : BaseController
 {
     [HttpGet("hotels/{hotelId:int}/reviews")]
     [AllowAnonymous]
@@ -17,7 +15,7 @@ public class ReviewsController(IApplicationMediator applicationMediator) : Contr
     {
         var query = new GetReviewsByHotelIdQueryV1(hotelId);
 
-        var result = await applicationMediator.SendQueryAsync(query);
+        var result = await _parameter.ApplicationMediator.SendQueryAsync(query);
 
         return Ok(result);
     }
@@ -27,7 +25,7 @@ public class ReviewsController(IApplicationMediator applicationMediator) : Contr
     {
         var command = new CreateReviewCommandV1(requestBody);
 
-        var result = await applicationMediator.SendCommandAsync(command);
+        var result = await _parameter.ApplicationMediator.SendCommandAsync(command);
 
         return Ok(result);
     }

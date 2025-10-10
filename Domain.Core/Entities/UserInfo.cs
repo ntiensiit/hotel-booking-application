@@ -3,7 +3,7 @@ using SharedKernel.ValueObjects;
 
 namespace Domain.Core.Entities;
 
-public partial class UserInfo : IEntity<int>
+public partial class UserInfo : Entity<int>
 {
     // Primitive properties
     public virtual string FullName { get; set; }
@@ -11,9 +11,6 @@ public partial class UserInfo : IEntity<int>
     public virtual Email Email { get; set; }
 
     public virtual PhoneNumber PhoneNumber { get; set; }
-
-    // Id
-    public virtual int Id { get; set; }
 }
 
 public partial class UserInfo

@@ -1,4 +1,3 @@
-using Adapter.Driven.EFCore.Contexts;
 using Domain.Identity.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -8,15 +7,12 @@ using System.Security.Cryptography;
 namespace Adapter.Driving.AuthenticationServer.Controllers;
 
 [Route("/api/[controller]/.well-known/jwks.json")]
-[ApiController]
-public class JwksController(ApplicationDbContext dbContext) : ControllerBase
+public class JwksController : BaseController
 {
-    private readonly ApplicationDbContext _dbContext = dbContext;
-
     [HttpGet]
     public async Task<IActionResult> Get()
     {
-        var validKeys = await _dbContext
+        var validKeys = await _parameter.ApplicationDbContext
             .SigningKeys.Where(k => k.IsActive && !k.IsRevoked && k.ExpiresAt > DateTime.UtcNow)
             .ToListAsync();
 

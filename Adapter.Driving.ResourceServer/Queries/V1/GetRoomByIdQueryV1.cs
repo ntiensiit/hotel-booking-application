@@ -9,6 +9,6 @@ public class GetRoomByIdQueryHandlerV1(IRoomRepository roomRepository) : IQueryH
 {
     public async Task<object?> HandleAsync(GetRoomByIdQueryV1 request, CancellationToken cancellationToken)
     {
-        return await roomRepository.GetByIdAsync(request.Id, cancellationToken);
+        return await roomRepository.FindByIdAsync(request.Id, cancellationToken);
     }
 }

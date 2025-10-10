@@ -2,13 +2,11 @@ using Adapter.Driving.ResourceServer.Commands.V1.CreateCommands;
 using Adapter.Driving.ResourceServer.DTOs.V1.Requests.User;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Port.Driven.Shared.Events;
 
 namespace Adapter.Driving.ResourceServer.Controllers.V1;
 
 [Route("api/[controller]")]
-[ApiController]
-public class UsersController(IApplicationMediator applicationMediator) : ControllerBase
+public class UsersController : BaseController
 {
     [HttpPost]
     [AllowAnonymous]
@@ -16,7 +14,7 @@ public class UsersController(IApplicationMediator applicationMediator) : Control
     {
         var command = new CreateUserCommandV1(requestBody);
 
-        var result = await applicationMediator.SendCommandAsync(command);
+        var result = await _parameter.ApplicationMediator.SendCommandAsync(command);
 
         return Ok(result);
     }

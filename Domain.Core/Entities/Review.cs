@@ -3,7 +3,7 @@ using SharedKernel.SeedWork;
 
 namespace Domain.Core.Entities;
 
-public partial class Review : IEntity<int>
+public partial class Review : Entity<int>
 {
     // Primitive properties
     public virtual bool IsVerified { get; set; }
@@ -20,9 +20,6 @@ public partial class Review : IEntity<int>
     public virtual int HotelId { get; set; }
 
     public virtual int BookingId { get; set; }
-
-    // Id
-    public virtual int Id { get; set; }
 }
 
 public partial class Review { }

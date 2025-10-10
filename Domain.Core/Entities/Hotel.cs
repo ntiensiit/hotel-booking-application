@@ -4,7 +4,7 @@ using SharedKernel.SeedWork;
 
 namespace Domain.Core.Entities;
 
-public partial class Hotel : IEntity<int>
+public partial class Hotel : Entity<int>
 {
     // Primitive properties
     public virtual string Name { get; set; }
@@ -27,9 +27,6 @@ public partial class Hotel : IEntity<int>
 
     // Reference Ids
     public virtual int HostId { get; set; }
-
-    // Id
-    public virtual int Id { get; set; }
 }
 
 public partial class Hotel { }
